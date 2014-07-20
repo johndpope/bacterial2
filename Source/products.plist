@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +1000Exp</string>
+		<key>localizedTitle</key>
+		<string>微型经验记录器</string>
+		<key>price</key>
+		<string>6</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer6</string>
+		<key>sort</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +2100Exp</string>
+		<key>localizedTitle</key>
+		<string>小型经验记录器</string>
+		<key>price</key>
+		<string>12</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer12</string>
+		<key>sort</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +3500Exp</string>
+		<key>localizedTitle</key>
+		<string>中型经验记录器</string>
+		<key>price</key>
+		<string>18</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer18</string>
+		<key>sort</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +5000Exp</string>
+		<key>localizedTitle</key>
+		<string>大型经验记录器</string>
+		<key>price</key>
+		<string>25</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer25</string>
+		<key>sort</key>
+		<integer>4</integer>
+	</dict>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +9000Exp</string>
+		<key>localizedTitle</key>
+		<string>超级经验记录器</string>
+		<key>price</key>
+		<string>40</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer40</string>
+		<key>sort</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +15000Exp</string>
+		<key>localizedTitle</key>
+		<string>超级经验记录器V2</string>
+		<key>price</key>
+		<string>60</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer60</string>
+		<key>sort</key>
+		<integer>6</integer>
+	</dict>
+	<dict>
+		<key>localizedDescription</key>
+		<string>培育经验 +30000Exp</string>
+		<key>localizedTitle</key>
+		<string>先驱者的经验记录器</string>
+		<key>price</key>
+		<string>98</string>
+		<key>productIdentifier</key>
+		<string>net.profzone.bacterial.killer98</string>
+		<key>sort</key>
+		<integer>7</integer>
+	</dict>
+</array>
+</plist>
