@@ -17,7 +17,6 @@
 #import "YouMiPointsManager.h"
 
 #import "CashStoreViewController.h"
-#import "UpgradeViewController.h"
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 
@@ -264,20 +263,6 @@
         storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreView" bundle:nil];
     }
     [[[CCDirector sharedDirector] view] addSubview:storeView.view];
-}
-
--(void)upgrade
-{
-    UpgradeViewController *upgradeView;
-    if(isR4)
-    {
-        upgradeView = [[UpgradeViewController alloc] initWithNibName:@"UpgradeR4View" bundle:nil];
-    }
-    else
-    {
-        upgradeView = [[UpgradeViewController alloc] initWithNibName:@"UpgradeView" bundle:nil];
-    }
-    [[[CCDirector sharedDirector] view] addSubview:upgradeView.view];
 }
 
 -(void)continueGame

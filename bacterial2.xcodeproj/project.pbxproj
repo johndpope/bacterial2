@@ -52,8 +52,6 @@
 		BE47C988197BF837003743C5 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BE47C973197BF836003743C5 /* UMSocialSDKResourcesNew.bundle */; };
 		BE47C989197BF837003743C5 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C976197BF836003743C5 /* libSocialWechat.a */; };
 		BE47C98A197BF837003743C5 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C977197BF836003743C5 /* libWeChatSDK.a */; };
-		BE47C99A197BF8A2003743C5 /* libOpenIDFA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C998197BF8A2003743C5 /* libOpenIDFA.a */; };
-		BE47C99B197BF8A2003743C5 /* libYouMi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C999197BF8A2003743C5 /* libYouMi.a */; };
 		BE47C9A1197BF929003743C5 /* PZWebManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C99E197BF929003743C5 /* PZWebManager.m */; };
 		BE47C9A2197BF929003743C5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9A0197BF929003743C5 /* Reachability.m */; };
 		BE47C9DA197BFA37003743C5 /* CashStoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9CA197BFA37003743C5 /* CashStoreItemView.m */; };
@@ -77,6 +75,13 @@
 		BE47C9FF197BFAC7003743C5 /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE47C9F5197BFAC7003743C5 /* products.plist */; };
 		BE47CA00197BFAC7003743C5 /* PZLabelScore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */; };
 		BE47CA01197BFAC7003743C5 /* ScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F9197BFAC7003743C5 /* ScoreScene.m */; };
+		BE97B5B1197C106400D8322D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE97B5B0197C106400D8322D /* Images.xcassets */; };
+		BE97B5C0197C10D800D8322D /* libOpenIDFA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5BE197C10D800D8322D /* libOpenIDFA.a */; };
+		BE97B5C1197C10D800D8322D /* libYouMi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5BF197C10D800D8322D /* libYouMi.a */; };
+		BE97B5C3197C10F700D8322D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C2197C10F700D8322D /* GameKit.framework */; };
+		BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C4197C10FF00D8322D /* StoreKit.framework */; };
+		BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C6197C113300D8322D /* CFNetwork.framework */; };
+		BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C8197C114900D8322D /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,17 +170,6 @@
 		BE47C978197BF836003743C5 /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
 		BE47C979197BF836003743C5 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		BE47C97A197BF836003743C5 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		BE47C98F197BF8A2003743C5 /* YouMiConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiConfig.h; sourceTree = "<group>"; };
-		BE47C990197BF8A2003743C5 /* YouMiDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiDelegateProtocol.h; sourceTree = "<group>"; };
-		BE47C991197BF8A2003743C5 /* YouMiPointsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiPointsManager.h; sourceTree = "<group>"; };
-		BE47C992197BF8A2003743C5 /* YouMiSpots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiSpots.h; sourceTree = "<group>"; };
-		BE47C993197BF8A2003743C5 /* YouMiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiView.h; sourceTree = "<group>"; };
-		BE47C994197BF8A2003743C5 /* YouMiWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWall.h; sourceTree = "<group>"; };
-		BE47C995197BF8A2003743C5 /* YouMiWallAppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallAppModel.h; sourceTree = "<group>"; };
-		BE47C996197BF8A2003743C5 /* YouMiWallSpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpot.h; sourceTree = "<group>"; };
-		BE47C997197BF8A2003743C5 /* YouMiWallSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpotView.h; sourceTree = "<group>"; };
-		BE47C998197BF8A2003743C5 /* libOpenIDFA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenIDFA.a; sourceTree = "<group>"; };
-		BE47C999197BF8A2003743C5 /* libYouMi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYouMi.a; sourceTree = "<group>"; };
 		BE47C99D197BF929003743C5 /* PZWebManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PZWebManager.h; path = Source/PZWebManager.h; sourceTree = "<group>"; };
 		BE47C99E197BF929003743C5 /* PZWebManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PZWebManager.m; path = Source/PZWebManager.m; sourceTree = "<group>"; };
 		BE47C99F197BF929003743C5 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Source/Reachability.h; sourceTree = "<group>"; };
@@ -214,6 +208,22 @@
 		BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PZLabelScore.m; path = Source/PZLabelScore.m; sourceTree = "<group>"; };
 		BE47C9F8197BFAC7003743C5 /* ScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreScene.h; path = Source/ScoreScene.h; sourceTree = "<group>"; };
 		BE47C9F9197BFAC7003743C5 /* ScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreScene.m; path = Source/ScoreScene.m; sourceTree = "<group>"; };
+		BE97B5B0197C106400D8322D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = bacterial2/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		BE97B5B5197C10D800D8322D /* YouMiConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiConfig.h; sourceTree = "<group>"; };
+		BE97B5B6197C10D800D8322D /* YouMiDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiDelegateProtocol.h; sourceTree = "<group>"; };
+		BE97B5B7197C10D800D8322D /* YouMiPointsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiPointsManager.h; sourceTree = "<group>"; };
+		BE97B5B8197C10D800D8322D /* YouMiSpots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiSpots.h; sourceTree = "<group>"; };
+		BE97B5B9197C10D800D8322D /* YouMiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiView.h; sourceTree = "<group>"; };
+		BE97B5BA197C10D800D8322D /* YouMiWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWall.h; sourceTree = "<group>"; };
+		BE97B5BB197C10D800D8322D /* YouMiWallAppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallAppModel.h; sourceTree = "<group>"; };
+		BE97B5BC197C10D800D8322D /* YouMiWallSpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpot.h; sourceTree = "<group>"; };
+		BE97B5BD197C10D800D8322D /* YouMiWallSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpotView.h; sourceTree = "<group>"; };
+		BE97B5BE197C10D800D8322D /* libOpenIDFA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenIDFA.a; sourceTree = "<group>"; };
+		BE97B5BF197C10D800D8322D /* libYouMi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYouMi.a; sourceTree = "<group>"; };
+		BE97B5C2197C10F700D8322D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		BE97B5C4197C10FF00D8322D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BE97B5C6197C113300D8322D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		BE97B5C8197C114900D8322D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +231,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */,
+				BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
 				BE47C989197BF837003743C5 /* libSocialWechat.a in Frameworks */,
 				BE47C98A197BF837003743C5 /* libWeChatSDK.a in Frameworks */,
@@ -228,17 +240,19 @@
 				B77F1B3217B978D7009739AE /* QuartzCore.framework in Frameworks */,
 				B77F1B3417B978D7009739AE /* OpenGLES.framework in Frameworks */,
 				B77F1B3617B978D7009739AE /* OpenAL.framework in Frameworks */,
+				BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */,
 				BE47C97B197BF836003743C5 /* libMobClickGameLibrary.a in Frameworks */,
-				BE47C99A197BF8A2003743C5 /* libOpenIDFA.a in Frameworks */,
+				BE97B5C0197C10D800D8322D /* libOpenIDFA.a in Frameworks */,
 				BE47C987197BF836003743C5 /* libUMSocial_Sdk_ScreenShot_1.0.a in Frameworks */,
 				B77F1B3817B978D7009739AE /* AudioToolbox.framework in Frameworks */,
 				B77F1B3A17B978D7009739AE /* AVFoundation.framework in Frameworks */,
 				B77F1B3C17B978D7009739AE /* UIKit.framework in Frameworks */,
+				BE97B5C3197C10F700D8322D /* GameKit.framework in Frameworks */,
 				B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */,
 				BE47C97D197BF836003743C5 /* libUMSocial_Sdk_3.3.8.a in Frameworks */,
 				B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */,
 				B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */,
-				BE47C99B197BF8A2003743C5 /* libYouMi.a in Frameworks */,
+				BE97B5C1197C10D800D8322D /* libYouMi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +270,7 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BE97B5B3197C10D800D8322D /* youmi */,
 				BE47C9EA197BFAC7003743C5 /* Becterial.h */,
 				BE47C9EB197BFAC7003743C5 /* Becterial.m */,
 				BE47C9EC197BFAC7003743C5 /* DataStorageManager.h */,
@@ -274,7 +289,6 @@
 				BE47C9F9197BFAC7003743C5 /* ScoreScene.m */,
 				BE47C9A3197BF938003743C5 /* CashStore */,
 				BE47C99C197BF8DC003743C5 /* Network */,
-				BE47C98D197BF8A2003743C5 /* youmi */,
 				BE47C952197BF836003743C5 /* UmengGameAnalytics */,
 				BE47C956197BF836003743C5 /* UMSocial_Sdk_3.3.8 */,
 				BE47C975197BF836003743C5 /* Wechat */,
@@ -338,6 +352,10 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE97B5C8197C114900D8322D /* SystemConfiguration.framework */,
+				BE97B5C6197C113300D8322D /* CFNetwork.framework */,
+				BE97B5C4197C10FF00D8322D /* StoreKit.framework */,
+				BE97B5C2197C10F700D8322D /* GameKit.framework */,
 				8392007918EE8E3300B6C429 /* GLKit.framework */,
 				B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */,
 				B77F1B3117B978D7009739AE /* QuartzCore.framework */,
@@ -356,6 +374,7 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BE97B5B0197C106400D8322D /* Images.xcassets */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
 			);
@@ -450,32 +469,6 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
-		BE47C98D197BF8A2003743C5 /* youmi */ = {
-			isa = PBXGroup;
-			children = (
-				BE47C98E197BF8A2003743C5 /* include */,
-				BE47C998197BF8A2003743C5 /* libOpenIDFA.a */,
-				BE47C999197BF8A2003743C5 /* libYouMi.a */,
-			);
-			path = youmi;
-			sourceTree = "<group>";
-		};
-		BE47C98E197BF8A2003743C5 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				BE47C98F197BF8A2003743C5 /* YouMiConfig.h */,
-				BE47C990197BF8A2003743C5 /* YouMiDelegateProtocol.h */,
-				BE47C991197BF8A2003743C5 /* YouMiPointsManager.h */,
-				BE47C992197BF8A2003743C5 /* YouMiSpots.h */,
-				BE47C993197BF8A2003743C5 /* YouMiView.h */,
-				BE47C994197BF8A2003743C5 /* YouMiWall.h */,
-				BE47C995197BF8A2003743C5 /* YouMiWallAppModel.h */,
-				BE47C996197BF8A2003743C5 /* YouMiWallSpot.h */,
-				BE47C997197BF8A2003743C5 /* YouMiWallSpotView.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
 		BE47C99C197BF8DC003743C5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +505,33 @@
 			name = CashStore;
 			sourceTree = "<group>";
 		};
+		BE97B5B3197C10D800D8322D /* youmi */ = {
+			isa = PBXGroup;
+			children = (
+				BE97B5B4197C10D800D8322D /* include */,
+				BE97B5BE197C10D800D8322D /* libOpenIDFA.a */,
+				BE97B5BF197C10D800D8322D /* libYouMi.a */,
+			);
+			name = youmi;
+			path = lib;
+			sourceTree = "<group>";
+		};
+		BE97B5B4197C10D800D8322D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				BE97B5B5197C10D800D8322D /* YouMiConfig.h */,
+				BE97B5B6197C10D800D8322D /* YouMiDelegateProtocol.h */,
+				BE97B5B7197C10D800D8322D /* YouMiPointsManager.h */,
+				BE97B5B8197C10D800D8322D /* YouMiSpots.h */,
+				BE97B5B9197C10D800D8322D /* YouMiView.h */,
+				BE97B5BA197C10D800D8322D /* YouMiWall.h */,
+				BE97B5BB197C10D800D8322D /* YouMiWallAppModel.h */,
+				BE97B5BC197C10D800D8322D /* YouMiWallSpot.h */,
+				BE97B5BD197C10D800D8322D /* YouMiWallSpotView.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -544,10 +564,13 @@
 				ORGANIZATIONNAME = Apportable;
 				TargetAttributes = {
 					B77F1B2D17B978D7009739AE = {
-						DevelopmentTeam = SBVP8ED765;
+						DevelopmentTeam = PARQ38GC9Z;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
-								enabled = 0;
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
 							};
 						};
 					};
@@ -601,6 +624,7 @@
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
 				BE47C97F197BF836003743C5 /* UMSCommentInputController.xib in Resources */,
+				BE97B5B1197C106400D8322D /* Images.xcassets in Resources */,
 				BE47C9E4197BFA37003743C5 /* store.png in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
@@ -742,6 +766,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -758,7 +784,7 @@
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UmengGameAnalytics",
@@ -766,6 +792,7 @@
 					"$(PROJECT_DIR)/UMSocial_Sdk_3.3.8/UMSocial_ScreenShot_Sdk",
 					"$(PROJECT_DIR)/Wechat",
 					"$(PROJECT_DIR)/youmi",
+					"$(PROJECT_DIR)/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -775,6 +802,7 @@
 				);
 				PRODUCT_NAME = bacterial2;
 				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -784,6 +812,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -799,7 +829,7 @@
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UmengGameAnalytics",
@@ -807,6 +837,7 @@
 					"$(PROJECT_DIR)/UMSocial_Sdk_3.3.8/UMSocial_ScreenShot_Sdk",
 					"$(PROJECT_DIR)/Wechat",
 					"$(PROJECT_DIR)/youmi",
+					"$(PROJECT_DIR)/lib",
 				);
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -816,6 +847,7 @@
 				PRODUCT_NAME = bacterial2;
 				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
