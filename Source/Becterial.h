@@ -10,7 +10,6 @@
 
 @interface Becterial : CCSprite<NSCoding>
 
-@property (nonatomic) BOOL newBecterial;
 @property (nonatomic) int level;
 @property (nonatomic) int type;
 @property (nonatomic) int positionX;

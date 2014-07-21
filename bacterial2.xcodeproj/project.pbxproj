@@ -82,6 +82,7 @@
 		BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C4197C10FF00D8322D /* StoreKit.framework */; };
 		BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C6197C113300D8322D /* CFNetwork.framework */; };
 		BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C8197C114900D8322D /* SystemConfiguration.framework */; };
+		BEDFB222197D556100A4E561 /* Uper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDFB221197D556100A4E561 /* Uper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +225,8 @@
 		BE97B5C4197C10FF00D8322D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE97B5C6197C113300D8322D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BE97B5C8197C114900D8322D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BEDFB220197D556100A4E561 /* Uper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uper.h; path = Source/Uper.h; sourceTree = "<group>"; };
+		BEDFB221197D556100A4E561 /* Uper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Uper.m; path = Source/Uper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +273,8 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BEDFB220197D556100A4E561 /* Uper.h */,
+				BEDFB221197D556100A4E561 /* Uper.m */,
 				BE97B5B3197C10D800D8322D /* youmi */,
 				BE47C9EA197BFAC7003743C5 /* Becterial.h */,
 				BE47C9EB197BFAC7003743C5 /* Becterial.m */,
@@ -683,6 +688,7 @@
 				BE47C9FB197BFAC7003743C5 /* DataStorageManager.m in Sources */,
 				BE47C9A1197BF929003743C5 /* PZWebManager.m in Sources */,
 				BE47C9FE197BFAC7003743C5 /* Killer.m in Sources */,
+				BEDFB222197D556100A4E561 /* Uper.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				BE47C9DC197BFA37003743C5 /* CashStoreManager.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,

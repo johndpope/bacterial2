@@ -21,8 +21,7 @@
     self = [super init];
     if(self)
     {
-        self.newBecterial = YES;
-        self.nextEvolution = 0.f;
+        self.nextEvolution = 60.f;
     }
     return self;
 }
@@ -66,7 +65,7 @@
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     CGPoint position = [touch locationInNode:self.parent];
-    if(abs(position.x - _lastX) > 1 && _type == 0 && mainScene.biomass > 0)
+    if(abs(position.x - _lastX) > 1 && _type == 0)
     {
         if(abs(position.x - _lastX) > abs(position.y - _lastY))
         {
@@ -96,7 +95,7 @@
             }
             else
             {
-                if(_positionY < 4)
+                if(_positionY < 5)
                 {
                     [mainScene moveBecterial:self x:_positionX y:_positionY + 1];
                 }
@@ -121,7 +120,6 @@
     b.type = self.type;
     b.positionX = self.positionX;
     b.positionY = self.positionY;
-    b.newBecterial = NO;
     b.position = ccp(self.position.x, self.position.y);
     b.anchorPoint = ccp(0.f, 0.f);
     
@@ -147,8 +145,7 @@
         self.level = [aDecoder decodeIntForKey:@"level"];
         self.positionX = [aDecoder decodeIntForKey:@"positionX"];
         self.positionY = [aDecoder decodeIntForKey:@"positionY"];
-        self.nextEvolution = [aDecoder decodeIntForKey:@"nextEvolution"];
-        self.newBecterial = NO;
+        self.nextEvolution = [aDecoder decodeFloatForKey:@"nextEvolution"];
     }
 
     return self;
