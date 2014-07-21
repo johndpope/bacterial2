@@ -823,6 +823,9 @@ static NSArray *checkRevolutionPosition = [NSArray arrayWithObjects:
                     if(enemy.level >= bacterial.level)
                     {
                         NSLog(@"吞噬");
+                        [tmp replaceObjectAtIndex:bacterial.positionY withObject:[NSNull null]];
+                        [_becterialList removeObjectIdenticalTo:bacterial];
+                        [_container removeChild:bacterial cleanup:YES];
                     }
                 }
                 [[_enemyContainer objectAtIndex:m] replaceObjectAtIndex:n withObject:[NSNumber numberWithBool:NO]];
@@ -893,6 +896,11 @@ static NSArray *checkRevolutionPosition = [NSArray arrayWithObjects:
         if(top && bottom && left && right)
         {
             NSLog(@"被消灭");
+            tmp = [_becterialContainer objectAtIndex:enemy.positionX];
+            [tmp replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
+            [_becterialList removeObjectIdenticalTo:enemy];
+            [_enemyList removeObjectIdenticalTo:enemy];
+            [_container removeChild:enemy cleanup:YES];
         }
     }
 
