@@ -29,7 +29,9 @@ static DataStorageManager *_sharedDataStorageManager;
                           [NSNumber numberWithBool:_guide], @"guide",
                           [NSNumber numberWithInt:_guideStep], @"guide_step",
                           [NSNumber numberWithInt:_exp], @"exp",
-                          [NSNumber numberWithInt:_killerCount], @"killerCount", nil
+                          [NSNumber numberWithInt:_stepCount], @"stepCount",
+                          [NSNumber numberWithInt:_killerCount], @"killerCount",
+                          [NSNumber numberWithInt:_uperCount], @"uperCount", nil
                           ];
     [data writeToFile:file atomically:NO];
 
@@ -60,7 +62,9 @@ static DataStorageManager *_sharedDataStorageManager;
     }
     
     self.exp = [[data objectForKey:@"exp"] intValue];
+    self.stepCount = [[data objectForKey:@"stepCount"] intValue];
     self.killerCount = [[data objectForKey:@"killerCount"] intValue];
+    self.uperCount = [[data objectForKey:@"uperCount"] intValue];
     self.guide = [[data objectForKey:@"guide"] boolValue];
     self.guideStep = [[data objectForKey:@"guide_step"] intValue];
     

@@ -109,14 +109,6 @@
                                         result, @"result",
                                         [NSDictionary new], @"version", nil];
         [[DataStorageManager sharedDataStorageManager].config setObject:productsResult forKey:@"products"];
-        
-        //Upgrade配置
-        NSString *upgradeConstFilePath = [[NSBundle mainBundle] pathForResource:@"upgrade_const" ofType:@"plist"];
-        NSDictionary *result1 = [[NSDictionary alloc] initWithContentsOfFile:upgradeConstFilePath];
-        NSDictionary *upgradeResult = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        result1, @"result",
-                                        [NSDictionary new], @"version", nil];
-        [[DataStorageManager sharedDataStorageManager].config setObject:upgradeResult forKey:@"upgrade_const"];
     }
     //score board
     NSDictionary *scoreboardResult = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -203,23 +195,6 @@
             
             [[CashStoreManager sharedCashStoreManager] validateProductIdentifiers:productArray];
 
-            //upgrade
-            NSDictionary *upgradeData = [data objectForKey:@"upgrade_const"];
-            NSDictionary *upgrade = [upgradeData objectForKey:@"result"];
-            version = [upgradeData objectForKey:@"version"];
-            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"upgrade_const"];
-            if(config)
-            {
-                [config setObject:version forKey:@"version"];
-            }
-            else
-            {
-                config = [NSMutableDictionary new];
-                [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"upgrade_const"];
-            }
-            [config setObject:upgrade forKey:@"result"];
-
             //score board
             NSDictionary *scoreboardResult = [data objectForKey:@"score_board"];
             int scoreboard = [[scoreboardResult objectForKey:@"result"] intValue];
@@ -274,24 +249,6 @@
             
             [[CashStoreManager sharedCashStoreManager] validateProductIdentifiers:productArray];
         }
-        else if([command isEqualToString:@"requestUpgradeConst"])
-        {
-            NSDictionary *upgradeData = [data objectForKey:@"upgrade_const"];
-            NSDictionary *upgrade = [upgradeData objectForKey:@"result"];
-            NSDictionary *version = [upgradeData objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"upgrade_const"];
-            if(config)
-            {
-                [config setObject:version forKey:@"version"];
-            }
-            else
-            {
-                config = [NSMutableDictionary new];
-                [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"upgrade_const"];
-            }
-            [config setObject:upgrade forKey:@"result"];
-        }
         else if([command isEqualToString:@"requestScoreBoard"])
         {
             NSDictionary *scoreboardResult = [data objectForKey:@"score_board"];
@@ -336,56 +293,6 @@
 - (CCScene*) startScene
 {
     [[DataStorageManager sharedDataStorageManager] loadData];
-    NSDictionary *upgradeConst = [DataStorageManager sharedDataStorageManager].upgradeConst;
-    NSMutableDictionary *upgradeData = [DataStorageManager sharedDataStorageManager].upgradeData;
-    NSArray *keys = [upgradeData allKeys];
-    for(NSString *key in keys)
-    {
-        int index = [[upgradeData objectForKey:key] intValue];
-        NSDictionary *item = [upgradeConst objectForKey:key];
-        if(item)
-        {
-            NSArray *levels = [item objectForKey:@"levels"];
-            NSDictionary *level = [levels objectAtIndex:index-1];
-            NSDictionary *additional = [level objectForKey:@"additional"];
-            NSArray *adds = [additional allKeys];
-            for(NSString *add in adds)
-            {
-                if([add isEqualToString:@"upgradeScoreInc"])
-                {
-                    [Becterial setUpgradeScoreInc:[[additional objectForKey:add] floatValue]];
-                }
-                else if([add isEqualToString:@"upgradeBiomassDec"])
-                {
-                    [Becterial setUpgradeBiomassDec:[[additional objectForKey:add] floatValue]];
-                }
-                else if([add isEqualToString:@"upgradeBiomassInc"])
-                {
-                    [Becterial setUpgradeBiomassInc:[[additional objectForKey:add] floatValue]];
-                }
-                else if([add isEqualToString:@"upgradeSplit"])
-                {
-                    [Becterial setUpgradeSplit:[[additional objectForKey:add] floatValue]];
-                }
-                else if([add isEqualToString:@"upgradeScoreCostDec"])
-                {
-                    [Becterial setUpgradeScoreCostDec:[[additional objectForKey:add] floatValue]];
-                }
-                else if([add isEqualToString:@"upgradeAutoRevolution"])
-                {
-                    [Becterial setUpgradeAutoRevolution:[[additional objectForKey:add] floatValue]];
-                }
-                else if([add isEqualToString:@"upgradeStepInc"])
-                {
-                    [Becterial setUpgradeStepInc:[[additional objectForKey:add] intValue]];
-                }
-                else if([add isEqualToString:@"upgradeStepIncRate"])
-                {
-                    [Becterial setUpgradeStepIncRate:[[additional objectForKey:add] floatValue]];
-                }
-            }
-        }
-    }
 
     //加载资源
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"number.plist"];

@@ -11,6 +11,8 @@
 @interface DataStorageManager : NSObject
 
 @property (nonatomic) int killerCount;
+@property (nonatomic) int uperCount;
+@property (nonatomic) int stepCount;
 @property (nonatomic) int exp;
 @property (nonatomic) BOOL guide;
 @property (nonatomic) int guideStep;

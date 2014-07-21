@@ -15,23 +15,8 @@
 @property (nonatomic) int type;
 @property (nonatomic) int positionX;
 @property (nonatomic) int positionY;
+@property (nonatomic) CGFloat nextEvolution;
 
-+(CGFloat)getUpgradeScoreInc;
-+(CGFloat)getUpgradeBiomassDec;
-+(CGFloat)getUpgradeBiomassInc;
-+(CGFloat)getUpgradeSplit;
-+(CGFloat)getUpgradeScoreCostDec;
-+(int)getUpgradeStepInc;
-+(CGFloat)getUpgradeStepIncRate;
-+(CGFloat)getUpgradeAutoRevolution;
-+(void)setUpgradeScoreInc:(CGFloat)value;
-+(void)setUpgradeBiomassDec:(CGFloat)value;
-+(void)setUpgradeBiomassInc:(CGFloat)value;
-+(void)setUpgradeSplit:(CGFloat)value;
-+(void)setUpgradeScoreCostDec:(CGFloat)value;
-+(void)setUpgradeStepInc:(int)value;
-+(void)setUpgradeStepIncRate:(CGFloat)value;
-+(void)setUpgradeAutoRevolution:(CGFloat)value;
 -(Becterial *)clone;
 
 @end

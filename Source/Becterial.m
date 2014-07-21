@@ -16,101 +16,13 @@
     MainScene *mainScene;
 }
 
-static CGFloat upgradeScoreInc = 0.f;
-static CGFloat upgradeBiomassDec = 0.f;
-static CGFloat upgradeBiomassInc = 0.f;
-static CGFloat upgradeSplit = 0.f;
-static CGFloat upgradeScoreCostDec = 0.f;
-static int upgradeStepInc = 0;
-static CGFloat upgradeStepIncRate = 0.f;
-static CGFloat upgradeAutoRevolution = 0.f;
-
-+(CGFloat)getUpgradeScoreInc
-{
-    return upgradeScoreInc;
-}
-
-+(void)setUpgradeScoreInc:(CGFloat)value
-{
-    upgradeScoreInc = value;
-}
-
-+(CGFloat)getUpgradeBiomassDec
-{
-    return upgradeBiomassDec;
-}
-
-+(CGFloat)getUpgradeBiomassInc
-{
-    return upgradeBiomassInc;
-}
-
-+(CGFloat)getUpgradeSplit
-{
-    return upgradeSplit;
-}
-
-+(CGFloat)getUpgradeScoreCostDec
-{
-    return upgradeScoreCostDec;
-}
-
-+(int)getUpgradeStepInc
-{
-    return upgradeStepInc;
-}
-
-+(CGFloat)getUpgradeStepIncRate
-{
-    return upgradeStepIncRate;
-}
-
-+(CGFloat)getUpgradeAutoRevolution
-{
-    return upgradeAutoRevolution;
-}
-
-+(void)setUpgradeBiomassDec:(CGFloat)value
-{
-    upgradeBiomassDec = value;
-}
-
-+(void)setUpgradeBiomassInc:(CGFloat)value
-{
-    upgradeBiomassInc = value;
-}
-
-+(void)setUpgradeSplit:(CGFloat)value
-{
-    upgradeSplit = value;
-}
-
-+(void)setUpgradeScoreCostDec:(CGFloat)value
-{
-    upgradeScoreCostDec = value;
-}
-
-+(void)setUpgradeStepInc:(int)value
-{
-    upgradeStepInc = value;
-}
-
-+(void)setUpgradeStepIncRate:(CGFloat)value
-{
-    upgradeStepIncRate = value;
-}
-
-+(void)setUpgradeAutoRevolution:(CGFloat)value
-{
-    upgradeAutoRevolution = value;
-}
-
 -(id)init
 {
     self = [super init];
     if(self)
     {
         self.newBecterial = YES;
+        self.nextEvolution = 0.f;
     }
     return self;
 }
@@ -121,6 +33,24 @@ static CGFloat upgradeAutoRevolution = 0.f;
 
     mainScene = (MainScene *)self.parent.parent;
     self.userInteractionEnabled = YES;
+}
+
+-(void)update:(CCTime)delta
+{
+    if(_type == 1)
+    {
+        if(_nextEvolution > 0)
+        {
+            self.nextEvolution = _nextEvolution - delta;
+        }
+        else
+        {
+            //进化
+            self.level++;
+            self.nextEvolution = 60.f;
+            [mainScene checkResult];
+        }
+    }
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -205,6 +135,7 @@ static CGFloat upgradeAutoRevolution = 0.f;
     [aCoder encodeInt:_type forKey:@"type"];
     [aCoder encodeInt:_positionX forKey:@"positionX"];
     [aCoder encodeInt:_positionY forKey:@"positionY"];
+    [aCoder encodeFloat:_nextEvolution forKey:@"nextEvolution"];
 }
 
 //反序列化
@@ -216,6 +147,7 @@ static CGFloat upgradeAutoRevolution = 0.f;
         self.level = [aDecoder decodeIntForKey:@"level"];
         self.positionX = [aDecoder decodeIntForKey:@"positionX"];
         self.positionY = [aDecoder decodeIntForKey:@"positionY"];
+        self.nextEvolution = [aDecoder decodeIntForKey:@"nextEvolution"];
         self.newBecterial = NO;
     }
 
