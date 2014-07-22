@@ -429,7 +429,6 @@ NSArray *checkRevolutionPosition = nil;
     {
         return;
     }
-    NSLog(@"block touched");
     [self putNewBacterial:x andY:y];
 }
 
@@ -437,7 +436,10 @@ NSArray *checkRevolutionPosition = nil;
 {
     if(type == 0 || type == 1)
     {
+        Becterial *bacterial;
         NSMutableArray *list = [[NSMutableArray alloc] init];
+        NSMutableArray *listFirst = [[NSMutableArray alloc] init];
+        NSMutableArray *tmp1;
         for (int i = 0; i < [_becterialContainer count]; i++)
         {
             NSMutableArray *tmp = [_becterialContainer objectAtIndex:i];
@@ -447,11 +449,105 @@ NSArray *checkRevolutionPosition = nil;
                 {
                     CGPoint p = ccp(i, j);
                     [list addObject:[NSValue valueWithCGPoint:p]];
+
+                    if(type == 1)
+                    {
+                        //如果是生物虫，还要筛选没有被包围的空格
+                        BOOL top = j == 5;
+                        BOOL left = i == 0;
+                        BOOL bottom = j == 0;
+                        BOOL right = i == 4;
+
+                        if(!top)
+                        {
+                            tmp1 = [_becterialContainer objectAtIndex:i];
+                            if([tmp1 objectAtIndex:j + 1] != [NSNull null])
+                            {
+                                bacterial = (Becterial *)[tmp1 objectAtIndex:j + 1];
+                                if(bacterial.level > 1)
+                                {
+                                    top = YES;
+                                }
+                            }
+
+                            if(!top)
+                            {
+                                [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                                continue;
+                            }
+                        }
+
+                        if(!left)
+                        {
+                            tmp1 = [_becterialContainer objectAtIndex:i - 1];
+                            if([tmp1 objectAtIndex:j] != [NSNull null])
+                            {
+                                bacterial = (Becterial *)[tmp1 objectAtIndex:j];
+                                if(bacterial.level > 1)
+                                {
+                                    left = YES;
+                                }
+                            }
+
+                            if(!left)
+                            {
+                                [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                                continue;
+                            }
+                        }
+
+                        if(!bottom)
+                        {
+                            tmp1 = [_becterialContainer objectAtIndex:i];
+                            if([tmp1 objectAtIndex:j - 1] != [NSNull null])
+                            {
+                                bacterial = (Becterial *)[tmp1 objectAtIndex:j - 1];
+                                if(bacterial.level > 1)
+                                {
+                                    bottom = YES;
+                                }
+                            }
+
+                            if(!bottom)
+                            {
+                                [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                                continue;
+                            }
+                        }
+
+                        if(!right)
+                        {
+                            tmp1 = [_becterialContainer objectAtIndex:i + 1];
+                            if([tmp1 objectAtIndex:j] != [NSNull null])
+                            {
+                                bacterial = (Becterial *)[tmp1 objectAtIndex:j];
+                                if(bacterial.level > 1)
+                                {
+                                    right = YES;
+                                }
+                            }
+
+                            if(!right)
+                            {
+                                [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                                continue;
+                            }
+                        }
+                    }
                 }
             }
         }
-        
-    
+
+        if(type == 1)
+        {
+            long firstCount = [listFirst count];
+            if(firstCount > 0)
+            {
+                CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
+                return [self generateBacterial:type x:position.x y:position.y];
+            }
+        }
+
         long count = [list count];
         if(count > 0)
         {
