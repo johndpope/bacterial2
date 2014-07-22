@@ -992,6 +992,7 @@ NSArray *checkRevolutionPosition = nil;
     NSMutableArray *tmp;
     NSMutableArray *list = [[NSMutableArray alloc] init];
 
+    //重置
     for (int i = 0; i < [_enemyContainer count]; i++)
     {
         NSMutableArray *_tmp = [_enemyContainer objectAtIndex:i];
@@ -999,6 +1000,11 @@ NSArray *checkRevolutionPosition = nil;
         {
             [_tmp replaceObjectAtIndex:j withObject:[NSNumber numberWithBool:YES]];
         }
+    }
+    for (int i = 0; i < [_enemyList count]; ++i)
+    {
+        enemy = (Becterial *)[_enemyList objectAtIndex:i];
+        enemy.checked = NO;
     }
 
     for (int i = 0; i < [_enemyList count]; ++i)
@@ -1027,8 +1033,8 @@ NSArray *checkRevolutionPosition = nil;
                         NSLog(@"吞噬");
                         [list addObject:bacterial];
 
-                        [tmp replaceObjectAtIndex:bacterial.positionY withObject:[NSNull null]];
-                        [_becterialList removeObjectIdenticalTo:bacterial];
+                        // [tmp replaceObjectAtIndex:bacterial.positionY withObject:[NSNull null]];
+                        // [_becterialList removeObjectIdenticalTo:bacterial];
                         // [_container removeChild:bacterial cleanup:YES];
                     }
                 }
@@ -1036,78 +1042,82 @@ NSArray *checkRevolutionPosition = nil;
             }
         }
         [self doEatEffect:list byEnemy:enemy];
+        [list removeAllObjects];
+        list = nil;
 
         //判断是否被包围
-        BOOL top = enemy.positionY == 5;
-        BOOL left = enemy.positionX == 0;
-        BOOL bottom = enemy.positionY == 0;
-        BOOL right = enemy.positionX == 4;
-        //上
-        if(enemy.positionY < 5)
-        {
-            tmp = [_becterialContainer objectAtIndex:enemy.positionX];
-            if([tmp objectAtIndex:enemy.positionY + 1] != [NSNull null])
-            {
-                bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY + 1];
+        // BOOL top = enemy.positionY == 5;
+        // BOOL left = enemy.positionX == 0;
+        // BOOL bottom = enemy.positionY == 0;
+        // BOOL right = enemy.positionX == 4;
+        // //上
+        // if(enemy.positionY < 5)
+        // {
+        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX];
+        //     if([tmp objectAtIndex:enemy.positionY + 1] != [NSNull null])
+        //     {
+        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY + 1];
 
-                if(bacterial.level > enemy.level)
-                {
-                    top = YES;
-                }
-            }
-        }
-        //下
-        if(enemy.positionY > 0)
-        {
-            tmp = [_becterialContainer objectAtIndex:enemy.positionX];
-            if([tmp objectAtIndex:enemy.positionY - 1] != [NSNull null])
-            {
-                bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY - 1];
+        //         if(bacterial.level > enemy.level)
+        //         {
+        //             top = YES;
+        //         }
+        //     }
+        // }
+        // //下
+        // if(enemy.positionY > 0)
+        // {
+        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX];
+        //     if([tmp objectAtIndex:enemy.positionY - 1] != [NSNull null])
+        //     {
+        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY - 1];
 
-                if(bacterial.level > enemy.level)
-                {
-                    bottom = YES;
-                }
-            }
-        }
-        //左
-        if(enemy.positionX > 0)
-        {
-            tmp = [_becterialContainer objectAtIndex:enemy.positionX - 1];
-            if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
-            {
-                bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
+        //         if(bacterial.level > enemy.level)
+        //         {
+        //             bottom = YES;
+        //         }
+        //     }
+        // }
+        // //左
+        // if(enemy.positionX > 0)
+        // {
+        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX - 1];
+        //     if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
+        //     {
+        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
 
-                if(bacterial.level > enemy.level)
-                {
-                    left = YES;
-                }
-            }
-        }
-        //右
-        if(enemy.positionX < 4)
-        {
-            tmp = [_becterialContainer objectAtIndex:enemy.positionX + 1];
-            if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
-            {
-                bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
+        //         if(bacterial.level > enemy.level)
+        //         {
+        //             left = YES;
+        //         }
+        //     }
+        // }
+        // //右
+        // if(enemy.positionX < 4)
+        // {
+        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX + 1];
+        //     if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
+        //     {
+        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
 
-                if(bacterial.level > enemy.level)
-                {
-                    right = YES;
-                }
-            }
-        }
-        if(top && bottom && left && right)
-        {
-            NSLog(@"被消灭");
-            [self doTerminatedEffect:enemy];
+        //         if(bacterial.level > enemy.level)
+        //         {
+        //             right = YES;
+        //         }
+        //     }
+        // }
 
-            tmp = [_becterialContainer objectAtIndex:enemy.positionX];
-            [tmp replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
-            [_becterialList removeObjectIdenticalTo:enemy];
-            [_enemyList removeObjectIdenticalTo:enemy];
-        }
+        list = [self isSurrounded:enemy];
+        // if(top && bottom && left && right)
+        // {
+        NSLog(@"被消灭");
+        [self doTerminatedEffect:list];
+
+        // tmp = [_becterialContainer objectAtIndex:enemy.positionX];
+        // [tmp replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
+        // [_becterialList removeObjectIdenticalTo:enemy];
+        // [_enemyList removeObjectIdenticalTo:enemy];
+        // }
     }
 
     int availableBlock = 0;
@@ -1136,54 +1146,177 @@ NSArray *checkRevolutionPosition = nil;
     }
 }
 
+-(NSMutableArray *)isSurrounded:(Becterial *)enemy
+{
+    NSMutableArray *list = [[NSMutableArray alloc] init];
+    enemy.checked = YES;
+
+    //判断是否被包围
+    BOOL top = enemy.positionY == 5;
+    BOOL left = enemy.positionX == 0;
+    BOOL bottom = enemy.positionY == 0;
+    BOOL right = enemy.positionX == 4;
+    //上
+    if(!top)
+    {
+        tmp = [_becterialContainer objectAtIndex:enemy.positionX];
+        if([tmp objectAtIndex:enemy.positionY + 1] != [NSNull null])
+        {
+            bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY + 1];
+            if(bacterial.type == 0)
+            {
+                if(bacterial.level > enemy.level)
+                {
+                    top = YES;
+                }
+            }
+            else 
+            {
+                if(!bacterial.checked)
+                {
+                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
+                    for(Becterial *b in tmpArray)
+                    {
+                        [list addObject:b];
+                    }
+                    [tmpArray removeAllObjects];
+                    tmpArray = nil;
+                }
+                top = YES;
+            }
+        }
+    }
+    //下
+    if(!bottom)
+    {
+        tmp = [_becterialContainer objectAtIndex:enemy.positionX];
+        if([tmp objectAtIndex:enemy.positionY - 1] != [NSNull null])
+        {
+            bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY - 1];
+            if(bacterial.type == 0)
+            {
+                if(bacterial.level > enemy.level)
+                {
+                    bottom = YES;
+                }
+            }
+            else 
+            {
+                if(!bacterial.checked)
+                {
+                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
+                    for(Becterial *b in tmpArray)
+                    {
+                        [list addObject:b];
+                    }
+                    [tmpArray removeAllObjects];
+                    tmpArray = nil;
+                }
+                bottom = YES;
+            }
+        }
+    }
+    //左
+    if(!left)
+    {
+        tmp = [_becterialContainer objectAtIndex:enemy.positionX - 1];
+        if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
+        {
+            bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
+            if(bacterial.type == 0)
+            {
+                if(bacterial.level > enemy.level)
+                {
+                    left = YES;
+                }
+            }
+            else 
+            {
+                if(!bacterial.checked)
+                {
+                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
+                    for(Becterial *b in tmpArray)
+                    {
+                        [list addObject:b];
+                    }
+                    [tmpArray removeAllObjects];
+                    tmpArray = nil;
+                }
+                left = YES;
+            }
+        }
+    }
+    //右
+    if(!right)
+    {
+        tmp = [_becterialContainer objectAtIndex:enemy.positionX + 1];
+        if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
+        {
+            bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
+            if(bacterial.type == 0)
+            {
+                if(bacterial.level > enemy.level)
+                {
+                    right = YES;
+                }
+            }
+            else 
+            {
+                if(!bacterial.checked)
+                {
+                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
+                    for(Becterial *b in tmpArray)
+                    {
+                        [list addObject:b];
+                    }
+                    [tmpArray removeAllObjects];
+                    tmpArray = nil;
+                }
+                right = YES;
+            }
+        }
+    }
+
+    if(top && bottom && left && right)
+    {
+        [list addObject:enemy];
+    }
+
+    return list;
+}
+
 -(void)doEatEffect:(NSMutableArray *)list byEnemy:(Becterial *)enemy
 {
-
-    BOOL isCallback = NO;
     Becterial *other;
     for(int m = 0; m < [list count]; m++)
     {
         other = [list objectAtIndex:m];
-        // [[_becterialContainer objectAtIndex:other.positionX] replaceObjectAtIndex:other.positionY withObject:[NSNull null]];
+        [[_becterialContainer objectAtIndex:other.positionX] replaceObjectAtIndex:other.positionY withObject:[NSNull null]];
+        [_becterialList removeObjectIdenticalTo:other];
 
         CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(enemy.position.x, enemy.position.y)];
         CCActionRemove *aRemove = [CCActionRemove action];
-        if(!isCallback)
-        {
-            CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
-            {
-                runningAction--;
-                if(runningAction == 0)
-                {
-                    [self saveGame];
-                }
-            }];
-            isCallback = YES;
-            [other runAction:[CCActionSequence actionWithArray:@[aMoveTo, aRemove, aCallBlock]]];
-            runningAction++;
-        }
-        else
-        {
-            [other runAction:[CCActionSequence actionWithArray:@[aMoveTo, aRemove]]];
-        }
-        // [_becterialList removeObjectIdenticalTo:other];
+        [other runAction:[CCActionSequence actionWithArray:@[aMoveTo, aRemove]]];
+        [self saveGame];
     }
 }
 
--(void)doTerminatedEffect:(Becterial *)enemy
+-(void)doTerminatedEffect:(NSMutableArray *)list
 {
-    CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
-    CCActionRemove *aRemove = [CCActionRemove action];
-    CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
+    Becterial *enemy;
+    for(int m = 0; m < [list count]; m++)
     {
-        runningAction--;
-        if(runningAction == 0)
-        {
-            [self saveGame];
-        }
-    }];
-    [enemy runAction:[CCActionSequence actionWithArray:@[effect, aRemove, aCallBlock]]];
-    runningAction++;
+        enemy = [list objectAtIndex:m];
+
+        [[_becterialContainer objectAtIndex:enemy.positionX] replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
+        [_becterialList removeObjectIdenticalTo:enemy];
+        [_enemyList removeObjectIdenticalTo:enemy];
+
+        CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
+        CCActionRemove *aRemove = [CCActionRemove action];
+        [enemy runAction:[CCActionSequence actionWithArray:@[effect, aRemove]]];
+        [self saveGame];
+    }
 }
 
 -(void)saveGame
