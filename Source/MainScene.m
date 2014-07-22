@@ -17,7 +17,7 @@
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 
-#define defaultStepCount 500
+#define defaultStepCount 2000
 #define accelerateIncreaseBiomassRate 1.f;
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
 #define dataStepCount [DataStorageManager sharedDataStorageManager].stepCount
@@ -74,22 +74,22 @@ NSArray *checkRevolutionPosition = nil;
     _lblScore = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
     {
-        _lblScore.position = ccp(167.f, 510.f);
+        _lblScore.position = ccp(10.f, 510.f);
     }
     else
     {
-        _lblScore.position = ccp(216.f, 456.f);
+        _lblScore.position = ccp(58.f, 456.f);
     }
     [self addChild:_lblScore];
 
     _lblExp = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
     {
-        _lblExp.position = ccp(10.f, 510.f);
+        _lblExp.position = ccp(167.f, 510.f);
     }
     else
     {
-        _lblExp.position = ccp(58.f, 456.f);
+        _lblExp.position = ccp(216.f, 456.f);
     }
     [self addChild:_lblExp];
     
@@ -118,7 +118,13 @@ NSArray *checkRevolutionPosition = nil;
 {
     runningTime = runningTime + delta;
     enemyGenerateTime = enemyGenerateTime + delta;
-    if(enemyGenerateTime <= 121.f)
+//    if(enemyGenerateTime >= 15.f)
+//    {
+//        //产生新的生物虫
+//        [self putNewEnemy];
+//        enemyGenerateTime = 0.f;
+//    }
+    if(runningTime <= 121.f)
     {
         if(enemyGenerateTime >= 60.f)
         {
@@ -127,7 +133,7 @@ NSArray *checkRevolutionPosition = nil;
             enemyGenerateTime = 0.f;
         }
     }
-    else if(enemyGenerateTime <= 301.f)
+    else if(runningTime <= 301.f)
     {
         if(enemyGenerateTime >= 30.f)
         {
@@ -136,7 +142,7 @@ NSArray *checkRevolutionPosition = nil;
             enemyGenerateTime = 0.f;
         }
     }
-    else if(enemyGenerateTime <= 601.f)
+    else if(runningTime <= 601.f)
     {
         if(enemyGenerateTime >= 10.f)
         {
@@ -246,9 +252,9 @@ NSArray *checkRevolutionPosition = nil;
         _becterialList = [[NSMutableArray alloc] init];
         _enemyList = [[NSMutableArray alloc] init];
         self.stepCount = defaultStepCount;
-        self.exp = 0;
-        self.killerCount = 0;
-        self.uperCount = 0;
+        self.exp = 2000;
+        self.killerCount = 10;
+        self.uperCount = 10;
         _maxLevel = 0;
     }
 }
@@ -772,7 +778,7 @@ NSArray *checkRevolutionPosition = nil;
             CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
             {
                 becterial.level++;
-                self.score = _score + 5 * pow(4, becterial.level - 1);
+                self.score = _score + BACTERIAL_BASIC_SCORE * pow(4, becterial.level - 1);
                 self.maxLevel = becterial.level;
                 if (gLayer)
                 {
@@ -820,6 +826,8 @@ NSArray *checkRevolutionPosition = nil;
 {
     if([self generateBacterial:0 x:x y:y])
     {
+        self.score = _score + BACTERIAL_BASIC_SCORE;
+        
         if(![self evolution])
         {
             [self saveGame];
@@ -991,7 +999,7 @@ NSArray *checkRevolutionPosition = nil;
     Becterial *enemy;
     Becterial *bacterial;
     NSMutableArray *tmp;
-    NSMutableArray *list = [[NSMutableArray alloc] init];
+    NSMutableArray *list;
 
     //重置
     for (int i = 0; i < [_enemyContainer count]; i++)
@@ -1010,6 +1018,7 @@ NSArray *checkRevolutionPosition = nil;
 
     for (int i = 0; i < [_enemyList count]; ++i)
     {
+        list = [[NSMutableArray alloc] init];
         enemy = (Becterial *)[_enemyList objectAtIndex:i];
 
         //判断吞噬;
@@ -1047,78 +1056,13 @@ NSArray *checkRevolutionPosition = nil;
         list = nil;
 
         //判断是否被包围
-        // BOOL top = enemy.positionY == 5;
-        // BOOL left = enemy.positionX == 0;
-        // BOOL bottom = enemy.positionY == 0;
-        // BOOL right = enemy.positionX == 4;
-        // //上
-        // if(enemy.positionY < 5)
-        // {
-        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX];
-        //     if([tmp objectAtIndex:enemy.positionY + 1] != [NSNull null])
-        //     {
-        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY + 1];
-
-        //         if(bacterial.level > enemy.level)
-        //         {
-        //             top = YES;
-        //         }
-        //     }
-        // }
-        // //下
-        // if(enemy.positionY > 0)
-        // {
-        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX];
-        //     if([tmp objectAtIndex:enemy.positionY - 1] != [NSNull null])
-        //     {
-        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY - 1];
-
-        //         if(bacterial.level > enemy.level)
-        //         {
-        //             bottom = YES;
-        //         }
-        //     }
-        // }
-        // //左
-        // if(enemy.positionX > 0)
-        // {
-        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX - 1];
-        //     if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
-        //     {
-        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
-
-        //         if(bacterial.level > enemy.level)
-        //         {
-        //             left = YES;
-        //         }
-        //     }
-        // }
-        // //右
-        // if(enemy.positionX < 4)
-        // {
-        //     tmp = [_becterialContainer objectAtIndex:enemy.positionX + 1];
-        //     if([tmp objectAtIndex:enemy.positionY] != [NSNull null])
-        //     {
-        //         bacterial = (Becterial *)[tmp objectAtIndex:enemy.positionY];
-
-        //         if(bacterial.level > enemy.level)
-        //         {
-        //             right = YES;
-        //         }
-        //     }
-        // }
-
-        list = [self isSurrounded:enemy];
-        // if(top && bottom && left && right)
-        // {
-        NSLog(@"被消灭");
-        [self doTerminatedEffect:list];
-
-        // tmp = [_becterialContainer objectAtIndex:enemy.positionX];
-        // [tmp replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
-        // [_becterialList removeObjectIdenticalTo:enemy];
-        // [_enemyList removeObjectIdenticalTo:enemy];
-        // }
+        if(!enemy.checked)
+        {
+            list = [self isSurrounded:enemy];
+            [self doTerminatedEffect:list];
+            [list removeAllObjects];
+            list = nil;
+        }
     }
 
     int availableBlock = 0;
@@ -1150,6 +1094,8 @@ NSArray *checkRevolutionPosition = nil;
 -(NSMutableArray *)isSurrounded:(Becterial *)enemy
 {
     NSMutableArray *list = [[NSMutableArray alloc] init];
+    NSMutableArray *tmp;
+    Becterial *bacterial;
     enemy.checked = YES;
 
     //判断是否被包围
@@ -1176,15 +1122,27 @@ NSArray *checkRevolutionPosition = nil;
                 if(!bacterial.checked)
                 {
                     NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    for(Becterial *b in tmpArray)
+                    if ([tmpArray count] > 0)
                     {
-                        [list addObject:b];
+                        for(Becterial *b in tmpArray)
+                        {
+                            [list addObject:b];
+                        }
+                        [tmpArray removeAllObjects];
+                        top = YES;
                     }
-                    [tmpArray removeAllObjects];
                     tmpArray = nil;
                 }
-                top = YES;
+                else
+                {
+                    top = YES;
+                }
             }
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
         }
     }
     //下
@@ -1206,15 +1164,27 @@ NSArray *checkRevolutionPosition = nil;
                 if(!bacterial.checked)
                 {
                     NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    for(Becterial *b in tmpArray)
+                    if ([tmpArray count] > 0)
                     {
-                        [list addObject:b];
+                        for(Becterial *b in tmpArray)
+                        {
+                            [list addObject:b];
+                        }
+                        [tmpArray removeAllObjects];
+                        bottom = YES;
                     }
-                    [tmpArray removeAllObjects];
                     tmpArray = nil;
                 }
-                bottom = YES;
+                else
+                {
+                    bottom = YES;
+                }
             }
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
         }
     }
     //左
@@ -1236,15 +1206,27 @@ NSArray *checkRevolutionPosition = nil;
                 if(!bacterial.checked)
                 {
                     NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    for(Becterial *b in tmpArray)
+                    if ([tmpArray count] > 0)
                     {
-                        [list addObject:b];
+                        for(Becterial *b in tmpArray)
+                        {
+                            [list addObject:b];
+                        }
+                        [tmpArray removeAllObjects];
+                        left = YES;
                     }
-                    [tmpArray removeAllObjects];
                     tmpArray = nil;
                 }
-                left = YES;
+                else
+                {
+                    left = YES;
+                }
             }
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
         }
     }
     //右
@@ -1266,15 +1248,27 @@ NSArray *checkRevolutionPosition = nil;
                 if(!bacterial.checked)
                 {
                     NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    for(Becterial *b in tmpArray)
+                    if ([tmpArray count] > 0)
                     {
-                        [list addObject:b];
+                        for(Becterial *b in tmpArray)
+                        {
+                            [list addObject:b];
+                        }
+                        [tmpArray removeAllObjects];
+                        right = YES;
                     }
-                    [tmpArray removeAllObjects];
                     tmpArray = nil;
                 }
-                right = YES;
+                else
+                {
+                    right = YES;
+                }
             }
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
         }
     }
 
@@ -1294,8 +1288,9 @@ NSArray *checkRevolutionPosition = nil;
         other = [list objectAtIndex:m];
         [[_becterialContainer objectAtIndex:other.positionX] replaceObjectAtIndex:other.positionY withObject:[NSNull null]];
         [_becterialList removeObjectIdenticalTo:other];
-
-        CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(enemy.position.x, enemy.position.y)];
+        
+        CGPoint p = [_container convertToNodeSpace:enemy.position];
+        CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(p.x, p.y)];
         CCActionRemove *aRemove = [CCActionRemove action];
         [other runAction:[CCActionSequence actionWithArray:@[aMoveTo, aRemove]]];
         [self saveGame];
@@ -1312,10 +1307,14 @@ NSArray *checkRevolutionPosition = nil;
         [[_becterialContainer objectAtIndex:enemy.positionX] replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
         [_becterialList removeObjectIdenticalTo:enemy];
         [_enemyList removeObjectIdenticalTo:enemy];
-
-        CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
+        
+        //得金币
+        self.exp = _exp + ENEMY_BASIC_EXP * pow(2, enemy.level - 1);
+        
+        CCActionFadeOut *aFadeOut = [CCActionFadeOut actionWithDuration:1.f];
+//        CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
         CCActionRemove *aRemove = [CCActionRemove action];
-        [enemy runAction:[CCActionSequence actionWithArray:@[effect, aRemove]]];
+        [enemy runAction:[CCActionSequence actionWithArray:@[aFadeOut, aRemove]]];
         [self saveGame];
     }
 }
@@ -1325,18 +1324,16 @@ NSArray *checkRevolutionPosition = nil;
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *file = [path stringByAppendingPathComponent:@"savegame"];
     NSData *becterials = [NSKeyedArchiver archivedDataWithRootObject:_becterialList];
-    NSData *enemies = [NSKeyedArchiver archivedDataWithRootObject:_enemyList];
     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithFloat:_score], @"score",
         [NSNumber numberWithFloat:_maxLevel], @"maxLevel",
         [NSNumber numberWithInt:bacterialCount], @"bacterialCount",
         [NSNumber numberWithInt:enemyCount], @"enemyCount",
-        [NSNumber numberWithFloat:enemyGenerateTime, @"enemyGenerateTime"],
+        [NSNumber numberWithFloat:enemyGenerateTime], @"enemyGenerateTime",
         [NSNumber numberWithFloat:runningTime], @"runningTime",
         [NSNumber numberWithInt:guideEnemyPositionIndex], @"guideEnemyPositionIndex",
         [NSNumber numberWithInt:guideBacterialPositionIndex], @"guideBacterialPositionIndex",
-        becterials, @"bacterials",
-        enemies, @"enemies", nil
+        becterials, @"bacterials", nil
     ];
     [data writeToFile:file atomically:NO];
     
@@ -1363,7 +1360,6 @@ NSArray *checkRevolutionPosition = nil;
     bacterialCount = [[data objectForKey:@"bacterialCount"] intValue];
     enemyCount = [[data objectForKey:@"enemyCount"] intValue];
     _becterialList = [NSKeyedUnarchiver unarchiveObjectWithData:[data objectForKey:@"bacterials"]];
-    _enemyList = [NSKeyedUnarchiver unarchiveObjectWithData:[data objectForKey:@"enemies"]];
     enemyGenerateTime = [[data objectForKey:@"enemyGenerateTime"] floatValue];
     runningTime = [[data objectForKey:@"runningTime"] floatValue];
     guideEnemyPositionIndex = [[data objectForKey:@"guideEnemyPositionIndex"] intValue];
@@ -1375,6 +1371,13 @@ NSArray *checkRevolutionPosition = nil;
     if(_enemyList == nil)
     {
         _enemyList = [[NSMutableArray alloc] init];
+    }
+    for (Becterial *b in _becterialList)
+    {
+        if(b.type == 1)
+        {
+            [_enemyList addObject:b];
+        }
     }
 
     return YES;
@@ -1407,8 +1410,6 @@ NSArray *checkRevolutionPosition = nil;
     [scoreScene setScore:_score];
     [scoreScene setTime:enemyGenerateTime];
     [scoreScene setExp:[DataStorageManager sharedDataStorageManager].exp];
-    CGFloat rate = _score / enemyGenerateTime;
-    [scoreScene setRate:rate];
     CCScene *scene = [CCScene new];
     [scene addChild:scoreScene];
     [[CCDirector sharedDirector] replaceScene:scene];

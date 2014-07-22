@@ -8,6 +8,7 @@
 
 #import "Becterial.h"
 #import "MainScene.h"
+#import "PZLabelScore.h"
 
 #define MAXLEVEL 21
 
@@ -15,6 +16,8 @@
 {
     CGFloat _lastX;
     CGFloat _lastY;
+    CCSprite *lv;
+    PZLabelScore *lblLevel;
     MainScene *mainScene;
 }
 
@@ -23,7 +26,18 @@
     self = [super init];
     if(self)
     {
+        lv = [CCSprite spriteWithImageNamed:@"number_small/lv.png"];
+        lv.anchorPoint = ccp(0.f, 0.f);
+        lv.position = ccp(0.f, 0.f);
+        [self addChild:lv];
+        
+        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:14 itemHeight:22];
+        lblLevel.anchorPoint = ccp(0.f, 0.f);
+        lblLevel.position = ccp(15.f, 0.f);
+        [self addChild:lblLevel];
+        
         self.nextEvolution = 60.f;
+        self.userInteractionEnabled = YES;
     }
     return self;
 }
@@ -33,7 +47,6 @@
     [super onEnter];
 
     mainScene = (MainScene *)self.parent.parent;
-    self.userInteractionEnabled = YES;
 }
 
 -(void)update:(CCTime)delta
@@ -117,8 +130,9 @@
         }
         else
         {
-            self.opacity = (1.f - (MAXLEVEL - level) / (CGFloat)MAXLEVEL) * 255;
+            self.opacity = (1.f - (MAXLEVEL - level) / (CGFloat)MAXLEVEL);
         }
+        [lblLevel setScore:level];
 	}
 }
 
@@ -127,7 +141,7 @@
     _type = type;
     if(type == 1)
     {
-        self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"resources/enemy1.png"];
+        self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"enemy/enemy1.png"];
     }
 }
 
@@ -159,6 +173,19 @@
 {
     if(self = [super init])
     {
+        lv = [CCSprite spriteWithImageNamed:@"number_small/lv.png"];
+        lv.anchorPoint = ccp(0.f, 0.f);
+        lv.position = ccp(0.f, 0.f);
+        [self addChild:lv];
+        
+        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:14 itemHeight:22];
+        lblLevel.anchorPoint = ccp(0.f, 0.f);
+        lblLevel.position = ccp(15.f, 0.f);
+        [self addChild:lblLevel];
+        
+        self.nextEvolution = 60.f;
+        self.userInteractionEnabled = YES;
+        
         self.type = [aDecoder decodeIntForKey:@"type"];
         self.level = [aDecoder decodeIntForKey:@"level"];
         self.positionX = [aDecoder decodeIntForKey:@"positionX"];

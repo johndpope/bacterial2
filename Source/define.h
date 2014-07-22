@@ -12,6 +12,8 @@
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 //#define DEBUG_MODE
 
+#define BACTERIAL_BASIC_SCORE 5
+#define ENEMY_BASIC_EXP 20
 #define BECTERIAL_MESSAGE @"Becterial.BecterialTouched"
 
 #endif

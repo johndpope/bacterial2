@@ -12,7 +12,6 @@
 
 -(void)setOver:(BOOL)over;
 -(void)setScore:(int)score;
--(void)setRate:(CGFloat)rate;
 -(void)setExp:(int)exp;
 -(void)setTime:(int)Time;
 

@@ -33,7 +33,7 @@
         _score = score;
         [self removeAllChildren];
         
-        CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"%@_0.png", _fileName]];
+        CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"%@0.png", _fileName]];
         CCSprite *numSprite = [CCSprite spriteWithSpriteFrame:frame];
         [numSprite setContentSize:CGSizeMake(_itemWidth, _itemHeight)];
         numSprite.anchorPoint = ccp(0, 0);
@@ -60,7 +60,7 @@
         NSString *file;
         for(long i = count - 1; i >= 0; i--)
         {
-            file = [NSString stringWithFormat:@"%@_%i.png", _fileName, [[arr objectAtIndex:i] intValue]];
+            file = [NSString stringWithFormat:@"%@%i.png", _fileName, [[arr objectAtIndex:i] intValue]];
             frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:file];
             CCSprite *numSprite = [CCSprite spriteWithSpriteFrame:frame];
             [numSprite setContentSize:CGSizeMake(_itemWidth, _itemHeight)];

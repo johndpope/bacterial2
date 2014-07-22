@@ -51,7 +51,7 @@
         int x = position.x / 60.5f;
         int y = position.y / 60.5f;
         
-        if (x > 4 || y > 4 || x < 0 || y < 0)
+        if (x > 4 || y > 5 || x < 0 || y < 0)
         {
             return;
         }

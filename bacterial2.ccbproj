@@ -159,7 +159,19 @@
 			<key>tabletScale</key>
 			<integer>1</integer>
 		</dict>
+		<key>enemy</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>number</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>number_small</key>
 		<dict>
 			<key>isSmartSpriteSheet</key>
 			<true/>

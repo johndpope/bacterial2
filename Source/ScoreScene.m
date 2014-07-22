@@ -33,7 +33,6 @@
     int _exp;
     PZLabelScore *_lblScore;
     PZLabelScore *_lblTime;
-    PZLabelScore *_lblRate;
     PZLabelScore *_lblExp;
     CCButton *btnContinue;
     CCButton *btnScoreboard;
@@ -74,18 +73,6 @@
         _lblTime.position = ccp(24.f, 340.f);
     }
     [self addChild:_lblTime];
-    
-    _lblRate = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
-    _lblRate.anchorPoint = ccp(0.f, 0.f);
-    if(isR4)
-    {
-        _lblRate.position = ccp(24.f, 346.f);
-    }
-    else
-    {
-        _lblRate.position = ccp(24.f, 270.f);
-    }
-    [self addChild:_lblRate];
 
     _lblExp = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     _lblExp.anchorPoint = ccp(0.f, 0.f);
@@ -183,12 +170,6 @@
             }
         }
     }
-}
-
--(void)setRate:(CGFloat)rate
-{
-    _rate = rate;
-    [_lblRate setScore:rate];
 }
 
 -(void)setExp:(int)exp
