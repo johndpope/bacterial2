@@ -77,7 +77,7 @@
     [UMSocialWechatHandler setWXAppId:@"wxfa1868e8028fdf80" url:@"http://b.profzone.net/services/share/wechat"];
 
     [YouMiConfig setShouldGetLocation:NO];
-    [YouMiConfig launchWithAppID:@"5993d19fa9e134c3" appSecret:@"e620f97ee3da012d"];
+    [YouMiConfig launchWithAppID:@"4d8d51cf2afd8db6" appSecret:@"8bec478c6d3f2efc"];
     [YouMiPointsManager enable];
     [YouMiWall enable];
 

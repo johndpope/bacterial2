@@ -977,8 +977,9 @@ NSArray *checkRevolutionPosition = nil;
     }
     
     Becterial *b = [[_becterialContainer objectAtIndex:x] objectAtIndex:y];
-    if(b.type == 1)
+    if(b.type == 0)
     {
+        b.level++;
         self.uperCount--;
         [self checkResult];
         [self saveGame];

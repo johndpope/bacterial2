@@ -9,6 +9,8 @@
 #import "Becterial.h"
 #import "MainScene.h"
 
+#define MAXLEVEL 21
+
 @implementation Becterial
 {
     CGFloat _lastX;
@@ -106,11 +108,27 @@
 
 -(void)setLevel:(int)level
 {
-	if(_level != level)
+	if(_level != level && level <= MAXLEVEL)
 	{
 		_level = level;
-        self.spriteFrame = [CCSpriteFrame frameWithImageNamed:[NSString stringWithFormat:@"resources/%i%i.png", _type, level]];
+        if(_type == 0)
+        {
+            self.spriteFrame = [CCSpriteFrame frameWithImageNamed:[NSString stringWithFormat:@"resources/%i%i.png", _type, level]];
+        }
+        else
+        {
+            self.opacity = (1.f - (MAXLEVEL - level) / (CGFloat)MAXLEVEL) * 255;
+        }
 	}
+}
+
+-(void)setType:(int)type
+{
+    _type = type;
+    if(type == 1)
+    {
+        self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"resources/enemy1.png"];
+    }
 }
 
 -(Becterial *)clone
