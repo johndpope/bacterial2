@@ -296,6 +296,7 @@
 
     //加载资源
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"number.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"number_small.plist"];
 
     [[GameCenterManager sharedGameCenterManager] authenticateLocalPlayer];
 

@@ -44,6 +44,7 @@ NSArray *checkRevolutionPosition = nil;
     NSMutableArray *_enemyList;
     NSMutableArray *_enemyContainer;
     int runningAction;
+    CGFloat enemyGenerateTime;
     CGFloat runningTime;
     
     int _lastX;
@@ -70,7 +71,7 @@ NSArray *checkRevolutionPosition = nil;
         isR4 = NO;
     }
 
-    _lblScore = [PZLabelScore initWithScore:0 fileName:@"" itemWidth:14 itemHeight:22];
+    _lblScore = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
     {
         _lblScore.position = ccp(167.f, 510.f);
@@ -81,7 +82,7 @@ NSArray *checkRevolutionPosition = nil;
     }
     [self addChild:_lblScore];
 
-    _lblExp = [PZLabelScore initWithScore:0 fileName:@"" itemWidth:14 itemHeight:22];
+    _lblExp = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
     {
         _lblExp.position = ccp(10.f, 510.f);
@@ -92,7 +93,7 @@ NSArray *checkRevolutionPosition = nil;
     }
     [self addChild:_lblExp];
     
-    _lblStepCount = [PZLabelScore initWithScore:0 fileName:@"" itemWidth:14 itemHeight:22];
+    _lblStepCount = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
     {
         _lblStepCount.position = ccp(10.f, 416.f);
@@ -116,11 +117,42 @@ NSArray *checkRevolutionPosition = nil;
 -(void)update:(CCTime)delta
 {
     runningTime = runningTime + delta;
-    if(runningTime >= 60.f)
+    enemyGenerateTime = enemyGenerateTime + delta;
+    if(enemyGenerateTime <= 121.f)
     {
-        //产生新的生物虫
-        [self putNewEnemy];
-        runningTime = 0.f;
+        if(enemyGenerateTime >= 60.f)
+        {
+            //产生新的生物虫
+            [self putNewEnemy];
+            enemyGenerateTime = 0.f;
+        }
+    }
+    else if(enemyGenerateTime <= 301.f)
+    {
+        if(enemyGenerateTime >= 30.f)
+        {
+            //产生新的生物虫
+            [self putNewEnemy];
+            enemyGenerateTime = 0.f;
+        }
+    }
+    else if(enemyGenerateTime <= 601.f)
+    {
+        if(enemyGenerateTime >= 10.f)
+        {
+            //产生新的生物虫
+            [self putNewEnemy];
+            enemyGenerateTime = 0.f;
+        }
+    }
+    else
+    {
+        if(enemyGenerateTime >= 5.f)
+        {
+            //产生新的生物虫
+            [self putNewEnemy];
+            enemyGenerateTime = 0.f;
+        }
     }
 }
 
@@ -862,6 +894,7 @@ NSArray *checkRevolutionPosition = nil;
     Becterial *enemy;
     Becterial *bacterial;
     NSMutableArray *tmp;
+    NSMutableArray *list = [[NSMutableArray alloc] init];
 
     for (int i = 0; i < [_enemyContainer count]; i++)
     {
@@ -896,14 +929,17 @@ NSArray *checkRevolutionPosition = nil;
                     if(enemy.level >= bacterial.level && bacterial.type == 0)
                     {
                         NSLog(@"吞噬");
+                        [list addObject:bacterial];
+
                         [tmp replaceObjectAtIndex:bacterial.positionY withObject:[NSNull null]];
                         [_becterialList removeObjectIdenticalTo:bacterial];
-                        [_container removeChild:bacterial cleanup:YES];
+                        // [_container removeChild:bacterial cleanup:YES];
                     }
                 }
                 [[_enemyContainer objectAtIndex:m] replaceObjectAtIndex:n withObject:[NSNumber numberWithBool:NO]];
             }
         }
+        [self doEatEffect:list byEnemy:enemy];
 
         //判断是否被包围
         BOOL top = enemy.positionY == 5;
@@ -969,12 +1005,12 @@ NSArray *checkRevolutionPosition = nil;
         if(top && bottom && left && right)
         {
             NSLog(@"被消灭");
+            [self doTerminatedEffect:enemy];
+
             tmp = [_becterialContainer objectAtIndex:enemy.positionX];
             [tmp replaceObjectAtIndex:enemy.positionY withObject:[NSNull null]];
             [_becterialList removeObjectIdenticalTo:enemy];
             [_enemyList removeObjectIdenticalTo:enemy];
-            
-            [_container removeChild:enemy cleanup:YES];
         }
     }
 
@@ -1004,6 +1040,56 @@ NSArray *checkRevolutionPosition = nil;
     }
 }
 
+-(void)doEatEffect:(NSMutableArray *)list byEnemy:(Becterial *)enemy
+{
+
+    BOOL isCallback = NO;
+    Becterial *other;
+    for(int m = 0; m < [list count]; m++)
+    {
+        other = [list objectAtIndex:m];
+        // [[_becterialContainer objectAtIndex:other.positionX] replaceObjectAtIndex:other.positionY withObject:[NSNull null]];
+
+        CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(enemy.position.x, enemy.position.y)];
+        CCActionRemove *aRemove = [CCActionRemove action];
+        if(!isCallback)
+        {
+            CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
+            {
+                runningAction--;
+                if(runningAction == 0)
+                {
+                    [self saveGame];
+                }
+            }];
+            isCallback = YES;
+            [other runAction:[CCActionSequence actionWithArray:@[aMoveTo, aRemove, aCallBlock]]];
+            runningAction++;
+        }
+        else
+        {
+            [other runAction:[CCActionSequence actionWithArray:@[aMoveTo, aRemove]]];
+        }
+        // [_becterialList removeObjectIdenticalTo:other];
+    }
+}
+
+-(void)doTerminatedEffect:(Becterial *)enemy
+{
+    CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
+    CCActionRemove *aRemove = [CCActionRemove action];
+    CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
+    {
+        runningAction--;
+        if(runningAction == 0)
+        {
+            [self saveGame];
+        }
+    }];
+    [enemy runAction:[CCActionSequence actionWithArray:@[effect, aRemove, aCallBlock]]];
+    runningAction++;
+}
+
 -(void)saveGame
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -1015,6 +1101,7 @@ NSArray *checkRevolutionPosition = nil;
         [NSNumber numberWithFloat:_maxLevel], @"maxLevel",
         [NSNumber numberWithInt:bacterialCount], @"bacterialCount",
         [NSNumber numberWithInt:enemyCount], @"enemyCount",
+        [NSNumber numberWithFloat:enemyGenerateTime, @"enemyGenerateTime"],
         [NSNumber numberWithFloat:runningTime], @"runningTime",
         [NSNumber numberWithInt:guideEnemyPositionIndex], @"guideEnemyPositionIndex",
         [NSNumber numberWithInt:guideBacterialPositionIndex], @"guideBacterialPositionIndex",
@@ -1047,6 +1134,7 @@ NSArray *checkRevolutionPosition = nil;
     enemyCount = [[data objectForKey:@"enemyCount"] intValue];
     _becterialList = [NSKeyedUnarchiver unarchiveObjectWithData:[data objectForKey:@"bacterials"]];
     _enemyList = [NSKeyedUnarchiver unarchiveObjectWithData:[data objectForKey:@"enemies"]];
+    enemyGenerateTime = [[data objectForKey:@"enemyGenerateTime"] floatValue];
     runningTime = [[data objectForKey:@"runningTime"] floatValue];
     guideEnemyPositionIndex = [[data objectForKey:@"guideEnemyPositionIndex"] intValue];
     guideBacterialPositionIndex = [[data objectForKey:@"guideBacterialPositionIndex"] intValue];
@@ -1065,6 +1153,7 @@ NSArray *checkRevolutionPosition = nil;
 -(void)reset
 {
     runningTime = 0;
+    enemyGenerateTime = 0;
     self.maxLevel = 0;
     self.score = 0;
     [_becterialList removeAllObjects];
@@ -1086,9 +1175,9 @@ NSArray *checkRevolutionPosition = nil;
         scoreScene = (ScoreScene *)[CCBReader load:@"ScoreScene"];
     }
     [scoreScene setScore:_score];
-    [scoreScene setTime:runningTime];
+    [scoreScene setTime:enemyGenerateTime];
     [scoreScene setExp:[DataStorageManager sharedDataStorageManager].exp];
-    CGFloat rate = _score / runningTime;
+    CGFloat rate = _score / enemyGenerateTime;
     [scoreScene setRate:rate];
     CCScene *scene = [CCScene new];
     [scene addChild:scoreScene];
