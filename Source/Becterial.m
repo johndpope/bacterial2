@@ -30,7 +30,7 @@
         lv.position = ccp(0.f, 0.f);
         [self addChild:lv];
         
-        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:14 itemHeight:22];
+        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:8 itemHeight:10];
         lblLevel.anchorPoint = ccp(0.f, 0.f);
         lblLevel.position = ccp(15.f, 0.f);
         [self addChild:lblLevel];

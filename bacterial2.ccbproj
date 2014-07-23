@@ -161,8 +161,6 @@
 		</dict>
 		<key>enemy</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>
@@ -172,6 +170,18 @@
 			<true/>
 		</dict>
 		<key>number_small</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>virtualstore</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>virtualstore-hd</key>
 		<dict>
 			<key>isSmartSpriteSheet</key>
 			<true/>

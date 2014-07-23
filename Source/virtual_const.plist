@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>step50</key>
+	<dict>
+		<key>cost</key>
+		<integer>500</integer>
+		<key>additional</key>
+		<dict>
+			<key>step</key>
+			<integer>50</integer>
+		</dict>
+	</dict>
+	<key>step500</key>
+	<dict>
+		<key>cost</key>
+		<integer>5000</integer>
+		<key>additional</key>
+		<dict>
+			<key>step</key>
+			<integer>500</integer>
+		</dict>
+	</dict>
+	<key>uper1</key>
+	<dict>
+		<key>cost</key>
+		<integer>200</integer>
+		<key>additional</key>
+		<dict>
+			<key>uper</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>uper10</key>
+	<dict>
+		<key>cost</key>
+		<integer>2000</integer>
+		<key>additional</key>
+		<dict>
+			<key>uper</key>
+			<integer>10</integer>
+		</dict>
+	</dict>
+	<key>killer1</key>
+	<dict>
+		<key>cost</key>
+		<integer>200</integer>
+		<key>additional</key>
+		<dict>
+			<key>killer</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>killer10</key>
+	<dict>
+		<key>cost</key>
+		<integer>2000</integer>
+		<key>additional</key>
+		<dict>
+			<key>killer</key>
+			<integer>10</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

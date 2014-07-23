@@ -109,6 +109,13 @@
                                         result, @"result",
                                         [NSDictionary new], @"version", nil];
         [[DataStorageManager sharedDataStorageManager].config setObject:productsResult forKey:@"products"];
+        //商店配置
+        file = [[NSBundle mainBundle] pathForResource:@"virtual_const" ofType:@"plist"];
+        result = [[NSArray alloc] initWithContentsOfFile:file];
+        NSDictionary *virtualResult = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        result, @"result",
+                                        [NSDictionary new], @"version", nil];
+        [[DataStorageManager sharedDataStorageManager].config setObject:virtualResult forKey:@"virtual_const"];
     }
     //score board
     NSDictionary *scoreboardResult = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -194,6 +201,23 @@
             [config setObject:productArray forKey:@"result"];
             
             [[CashStoreManager sharedCashStoreManager] validateProductIdentifiers:productArray];
+            
+            //virtual
+            NSDictionary *virtualResult = [data objectForKey:@"virtual_const"];
+            NSDictionary *virtual = [virtualResult objectForKey:@"result"];
+            version = [virtualResult objectForKey:@"version"];
+            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"virtual_const"];
+            if(config)
+            {
+                [config setObject:version forKey:@"version"];
+            }
+            else
+            {
+                config = [NSMutableDictionary new];
+                [config setObject:version forKey:@"version"];
+                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"virtual_const"];
+            }
+            [config setObject:virtual forKey:@"result"];
 
             //score board
             NSDictionary *scoreboardResult = [data objectForKey:@"score_board"];
@@ -248,6 +272,24 @@
             [config setObject:productArray forKey:@"result"];
             
             [[CashStoreManager sharedCashStoreManager] validateProductIdentifiers:productArray];
+        }
+        else if([command isEqualToString:@"requestVirtualConst"])
+        {
+            NSDictionary *virtualResult = [data objectForKey:@"virtual_const"];
+            NSDictionary *virtual = [virtualResult objectForKey:@"result"];
+            NSDictionary *version = [virtualResult objectForKey:@"version"];
+            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"virtual_const"];
+            if(config)
+            {
+                [config setObject:version forKey:@"version"];
+            }
+            else
+            {
+                config = [NSMutableDictionary new];
+                [config setObject:version forKey:@"version"];
+                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"virtual_const"];
+            }
+            [config setObject:virtual forKey:@"result"];
         }
         else if([command isEqualToString:@"requestScoreBoard"])
         {

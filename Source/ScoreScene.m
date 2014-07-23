@@ -9,6 +9,7 @@
 #import "define.h"
 #import "MainScene.h"
 #import "ScoreScene.h"
+#import "VirtualStore.h"
 #import "PZLabelScore.h"
 #import "UMSocial.h"
 #import "UMSocialScreenShoter.h"
@@ -234,16 +235,27 @@
 
 -(void)store
 {
-    CashStoreViewController *storeView;
+//    CashStoreViewController *storeView;
+//    if(isR4)
+//    {
+//        storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreR4View" bundle:nil];
+//    }
+//    else
+//    {
+//        storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreView" bundle:nil];
+//    }
+//    [[[CCDirector sharedDirector] view] addSubview:storeView.view];
+    CCScene *s;
     if(isR4)
     {
-        storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreR4View" bundle:nil];
+        s = [CCBReader loadAsScene:@"VirtualStore-r4"];
     }
     else
     {
-        storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreView" bundle:nil];
+        s = [CCBReader loadAsScene:@"VirtualStore"];
     }
-    [[[CCDirector sharedDirector] view] addSubview:storeView.view];
+    
+    [[CCDirector sharedDirector] replaceScene:s withTransition:[CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft duration:.3f]];
 }
 
 -(void)continueGame

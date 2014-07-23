@@ -873,7 +873,7 @@ NSArray *checkRevolutionPosition = nil;
 
 -(void)putNewEnemy:(int)x andY:(int)y
 {
-    [self putNewEnemy:x anyY:y level:1];
+    [self putNewEnemy:x andY:y level:1];
 }
 
 -(void)putNewEnemy:(int)x andY:(int)y level:(int)level

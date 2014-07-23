@@ -17,7 +17,7 @@
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     MainScene *scene = (MainScene *)[self parent];
-    if(scene.killerCount > 0)
+    if(scene.uperCount > 0)
     {
         CGPoint position = [touch locationInNode:self.parent];
         CGPoint anchor = [touch locationInNode:self];
@@ -31,7 +31,7 @@
 -(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
     MainScene *scene = (MainScene *)[self parent];
-    if(scene.killerCount > 0 && _target)
+    if(scene.uperCount > 0 && _target)
     {
         CGPoint position = [touch locationInNode:self.parent];
         _target.position = position;
@@ -41,7 +41,7 @@
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     MainScene *scene = (MainScene *)[self parent];
-    if(scene.killerCount > 0 && _target)
+    if(scene.uperCount > 0 && _target)
     {
         [self.parent removeChild:_target];
         

@@ -75,6 +75,8 @@
 		BE47C9FF197BFAC7003743C5 /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE47C9F5197BFAC7003743C5 /* products.plist */; };
 		BE47CA00197BFAC7003743C5 /* PZLabelScore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */; };
 		BE47CA01197BFAC7003743C5 /* ScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F9197BFAC7003743C5 /* ScoreScene.m */; };
+		BE83D2F8197FF48600E3D7AA /* VirtualStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE83D2F7197FF48600E3D7AA /* VirtualStore.m */; };
+		BE83D30019800CD200E3D7AA /* virtual_const.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE83D2FF19800CD200E3D7AA /* virtual_const.plist */; };
 		BE97B5B1197C106400D8322D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE97B5B0197C106400D8322D /* Images.xcassets */; };
 		BE97B5C0197C10D800D8322D /* libOpenIDFA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5BE197C10D800D8322D /* libOpenIDFA.a */; };
 		BE97B5C1197C10D800D8322D /* libYouMi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5BF197C10D800D8322D /* libYouMi.a */; };
@@ -209,6 +211,9 @@
 		BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PZLabelScore.m; path = Source/PZLabelScore.m; sourceTree = "<group>"; };
 		BE47C9F8197BFAC7003743C5 /* ScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreScene.h; path = Source/ScoreScene.h; sourceTree = "<group>"; };
 		BE47C9F9197BFAC7003743C5 /* ScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreScene.m; path = Source/ScoreScene.m; sourceTree = "<group>"; };
+		BE83D2F6197FF48600E3D7AA /* VirtualStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VirtualStore.h; path = Source/VirtualStore.h; sourceTree = "<group>"; };
+		BE83D2F7197FF48600E3D7AA /* VirtualStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VirtualStore.m; path = Source/VirtualStore.m; sourceTree = "<group>"; };
+		BE83D2FF19800CD200E3D7AA /* virtual_const.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = virtual_const.plist; path = Source/virtual_const.plist; sourceTree = "<group>"; };
 		BE97B5B0197C106400D8322D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = bacterial2/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		BE97B5B5197C10D800D8322D /* YouMiConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiConfig.h; sourceTree = "<group>"; };
 		BE97B5B6197C10D800D8322D /* YouMiDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiDelegateProtocol.h; sourceTree = "<group>"; };
@@ -273,6 +278,7 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BE83D2FA197FF4DD00E3D7AA /* VirtualStore */,
 				BEDFB220197D556100A4E561 /* Uper.h */,
 				BEDFB221197D556100A4E561 /* Uper.m */,
 				BE97B5B3197C10D800D8322D /* youmi */,
@@ -510,6 +516,16 @@
 			name = CashStore;
 			sourceTree = "<group>";
 		};
+		BE83D2FA197FF4DD00E3D7AA /* VirtualStore */ = {
+			isa = PBXGroup;
+			children = (
+				BE83D2F6197FF48600E3D7AA /* VirtualStore.h */,
+				BE83D2F7197FF48600E3D7AA /* VirtualStore.m */,
+				BE83D2FF19800CD200E3D7AA /* virtual_const.plist */,
+			);
+			name = VirtualStore;
+			sourceTree = "<group>";
+		};
 		BE97B5B3197C10D800D8322D /* youmi */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +671,7 @@
 				BE47C980197BF836003743C5 /* UMSCommentInputControlleriPad.xib in Resources */,
 				BE47C9DE197BFA37003743C5 /* CashStoreR4View.xib in Resources */,
 				BE47C982197BF836003743C5 /* UMShareEditViewControlleriPad.xib in Resources */,
+				BE83D30019800CD200E3D7AA /* virtual_const.plist in Resources */,
 				BE47C986197BF836003743C5 /* ios-social-sdk-shake.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -693,6 +710,7 @@
 				BE47C9DC197BFA37003743C5 /* CashStoreManager.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				BE83D2F8197FF48600E3D7AA /* VirtualStore.m in Sources */,
 				BE47C9E1197BFA37003743C5 /* CashStoreViewController.m in Sources */,
 				BE47C9DA197BFA37003743C5 /* CashStoreItemView.m in Sources */,
 				BE47C9FD197BFAC7003743C5 /* Guide.m in Sources */,
