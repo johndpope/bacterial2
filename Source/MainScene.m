@@ -126,7 +126,7 @@ NSArray *checkRevolutionPosition = nil;
 //    }
     if(runningTime <= 121.f)
     {
-        if(enemyGenerateTime >= 60.f)
+        if(enemyGenerateTime >= 30.f)
         {
             //产生新的生物虫
             [self putNewEnemy];
@@ -135,10 +135,10 @@ NSArray *checkRevolutionPosition = nil;
     }
     else if(runningTime <= 301.f)
     {
-        if(enemyGenerateTime >= 30.f)
+        if(enemyGenerateTime >= 20.f)
         {
             //产生新的生物虫
-            [self putNewEnemy];
+            [self putNewEnemy:(arc4random() % 3)];
             enemyGenerateTime = 0.f;
         }
     }
@@ -147,7 +147,7 @@ NSArray *checkRevolutionPosition = nil;
         if(enemyGenerateTime >= 10.f)
         {
             //产生新的生物虫
-            [self putNewEnemy];
+            [self putNewEnemy:(arc4random() % 5)];
             enemyGenerateTime = 0.f;
         }
     }
@@ -156,7 +156,7 @@ NSArray *checkRevolutionPosition = nil;
         if(enemyGenerateTime >= 5.f)
         {
             //产生新的生物虫
-            [self putNewEnemy];
+            [self putNewEnemy:(arc4random() % 7)];
             enemyGenerateTime = 0.f;
         }
     }
@@ -440,6 +440,11 @@ NSArray *checkRevolutionPosition = nil;
 
 -(BOOL)generateBacterial:(int)type
 {
+    return [self generateBacterial:type level:1];
+}
+
+-(BOOL)generateBacterial:(int)type level:(int)level
+{
     if(type == 0 || type == 1)
     {
         Becterial *bacterial;
@@ -550,7 +555,7 @@ NSArray *checkRevolutionPosition = nil;
             if(firstCount > 0)
             {
                 CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
-                return [self generateBacterial:type x:position.x y:position.y];
+                return [self generateBacterial:type x:position.x y:position.y level:level];
             }
         }
 
@@ -558,7 +563,7 @@ NSArray *checkRevolutionPosition = nil;
         if(count > 0)
         {
             CGPoint position = [[list objectAtIndex:(arc4random() % count)] CGPointValue];
-            return [self generateBacterial:type x:position.x y:position.y];
+            return [self generateBacterial:type x:position.x y:position.y level:level];
         }
     }
     return NO;
@@ -566,8 +571,14 @@ NSArray *checkRevolutionPosition = nil;
 
 -(BOOL)generateBacterial:(int)type x:(int)x y:(int)y
 {
+    return [self generateBacterial:type x:x y:y level:1];
+}
+
+-(BOOL)generateBacterial:(int)type x:(int)x y:(int)y level:(int)level
+{
     if(type == 0 || type == 1)
     {
+        level = fmax(1, fmin(MAXLEVEL, level));
         NSMutableArray *tmp = [_becterialContainer objectAtIndex:x];
         if([tmp objectAtIndex:y] == [NSNull null])
         {
@@ -576,7 +587,7 @@ NSArray *checkRevolutionPosition = nil;
             b.positionY = y;
             b.anchorPoint = ccp(0.f, 0.f);
             b.type = type;
-            b.level = 1;
+            b.level = level;
             b.position = ccp(x * 60.5f, y * 60.5f);
             [_container addChild:b];
             self.maxLevel = 1;
@@ -844,7 +855,12 @@ NSArray *checkRevolutionPosition = nil;
 
 -(void)putNewEnemy
 {
-    if([self generateBacterial:1])
+    [self putNewEnemy:1];
+}
+
+-(void)putNewEnemy:(int)level
+{
+    if([self generateBacterial:1 level:level])
     {
         if(![self evolution])
         {
@@ -857,7 +873,12 @@ NSArray *checkRevolutionPosition = nil;
 
 -(void)putNewEnemy:(int)x andY:(int)y
 {
-    if([self generateBacterial:1 x:x y:y])
+    [self putNewEnemy:x anyY:y level:1];
+}
+
+-(void)putNewEnemy:(int)x andY:(int)y level:(int)level
+{
+    if([self generateBacterial:1 x:x y:y level:level])
     {
         if(![self evolution])
         {
@@ -1311,10 +1332,10 @@ NSArray *checkRevolutionPosition = nil;
         //得金币
         self.exp = _exp + ENEMY_BASIC_EXP * pow(2, enemy.level - 1);
         
-        CCActionFadeOut *aFadeOut = [CCActionFadeOut actionWithDuration:1.f];
+        CCActionScaleTo *aScaleTo = [CCActionScaleTo actionWithDuration:1.f scale:0.f];
 //        CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
         CCActionRemove *aRemove = [CCActionRemove action];
-        [enemy runAction:[CCActionSequence actionWithArray:@[aFadeOut, aRemove]]];
+        [enemy runAction:[CCActionSequence actionWithArray:@[aScaleTo, aRemove]]];
         [self saveGame];
     }
 }

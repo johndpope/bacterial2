@@ -9,8 +9,7 @@
 #import "Becterial.h"
 #import "MainScene.h"
 #import "PZLabelScore.h"
-
-#define MAXLEVEL 21
+#import "define.h"
 
 @implementation Becterial
 {
@@ -36,7 +35,7 @@
         lblLevel.position = ccp(15.f, 0.f);
         [self addChild:lblLevel];
         
-        self.nextEvolution = 60.f;
+        self.nextEvolution = ENEMY_EVOLUTION_BASIC_TIME;
         self.userInteractionEnabled = YES;
     }
     return self;
@@ -47,6 +46,9 @@
     [super onEnter];
 
     mainScene = (MainScene *)self.parent.parent;
+
+    CCActionScaleTo *aScaleTo = [CCActionScaleTo actionWithDuration:.3f scale:1.f];
+    [self runAction:aScaleTo];
 }
 
 -(void)update:(CCTime)delta
@@ -61,7 +63,6 @@
         {
             //进化
             self.level++;
-            self.nextEvolution = 60.f;
             [mainScene checkResult];
         }
     }
@@ -130,9 +131,18 @@
         }
         else
         {
-            self.opacity = (1.f - (MAXLEVEL - level) / (CGFloat)MAXLEVEL);
+            self.opacity = 1.f - (MAXLEVEL - level) / (CGFloat)MAXLEVEL;
         }
         [lblLevel setScore:level];
+
+        if(level <= 9)
+        {
+            self.nextEvolution = ENEMY_EVOLUTION_BASIC_TIME + (level - 1) * 5;
+        }
+        else
+        {
+            self.nextEvolution = ENEMY_EVOLUTION_MAX_TIME;
+        }
 	}
 }
 
@@ -142,6 +152,11 @@
     if(type == 1)
     {
         self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"enemy/enemy1.png"];
+    }
+    else
+    {
+        lv.visible = NO;
+        lblLevel.visible = NO;
     }
 }
 

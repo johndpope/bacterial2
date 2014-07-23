@@ -19,11 +19,7 @@
 @property (nonatomic) int uperCount;
 @property (nonatomic) int maxLevel;
 
--(void)prepareStage;
--(BOOL)generateBacterial:(int)type x:(int)x y:(int)y;
 -(void)moveBecterial:(Becterial *)becterial x:(int)x y:(int)y;
--(BOOL)isEvolution:(Becterial *)becterial;
--(BOOL)evolution;
 -(CCNode *)container;
 -(void)useKiller:(int)x andY:(int)y;
 -(void)useUper:(int)x andY:(int)y;
@@ -31,7 +27,5 @@
 -(BOOL)loadGame;
 -(void)checkResult;
 -(void)reset;
--(ScoreScene *)showScoreScene;
--(void)didReceiveGuideNotification:(NSNotification *) notification;
 
 @end
