@@ -108,7 +108,17 @@
 
 -(void)btnBuyGoldTouch
 {
+    CCScene *s;
+    if(isR4)
+    {
+        s = [CCBReader loadAsScene:@"StoreScene-r4"];
+    }
+    else
+    {
+        s = [CCBReader loadAsScene:@"StoreScene"];
+    }
     
+    [[CCDirector sharedDirector] replaceScene:s withTransition:[CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft duration:.3f]];
 }
 
 -(void)btnScoreboardTouch

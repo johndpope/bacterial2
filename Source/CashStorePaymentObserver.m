@@ -10,7 +10,6 @@
 #import "PZWebManager.h"
 #import "MobClickGameAnalytics.h"
 #import "DataStorageManager.h"
-#import "CashStoreViewController.h"
 
 @implementation CashStorePaymentObserver
 {
@@ -35,7 +34,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
     if(code == 1001)
     {
         NSString *identifier = [data objectForKey:@"identifier"];
-        int *items = [[data objectForKey:@"items"] intValue];
+        NSDictionary *items = [data objectForKey:@"items"];
         [self deliverProduct:items withIdentifier:identifier];
     }
     else
@@ -58,21 +57,48 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
     }
 }
 
--(void)deliverProduct:(int)items withIdentifier:(NSString *)identifier
+-(void)deliverProduct:(NSDictionary *)items withIdentifier:(NSString *)identifier
 {
     int exp = [DataStorageManager sharedDataStorageManager].exp;
-    if(items > 0)
+    int gold = [[items objectForKey:@"gold"] intValue];
+    if(gold > 0)
     {
-        exp = exp + count;
+        exp = exp + gold;
     }
-    
     [DataStorageManager sharedDataStorageManager].exp = exp;
+    NSNumber *number = [items objectForKey:@"step"];
+    if(number)
+    {
+        int step = [number intValue];
+        if(step > 0)
+        {
+            [DataStorageManager sharedDataStorageManager].stepCount = [DataStorageManager sharedDataStorageManager].stepCount + step;
+        }
+    }
+    number = [items objectForKey:@"uper"];
+    if(number)
+    {
+        int uper = [number intValue];
+        if(uper > 0)
+        {
+            [DataStorageManager sharedDataStorageManager].uperCount = [DataStorageManager sharedDataStorageManager].uperCount + uper;
+        }
+    }
+    number = [items objectForKey:@"killer"];
+    if(number)
+    {
+        int killer = [number intValue];
+        if(killer > 0)
+        {
+            [DataStorageManager sharedDataStorageManager].killerCount = [DataStorageManager sharedDataStorageManager].killerCount + killer;
+        }
+    }
     [[DataStorageManager sharedDataStorageManager] saveData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadExp" object:nil];
     [self deliverComplete:identifier withItem:items];
 }
 
--(void)deliverComplete:(NSString *)identifier withItem:(int)items;
+-(void)deliverComplete:(NSString *)identifier withItem:(NSDictionary *)items;
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideLoadingIcon" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showSuccessView" object:@"购买成功"];
@@ -95,7 +121,36 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                     itemId = identifier;
                 }
                 int cash = [[itemId substringFromIndex:9] intValue];
-                [MobClickGameAnalytics pay:cash source:1 coin:items];
+                int gold = [[items objectForKey:@"gold"] intValue];
+                [MobClickGameAnalytics pay:cash source:1 coin:gold];
+                
+                NSNumber *number = [items objectForKey:@"step"];
+                if(number)
+                {
+                    int step = [number intValue];
+                    if(step > 0)
+                    {
+                        
+                    }
+                }
+                number = [items objectForKey:@"uper"];
+                if(number)
+                {
+                    int uper = [number intValue];
+                    if(uper > 0)
+                    {
+                        
+                    }
+                }
+                number = [items objectForKey:@"killer"];
+                if(number)
+                {
+                    int killer = [number intValue];
+                    if(killer > 0)
+                    {
+                        
+                    }
+                }
                 break;
             }
         }
@@ -118,7 +173,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                 NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                       transaction.payment.productIdentifier, @"identifier",
                                       receipt, @"receipt", nil];
-                [[PZWebManager sharedPZWebManager] asyncPostRequest:@"http://b.profzone.net/order/check_receipt" withData:data];
+                [[PZWebManager sharedPZWebManager] asyncPostRequest:@"http://b2.profzone.net/order/check_receipt" withData:data];
                 break;
             }
             case SKPaymentTransactionStateFailed:
@@ -138,7 +193,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                 NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                       transaction.payment.productIdentifier, @"identifier",
                                       receipt, @"receipt", nil];
-                [[PZWebManager sharedPZWebManager] asyncPostRequest:@"http://b.profzone.net/order/check_receipt" withData:data];
+                [[PZWebManager sharedPZWebManager] asyncPostRequest:@"http://b2.profzone.net/order/check_receipt" withData:data];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideLoadingIcon" object:nil];
                 break;
             }

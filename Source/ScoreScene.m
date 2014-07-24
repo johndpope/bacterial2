@@ -17,7 +17,6 @@
 #import "YouMiWall.h"
 #import "YouMiPointsManager.h"
 
-#import "CashStoreViewController.h"
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 
@@ -235,16 +234,6 @@
 
 -(void)store
 {
-//    CashStoreViewController *storeView;
-//    if(isR4)
-//    {
-//        storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreR4View" bundle:nil];
-//    }
-//    else
-//    {
-//        storeView = [[CashStoreViewController alloc] initWithNibName:@"CashStoreView" bundle:nil];
-//    }
-//    [[[CCDirector sharedDirector] view] addSubview:storeView.view];
     CCScene *s;
     if(isR4)
     {

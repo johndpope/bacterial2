@@ -156,7 +156,7 @@ NSArray *checkRevolutionPosition = nil;
         if(enemyGenerateTime >= 5.f)
         {
             //产生新的生物虫
-            [self putNewEnemy:YES];
+            [self putNewEnemy:1 telent:YES];
             enemyGenerateTime = 0.f;
         }
     }
@@ -242,7 +242,7 @@ NSArray *checkRevolutionPosition = nil;
             b.anchorPoint = ccp(.5f, .5f);
             NSMutableArray *tmp = [_becterialContainer objectAtIndex:b.positionX];
             [tmp replaceObjectAtIndex:b.positionY withObject:b];
-            b.position = ccp(b.positionX * 60.5f, b.positionY * 60.5f);
+            b.position = ccp(b.positionX * 60.5f + 30.f, b.positionY * 60.5f + 30.f);
             [_container addChild:b];
         }
         [self checkResult];
@@ -588,7 +588,7 @@ NSArray *checkRevolutionPosition = nil;
             b.anchorPoint = ccp(.5f, .5f);
             b.type = type;
             b.level = level;
-            b.position = ccp(x * 60.5f, y * 60.5f);
+            b.position = ccp(x * 60.5f + 30.f, y * 60.5f + 30.f);
             [_container addChild:b];
             self.maxLevel = 1;
             
@@ -618,7 +618,7 @@ NSArray *checkRevolutionPosition = nil;
         becterial.positionY = y;
 //        [self generateBacterial:1];
         
-        CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(x * 60.5f, y * 60.5f)];
+        CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(x * 60.5f + 30.f, y * 60.5f + 30.f)];
         CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
         {
             runningAction--;
@@ -853,7 +853,7 @@ NSArray *checkRevolutionPosition = nil;
     }
 }
 
--(void)putNewEnemy:(BOOL)telent
+-(void)putNewEnemy:(int)level telent:(BOOL)telent
 {
     if(!telent)
     {
@@ -963,7 +963,7 @@ NSArray *checkRevolutionPosition = nil;
         if(firstCount > 0)
         {
             //有首选空格，那么就统计当前等级最集中的细菌的等级
-            NSArray *levelList = [NSMutableArray arrayWithCapacity:MAXLEVEL];
+            NSMutableArray *levelList = [NSMutableArray arrayWithCapacity:MAXLEVEL];
             for(int i = 0; i < MAXLEVEL; i++)
             {
                 [levelList addObject:[NSNumber numberWithInt:0]];
@@ -986,7 +986,7 @@ NSArray *checkRevolutionPosition = nil;
 
             [listFirst removeAllObjects];
             listFirst = nil;
-            return [self generateBacterial:type x:position.x y:position.y level:level];
+            [self generateBacterial:1 x:position.x y:position.y level:level];
         }
 
         long count = [list count];
@@ -1017,7 +1017,7 @@ NSArray *checkRevolutionPosition = nil;
 
             [list removeAllObjects];
             list = nil;
-            return [self generateBacterial:type x:position.x y:position.y level:level];
+            [self generateBacterial:1 x:position.x y:position.y level:level];
         }
     }
 }
