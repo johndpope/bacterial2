@@ -147,7 +147,7 @@ NSArray *checkRevolutionPosition = nil;
         if(enemyGenerateTime >= 10.f)
         {
             //产生新的生物虫
-            [self putNewEnemy:(arc4random() % 5)];
+            [self putNewEnemy:(arc4random() % 4)];
             enemyGenerateTime = 0.f;
         }
     }
@@ -156,7 +156,7 @@ NSArray *checkRevolutionPosition = nil;
         if(enemyGenerateTime >= 5.f)
         {
             //产生新的生物虫
-            [self putNewEnemy:(arc4random() % 7)];
+            [self putNewEnemy:YES];
             enemyGenerateTime = 0.f;
         }
     }
@@ -475,7 +475,7 @@ NSArray *checkRevolutionPosition = nil;
                             if([tmp1 objectAtIndex:j + 1] != [NSNull null])
                             {
                                 bacterial = (Becterial *)[tmp1 objectAtIndex:j + 1];
-                                if(bacterial.level > 1)
+                                if(bacterial.level > level)
                                 {
                                     top = YES;
                                 }
@@ -494,7 +494,7 @@ NSArray *checkRevolutionPosition = nil;
                             if([tmp1 objectAtIndex:j] != [NSNull null])
                             {
                                 bacterial = (Becterial *)[tmp1 objectAtIndex:j];
-                                if(bacterial.level > 1)
+                                if(bacterial.level > level)
                                 {
                                     left = YES;
                                 }
@@ -513,7 +513,7 @@ NSArray *checkRevolutionPosition = nil;
                             if([tmp1 objectAtIndex:j - 1] != [NSNull null])
                             {
                                 bacterial = (Becterial *)[tmp1 objectAtIndex:j - 1];
-                                if(bacterial.level > 1)
+                                if(bacterial.level > level)
                                 {
                                     bottom = YES;
                                 }
@@ -532,7 +532,7 @@ NSArray *checkRevolutionPosition = nil;
                             if([tmp1 objectAtIndex:j] != [NSNull null])
                             {
                                 bacterial = (Becterial *)[tmp1 objectAtIndex:j];
-                                if(bacterial.level > 1)
+                                if(bacterial.level > level)
                                 {
                                     right = YES;
                                 }
@@ -850,6 +850,169 @@ NSArray *checkRevolutionPosition = nil;
         }
 
         [self checkResult];
+    }
+}
+
+-(void)putNewEnemy:(BOOL)telent
+{
+    if(!telent)
+    {
+        [self putNewEnemy:1];
+    }
+    else
+    {
+        Becterial *bacterial;
+        NSMutableArray *list = [[NSMutableArray alloc] init];
+        NSMutableArray *listFirst = [[NSMutableArray alloc] init];
+        NSMutableArray *tmp1;
+        for (int i = 0; i < [_becterialContainer count]; i++)
+        {
+            NSMutableArray *tmp = [_becterialContainer objectAtIndex:i];
+            for (int j = 0; j < [tmp count]; j++)
+            {
+                if([tmp objectAtIndex:j] == [NSNull null])
+                {
+                    CGPoint p = ccp(i, j);
+                    [list addObject:[NSValue valueWithCGPoint:p]];
+
+                    BOOL top = j == 5;
+                    BOOL left = i == 0;
+                    BOOL bottom = j == 0;
+                    BOOL right = i == 4;
+
+                    if(!top)
+                    {
+                        tmp1 = [_becterialContainer objectAtIndex:i];
+                        if([tmp1 objectAtIndex:j + 1] != [NSNull null])
+                        {
+                            bacterial = (Becterial *)[tmp1 objectAtIndex:j + 1];
+                            if(bacterial.level > 1)
+                            {
+                                top = YES;
+                            }
+                        }
+
+                        if(!top)
+                        {
+                            [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                            continue;
+                        }
+                    }
+
+                    if(!left)
+                    {
+                        tmp1 = [_becterialContainer objectAtIndex:i - 1];
+                        if([tmp1 objectAtIndex:j] != [NSNull null])
+                        {
+                            bacterial = (Becterial *)[tmp1 objectAtIndex:j];
+                            if(bacterial.level > 1)
+                            {
+                                left = YES;
+                            }
+                        }
+
+                        if(!left)
+                        {
+                            [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                            continue;
+                        }
+                    }
+
+                    if(!bottom)
+                    {
+                        tmp1 = [_becterialContainer objectAtIndex:i];
+                        if([tmp1 objectAtIndex:j - 1] != [NSNull null])
+                        {
+                            bacterial = (Becterial *)[tmp1 objectAtIndex:j - 1];
+                            if(bacterial.level > 1)
+                            {
+                                bottom = YES;
+                            }
+                        }
+
+                        if(!bottom)
+                        {
+                            [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                            continue;
+                        }
+                    }
+
+                    if(!right)
+                    {
+                        tmp1 = [_becterialContainer objectAtIndex:i + 1];
+                        if([tmp1 objectAtIndex:j] != [NSNull null])
+                        {
+                            bacterial = (Becterial *)[tmp1 objectAtIndex:j];
+                            if(bacterial.level > 1)
+                            {
+                                right = YES;
+                            }
+                        }
+
+                        if(!right)
+                        {
+                            [listFirst addObject:[NSValue valueWithCGPoint:p]];
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+        int level = 0;
+        long firstCount = [listFirst count];
+        if(firstCount > 0)
+        {
+            //有首选空格，那么就统计当前等级最集中的细菌的等级
+            NSArray *levelList = [NSMutableArray arrayWithCapacity:MAXLEVEL];
+            for(int i = 0; i < MAXLEVEL; i++)
+            {
+                [levelList addObject:[NSNumber numberWithInt:0]];
+            }
+            for(Becterial *b in _becterialList)
+            {
+                int count = [[levelList objectAtIndex:b.level-1] intValue];
+                [levelList replaceObjectAtIndex:b.level-1 withObject:[NSNumber numberWithInt:count+1]];
+            }
+            for(int i = 0; i < [levelList count]; i++)
+            {
+                int count = [[levelList objectAtIndex:i] intValue];
+                if(count > level)
+                {
+                    level = count;
+                }
+            }
+            CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
+            level = fmax(1, level);
+            return [self generateBacterial:type x:position.x y:position.y level:level];
+        }
+
+        long count = [list count];
+        if(count > 0)
+        {
+            CGPoint position = [[list objectAtIndex:(arc4random() % count)] CGPointValue];
+            Becterial *leftBecterial = position.x > 0 ? (Becterial *)[[_becterialContainer objectAtIndex:(position.x - 1)] objectAtIndex:position.y] : nil;
+            Becterial *rightBecterial = position.x < 4 ? (Becterial *)[[_becterialContainer objectAtIndex:(position.x + 1)] objectAtIndex:position.y] : nil;
+            Becterial *topBecterial = position.y < 5 ? (Becterial *)[[_becterialContainer objectAtIndex:position.x] objectAtIndex:(position.y + 1)] : nil;
+            Becterial *bottomBecterial = position.y > 0 ? (Becterial *)[[_becterialContainer objectAtIndex:position.x] objectAtIndex:(position.y - 1)] : nil;
+            if(leftBecterial && leftBecterial.level > level)
+            {
+                level = leftBecterial.level;
+            }
+            if(rightBecterial && rightBecterial.level > level)
+            {
+                level = rightBecterial.level;
+            }
+            if(topBecterial && topBecterial.level > level)
+            {
+                level = topBecterial.level;
+            }
+            if(bottomBecterial && bottomBecterial.level > level)
+            {
+                level = bottomBecterial.level;
+            }
+            level = fmax(1, level);
+            return [self generateBacterial:type x:position.x y:position.y level:level];
+        }
     }
 }
 
