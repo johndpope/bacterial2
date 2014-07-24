@@ -45,6 +45,16 @@
     CGFloat offsetY = 0.f;
     CGFloat contentSizeWidth = 0.f;
     CGFloat contentSizeHeight = 0.f;
+    NSDictionary *config = [DataStorageManager sharedDataStorageManager].config;
+    NSDictionary *productsResult = [config objectForKey:@"products"];
+    NSArray *products = [productsResult objectForKey:@"result"];
+    if (!products)
+    {
+        //取默认plist
+        NSString *file = [[NSBundle mainBundle] pathForResource:@"products" ofType:@"plist"];
+        products = [[NSArray alloc] initWithContentsOfFile:file];
+    }
+
     if(sharedCashStoreManager.products)
     {
         for (SKProduct *product in sharedCashStoreManager.products)
@@ -52,8 +62,22 @@
             NSArray *xibArray = [[NSBundle mainBundle] loadNibNamed:@"CashStoreItemView" owner:nil options:nil];
             CashStoreItemView *item = [xibArray objectAtIndex:0];
             item.identifier = product.productIdentifier;
-            [item.itemName setText:product.localizedTitle];
-            [item.itemComment setText:product.localizedDescription];
+            // [item.itemName setText:product.localizedTitle];
+            // [item.itemComment setText:product.localizedDescription];
+            for (NSDictionary *p in products)
+            {
+                NSString *_id = [p objectForKey:@"productIdentifier"];
+                if([[product.productIdentifier isEqualToString: _id]])
+                {
+                    NSDictionary *items = [p objectForKey:@"items"];
+                    NSArray *keys = [items allKeys];
+                    for(NSString *key in keys)
+                    {
+                        int count = [[items objectForKey:key] intValue];
+                    }
+                    break;
+                }
+            }
             
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -72,9 +96,6 @@
     }
     else
     {
-        NSDictionary *config = [DataStorageManager sharedDataStorageManager].config;
-        NSDictionary *productsResult = [config objectForKey:@"products"];
-        NSArray *products = [productsResult objectForKey:@"result"];
         NSComparator sorter = ^NSComparisonResult(NSDictionary *item1, NSDictionary *item2)
         {
             int sort1 = [[item1 objectForKey:@"sort"] intValue];
@@ -93,12 +114,6 @@
             }
         };
         NSMutableArray *idArray = [NSMutableArray new];
-        if (!products)
-        {
-            //取默认plist
-            NSString *file = [[NSBundle mainBundle] pathForResource:@"products" ofType:@"plist"];
-            products = [[NSArray alloc] initWithContentsOfFile:file];
-        }
         
         products = [products sortedArrayUsingComparator:sorter];
         Reachability *reach = [Reachability reachabilityForInternetConnection];     
@@ -120,8 +135,16 @@
                 NSArray *xibArray = [[NSBundle mainBundle] loadNibNamed:@"CashStoreItemView" owner:nil options:nil];
                 CashStoreItemView *item = [xibArray objectAtIndex:0];
                 item.identifier = [product objectForKey:@"productIdentifier"];
-                [item.itemName setText:[product objectForKey:@"localizedTitle"]];
-                [item.itemComment setText:[product objectForKey:@"localizedDescription"]];
+                // [item.itemName setText:[product objectForKey:@"localizedTitle"]];
+                // [item.itemComment setText:[product objectForKey:@"localizedDescription"]];
+                
+                NSDictionary *items = [product objectForKey:@"items"];
+                NSArray *keys = [items allKeys];
+                for(NSString *key in keys)
+                {
+                    int count = [[items objectForKey:key] intValue];
+                }
+                
                 [item.itemCash setText:[product objectForKey:@"price"]];
                 [cashStoreView.scroller addSubview:item];
                 item.backgroundColor = nil;

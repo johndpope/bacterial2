@@ -35,7 +35,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
     if(code == 1001)
     {
         NSString *identifier = [data objectForKey:@"identifier"];
-        NSArray *items = [data objectForKey:@"items"];
+        int *items = [[data objectForKey:@"items"] intValue];
         [self deliverProduct:items withIdentifier:identifier];
     }
     else
@@ -58,17 +58,12 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
     }
 }
 
--(void)deliverProduct:(NSArray *)items withIdentifier:(NSString *)identifier
+-(void)deliverProduct:(int)items withIdentifier:(NSString *)identifier
 {
     int exp = [DataStorageManager sharedDataStorageManager].exp;
-    for(NSDictionary *item in items)
+    if(items > 0)
     {
-        NSString *name = [item objectForKey:@"name"];
-        int count = [[item objectForKey:@"count"] intValue];
-        if([name isEqualToString:@"exp"])
-        {
-            exp = exp + count;
-        }
+        exp = exp + count;
     }
     
     [DataStorageManager sharedDataStorageManager].exp = exp;
@@ -77,7 +72,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
     [self deliverComplete:identifier withItem:items];
 }
 
--(void)deliverComplete:(NSString *)identifier withItem:(NSArray *)items;
+-(void)deliverComplete:(NSString *)identifier withItem:(int)items;
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideLoadingIcon" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showSuccessView" object:@"购买成功"];
@@ -99,17 +94,8 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                 {
                     itemId = identifier;
                 }
-                int cash = [[itemId substringFromIndex:6] intValue];
-                
-                for(NSDictionary *item in items)
-                {
-                    NSString *name = [item objectForKey:@"name"];
-                    int count = [[item objectForKey:@"count"] intValue];
-                    if([name isEqualToString:@"exp"])
-                    {
-                        [MobClickGameAnalytics pay:cash source:1 coin:count];
-                    }
-                }
+                int cash = [[itemId substringFromIndex:9] intValue];
+                [MobClickGameAnalytics pay:cash source:1 coin:items];
                 break;
             }
         }

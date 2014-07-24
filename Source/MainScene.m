@@ -239,7 +239,7 @@ NSArray *checkRevolutionPosition = nil;
         for (int i = 0; i < [_becterialList count]; i++)
         {
             Becterial *b = [_becterialList objectAtIndex:i];
-            b.anchorPoint = ccp(0.f, 0.f);
+            b.anchorPoint = ccp(.5f, .5f);
             NSMutableArray *tmp = [_becterialContainer objectAtIndex:b.positionX];
             [tmp replaceObjectAtIndex:b.positionY withObject:b];
             b.position = ccp(b.positionX * 60.5f, b.positionY * 60.5f);
@@ -585,7 +585,7 @@ NSArray *checkRevolutionPosition = nil;
             Becterial *b = [[Becterial alloc] init];
             b.positionX = x;
             b.positionY = y;
-            b.anchorPoint = ccp(0.f, 0.f);
+            b.anchorPoint = ccp(.5f, .5f);
             b.type = type;
             b.level = level;
             b.position = ccp(x * 60.5f, y * 60.5f);
@@ -983,6 +983,9 @@ NSArray *checkRevolutionPosition = nil;
             }
             CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
             level = fmax(1, level);
+
+            [listFirst removeAllObjects];
+            listFirst = nil;
             return [self generateBacterial:type x:position.x y:position.y level:level];
         }
 
@@ -1011,6 +1014,9 @@ NSArray *checkRevolutionPosition = nil;
                 level = bottomBecterial.level;
             }
             level = fmax(1, level);
+
+            [list removeAllObjects];
+            list = nil;
             return [self generateBacterial:type x:position.x y:position.y level:level];
         }
     }
@@ -1495,8 +1501,7 @@ NSArray *checkRevolutionPosition = nil;
         //得金币
         self.exp = _exp + ENEMY_BASIC_EXP * pow(2, enemy.level - 1);
         
-        CCActionScaleTo *aScaleTo = [CCActionScaleTo actionWithDuration:1.f scale:0.f];
-//        CCShatteredTiles3D *effect = [CCShatteredTiles3D actionWithRange:5 shatterZ:YES grid:ccg(10, 10) duration:3];
+        CCActionScaleTo *aScaleTo = [CCActionScaleTo actionWithDuration:.3f scale:0.f];
         CCActionRemove *aRemove = [CCActionRemove action];
         [enemy runAction:[CCActionSequence actionWithArray:@[aScaleTo, aRemove]]];
         [self saveGame];

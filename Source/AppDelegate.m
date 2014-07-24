@@ -74,7 +74,7 @@
     
     [MobClick startWithAppkey:@"53ca09da56240bbd9b011e55"];
     [UMSocialData setAppKey:@"53ca09da56240bbd9b011e55"];
-    [UMSocialWechatHandler setWXAppId:@"wxfa1868e8028fdf80" url:@"http://b.profzone.net/services/share/wechat"];
+    [UMSocialWechatHandler setWXAppId:@"wxfa1868e8028fdf80" url:@"http://b2.profzone.net/services/share/wechat"];
 
     [YouMiConfig setShouldGetLocation:NO];
     [YouMiConfig launchWithAppID:@"4d8d51cf2afd8db6" appSecret:@"8bec478c6d3f2efc"];
@@ -87,7 +87,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoadVersionConfig:) name:@"requestVersionConfig" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectFailed:) name:@"connectionError1009" object:nil];
-    [[PZWebManager sharedPZWebManager] asyncGetRequest:@"http://b.profzone.net/configuration/version_config" withData:nil];
+    [[PZWebManager sharedPZWebManager] asyncGetRequest:@"http://b2.profzone.net/configuration/version_config" withData:nil];
     
     return YES;
 }
@@ -144,7 +144,7 @@
         [[DataStorageManager sharedDataStorageManager] saveConfig];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveFromServer:) name:@"requestGlobalConfig" object:nil];
-        [[PZWebManager sharedPZWebManager] asyncGetRequest:@"http://b.profzone.net/configuration/global_config" withData:nil];
+        [[PZWebManager sharedPZWebManager] asyncGetRequest:@"http://b2.profzone.net/configuration/global_config" withData:nil];
     }
     else
     {
@@ -199,8 +199,6 @@
                 [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"products"];
             }
             [config setObject:productArray forKey:@"result"];
-            
-            [[CashStoreManager sharedCashStoreManager] validateProductIdentifiers:productArray];
             
             //virtual
             NSDictionary *virtualResult = [data objectForKey:@"virtual_const"];
@@ -270,8 +268,6 @@
                 [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"products"];
             }
             [config setObject:productArray forKey:@"result"];
-            
-            [[CashStoreManager sharedCashStoreManager] validateProductIdentifiers:productArray];
         }
         else if([command isEqualToString:@"requestVirtualConst"])
         {
