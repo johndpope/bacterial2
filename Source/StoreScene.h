@@ -10,4 +10,8 @@
 
 @interface StoreScene : CCNode
 
+-(void)showLoadingIcon:(NSNotification *)notification;
+-(void)hideLoadingIcon:(NSNotification *)notification;
+-(void)showSuccessView:(NSNotification *)notification;
+
 @end
