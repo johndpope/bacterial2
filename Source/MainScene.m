@@ -959,6 +959,7 @@ NSArray *checkRevolutionPosition = nil;
             }
         }
         int level = 0;
+        int index = 0;
         long firstCount = [listFirst count];
         if(firstCount > 0)
         {
@@ -979,14 +980,16 @@ NSArray *checkRevolutionPosition = nil;
                 if(count > level)
                 {
                     level = count;
+                    index = i;
                 }
             }
             CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
-            level = fmax(1, level);
+            level = fmax(1, index + 1);
 
             [listFirst removeAllObjects];
             listFirst = nil;
             [self generateBacterial:1 x:position.x y:position.y level:level];
+            return;
         }
 
         long count = [list count];
@@ -1018,6 +1021,7 @@ NSArray *checkRevolutionPosition = nil;
             [list removeAllObjects];
             list = nil;
             [self generateBacterial:1 x:position.x y:position.y level:level];
+            return;
         }
     }
 }
