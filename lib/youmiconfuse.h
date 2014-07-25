@@ -1,0 +1,52 @@
+#ifndef Demo_codeObfuscation_h   
+#define Demo_codeObfuscation_h
+//confuse string at Thu Jul 17 14:41:52 HKT 2014
+#define YouMiConfig fGuhkwSESKGFfLzk
+#define launchWithAppID QYajHyReidIgyuJn
+#define onlineValueForKey AIZAupaAYNmEqsfi
+#define setChannelID oXPfwKjghahNFWeR
+#define setShouldGetLocation mXNInxemeGzCMAyc
+#define shouldGetLocation fNZdyuRWvRnUOBnI
+#define setUseInAppStore gfZJNhNGuBUQdUfB
+#define setFullScreenWindow jnDzKQDdZYVAiBXM
+#define setUnitName lczrVhmdZHSaLlrw
+#define YouMiPointsManager wmftlOFIFRkMmkbM
+#define kYouMiPointsManagerRecivedPointsNotification NcZJpOAvcschLzsx
+#define kYouMiPointsManagerFreshPointsKey PVQlybxDXqiqXClu
+#define kYouMiPointsManagerPointInfosKey qTCrumSiTDqCGnad
+#define kYouMiPointsManagerPointUserIDKey IfBZpJcHfdaeueln
+#define kYouMiPointsManagerPointAmountKey YZZUoRhmaJjCTXBP
+#define kYouMiPointsManagerPointProductNameKey eLOlXOkQyZQlpRMG
+#define spendPoints cMTBHjxICROGrqkT
+#define rewardPoints MiTdgmZRWLynQDNy
+#define pointsRemained RPMPyGjyfdIdBfwg
+#define enableManually OgJBquTSbCsnmKTV
+#define checkPoints XpxaFPEFoQDZWwqP
+#define setManualCheck iFgqCWcuHSgvyHao
+#define YouMiDelegateProtocol WroAPFJfbbtdhYJI
+#define YouMiDelegate MLawYTqLITSCPBVF
+#define didReceiveAd BcPVrlSYNLOOrPbX
+#define didFailToReceiveAd qTLYAyHPcnARAZts
+#define willPresentScreen xbkoJopDwUbmmcSW
+#define didPresentScreen HyyyuysPwIjziDTC
+#define willDismissScreen SNvzgqZrRnyrIQef
+#define didDismissScreen RCtRqtOjAQeAgBrS
+#define YouMiView FqjKEsrdgTZSQnbD
+#define adViewWithContentSizeIdentifier jUytPpTNeqdmAkQo
+#define initWithContentSizeIdentifier NOHqMOONGPZbHdHd
+#define YouMiWallSpot aaPzkXLWBTpJpoRI
+#define YouMiWallSpotView htkGYoOFYdNWLyZX
+#define YouMiSpot sRCWFHfHIWBfbCZv
+#define requestSpotADs wqlCHSOxlNVOEQcD
+#define showSpotDismiss rkvWpMfjLdcGCRtz
+#define getSpotViewSize CZyvgazIEWhTJdjZ
+#define showSpotViewWithBlock FoUiGTmMUASECTjs
+#define YouMiWall XfVQlNlfpLvnOddq
+#define showOffers pWpyeDHhLjpcfOfJ
+#define didShowBlock kyvYgcFawRkLVlQI
+#define didDismissBlock YDoNXPTbFUeggLwx
+#define showGuideMap hBIvVvvSwtIXlIao
+#define requestOffersOpenData WGEYNBHuAqZLmWoF
+#define userInstallApp OdbhkUwTvsagOvvQ
+#define YouMiWallAppModel MhYUistxLsAAsedu
+#endif

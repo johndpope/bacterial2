@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface YouMiSpots : NSObject
 //请求插播数据
@@ -16,5 +17,5 @@
 +(void)showFullScreenSpots:(void(^)())didMissBlock;
 
 //展示插屏
-+(void)showSpots:(void(^)())didMissBlock;
++(void)showSpotsWithBorderWidth:(NSInteger)borderWidth borderColor:(UIColor *)borderColor cornerRadius:(NSInteger)cornerRadius personImage:(UIImageView *)personImage closeButton:(UIButton *)closeButton didMissBlock:(void(^)())didMissBlock ;
 @end

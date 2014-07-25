@@ -66,11 +66,12 @@
 		BE47C9FF197BFAC7003743C5 /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE47C9F5197BFAC7003743C5 /* products.plist */; };
 		BE47CA00197BFAC7003743C5 /* PZLabelScore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */; };
 		BE47CA01197BFAC7003743C5 /* ScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F9197BFAC7003743C5 /* ScoreScene.m */; };
+		BE6423231982BBF500669D61 /* ScoreNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6423221982BBF500669D61 /* ScoreNode.m */; };
+		BE6423311982BC6C00669D61 /* libOpenIDFA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE64232F1982BC6C00669D61 /* libOpenIDFA.a */; };
+		BE6423321982BC6C00669D61 /* libYouMi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6423301982BC6C00669D61 /* libYouMi.a */; };
 		BE83D2F8197FF48600E3D7AA /* VirtualStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE83D2F7197FF48600E3D7AA /* VirtualStore.m */; };
 		BE83D30019800CD200E3D7AA /* virtual_const.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE83D2FF19800CD200E3D7AA /* virtual_const.plist */; };
 		BE97B5B1197C106400D8322D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE97B5B0197C106400D8322D /* Images.xcassets */; };
-		BE97B5C0197C10D800D8322D /* libOpenIDFA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5BE197C10D800D8322D /* libOpenIDFA.a */; };
-		BE97B5C1197C10D800D8322D /* libYouMi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5BF197C10D800D8322D /* libYouMi.a */; };
 		BE97B5C3197C10F700D8322D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C2197C10F700D8322D /* GameKit.framework */; };
 		BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C4197C10FF00D8322D /* StoreKit.framework */; };
 		BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C6197C113300D8322D /* CFNetwork.framework */; };
@@ -192,21 +193,24 @@
 		BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PZLabelScore.m; path = Source/PZLabelScore.m; sourceTree = "<group>"; };
 		BE47C9F8197BFAC7003743C5 /* ScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreScene.h; path = Source/ScoreScene.h; sourceTree = "<group>"; };
 		BE47C9F9197BFAC7003743C5 /* ScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreScene.m; path = Source/ScoreScene.m; sourceTree = "<group>"; };
+		BE6423211982BBF500669D61 /* ScoreNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreNode.h; path = Source/ScoreNode.h; sourceTree = "<group>"; };
+		BE6423221982BBF500669D61 /* ScoreNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreNode.m; path = Source/ScoreNode.m; sourceTree = "<group>"; };
+		BE6423261982BC6C00669D61 /* YouMiConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiConfig.h; sourceTree = "<group>"; };
+		BE6423271982BC6C00669D61 /* YouMiDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiDelegateProtocol.h; sourceTree = "<group>"; };
+		BE6423281982BC6C00669D61 /* YouMiPointsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiPointsManager.h; sourceTree = "<group>"; };
+		BE6423291982BC6C00669D61 /* YouMiSpots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiSpots.h; sourceTree = "<group>"; };
+		BE64232A1982BC6C00669D61 /* YouMiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiView.h; sourceTree = "<group>"; };
+		BE64232B1982BC6C00669D61 /* YouMiWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWall.h; sourceTree = "<group>"; };
+		BE64232C1982BC6C00669D61 /* YouMiWallAppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallAppModel.h; sourceTree = "<group>"; };
+		BE64232D1982BC6C00669D61 /* YouMiWallSpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpot.h; sourceTree = "<group>"; };
+		BE64232E1982BC6C00669D61 /* YouMiWallSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpotView.h; sourceTree = "<group>"; };
+		BE64232F1982BC6C00669D61 /* libOpenIDFA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenIDFA.a; sourceTree = "<group>"; };
+		BE6423301982BC6C00669D61 /* libYouMi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYouMi.a; sourceTree = "<group>"; };
+		BE6423331982BC7600669D61 /* youmiconfuse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = youmiconfuse.h; sourceTree = "<group>"; };
 		BE83D2F6197FF48600E3D7AA /* VirtualStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VirtualStore.h; path = Source/VirtualStore.h; sourceTree = "<group>"; };
 		BE83D2F7197FF48600E3D7AA /* VirtualStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VirtualStore.m; path = Source/VirtualStore.m; sourceTree = "<group>"; };
 		BE83D2FF19800CD200E3D7AA /* virtual_const.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = virtual_const.plist; path = Source/virtual_const.plist; sourceTree = "<group>"; };
 		BE97B5B0197C106400D8322D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = bacterial2/Images.xcassets; sourceTree = SOURCE_ROOT; };
-		BE97B5B5197C10D800D8322D /* YouMiConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiConfig.h; sourceTree = "<group>"; };
-		BE97B5B6197C10D800D8322D /* YouMiDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiDelegateProtocol.h; sourceTree = "<group>"; };
-		BE97B5B7197C10D800D8322D /* YouMiPointsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiPointsManager.h; sourceTree = "<group>"; };
-		BE97B5B8197C10D800D8322D /* YouMiSpots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiSpots.h; sourceTree = "<group>"; };
-		BE97B5B9197C10D800D8322D /* YouMiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiView.h; sourceTree = "<group>"; };
-		BE97B5BA197C10D800D8322D /* YouMiWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWall.h; sourceTree = "<group>"; };
-		BE97B5BB197C10D800D8322D /* YouMiWallAppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallAppModel.h; sourceTree = "<group>"; };
-		BE97B5BC197C10D800D8322D /* YouMiWallSpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpot.h; sourceTree = "<group>"; };
-		BE97B5BD197C10D800D8322D /* YouMiWallSpotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouMiWallSpotView.h; sourceTree = "<group>"; };
-		BE97B5BE197C10D800D8322D /* libOpenIDFA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOpenIDFA.a; sourceTree = "<group>"; };
-		BE97B5BF197C10D800D8322D /* libYouMi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYouMi.a; sourceTree = "<group>"; };
 		BE97B5C2197C10F700D8322D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		BE97B5C4197C10FF00D8322D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE97B5C6197C113300D8322D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -223,6 +227,7 @@
 				BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */,
 				BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
+				BE6423321982BC6C00669D61 /* libYouMi.a in Frameworks */,
 				BE47C989197BF837003743C5 /* libSocialWechat.a in Frameworks */,
 				BE47C98A197BF837003743C5 /* libWeChatSDK.a in Frameworks */,
 				B737898A1807642B0076A88C /* libcocos2d.a in Frameworks */,
@@ -231,7 +236,6 @@
 				B77F1B3617B978D7009739AE /* OpenAL.framework in Frameworks */,
 				BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */,
 				BE47C97B197BF836003743C5 /* libMobClickGameLibrary.a in Frameworks */,
-				BE97B5C0197C10D800D8322D /* libOpenIDFA.a in Frameworks */,
 				BE47C987197BF836003743C5 /* libUMSocial_Sdk_ScreenShot_1.0.a in Frameworks */,
 				B77F1B3817B978D7009739AE /* AudioToolbox.framework in Frameworks */,
 				B77F1B3A17B978D7009739AE /* AVFoundation.framework in Frameworks */,
@@ -240,8 +244,8 @@
 				B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */,
 				BE47C97D197BF836003743C5 /* libUMSocial_Sdk_3.3.8.a in Frameworks */,
 				B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */,
+				BE6423311982BC6C00669D61 /* libOpenIDFA.a in Frameworks */,
 				B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */,
-				BE97B5C1197C10D800D8322D /* libYouMi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +291,8 @@
 				B737893E1807617C0076A88C /* AppDelegate.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				BE6423211982BBF500669D61 /* ScoreNode.h */,
+				BE6423221982BBF500669D61 /* ScoreNode.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -487,6 +493,22 @@
 			name = Network;
 			sourceTree = "<group>";
 		};
+		BE6423251982BC6C00669D61 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				BE6423261982BC6C00669D61 /* YouMiConfig.h */,
+				BE6423271982BC6C00669D61 /* YouMiDelegateProtocol.h */,
+				BE6423281982BC6C00669D61 /* YouMiPointsManager.h */,
+				BE6423291982BC6C00669D61 /* YouMiSpots.h */,
+				BE64232A1982BC6C00669D61 /* YouMiView.h */,
+				BE64232B1982BC6C00669D61 /* YouMiWall.h */,
+				BE64232C1982BC6C00669D61 /* YouMiWallAppModel.h */,
+				BE64232D1982BC6C00669D61 /* YouMiWallSpot.h */,
+				BE64232E1982BC6C00669D61 /* YouMiWallSpotView.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		BE83D2FA197FF4DD00E3D7AA /* VirtualStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,28 +522,13 @@
 		BE97B5B3197C10D800D8322D /* youmi */ = {
 			isa = PBXGroup;
 			children = (
-				BE97B5B4197C10D800D8322D /* include */,
-				BE97B5BE197C10D800D8322D /* libOpenIDFA.a */,
-				BE97B5BF197C10D800D8322D /* libYouMi.a */,
+				BE6423331982BC7600669D61 /* youmiconfuse.h */,
+				BE6423251982BC6C00669D61 /* include */,
+				BE64232F1982BC6C00669D61 /* libOpenIDFA.a */,
+				BE6423301982BC6C00669D61 /* libYouMi.a */,
 			);
 			name = youmi;
 			path = lib;
-			sourceTree = "<group>";
-		};
-		BE97B5B4197C10D800D8322D /* include */ = {
-			isa = PBXGroup;
-			children = (
-				BE97B5B5197C10D800D8322D /* YouMiConfig.h */,
-				BE97B5B6197C10D800D8322D /* YouMiDelegateProtocol.h */,
-				BE97B5B7197C10D800D8322D /* YouMiPointsManager.h */,
-				BE97B5B8197C10D800D8322D /* YouMiSpots.h */,
-				BE97B5B9197C10D800D8322D /* YouMiView.h */,
-				BE97B5BA197C10D800D8322D /* YouMiWall.h */,
-				BE97B5BB197C10D800D8322D /* YouMiWallAppModel.h */,
-				BE97B5BC197C10D800D8322D /* YouMiWallSpot.h */,
-				BE97B5BD197C10D800D8322D /* YouMiWallSpotView.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -663,6 +670,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE6423231982BBF500669D61 /* ScoreNode.m in Sources */,
 				BE47C9FC197BFAC7003743C5 /* GameCenterManager.m in Sources */,
 				BE47C9FA197BFAC7003743C5 /* Becterial.m in Sources */,
 				BE47C9FB197BFAC7003743C5 /* DataStorageManager.m in Sources */,
