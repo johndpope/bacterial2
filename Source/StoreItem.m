@@ -30,9 +30,9 @@
 {
 	Reachability *reach = [Reachability reachabilityForInternetConnection];
     NetworkStatus netStatus = [reach currentReachabilityStatus];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showLoadingIcon" object:nil];
     if(netStatus != NotReachable)
     {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showLoadingIcon" object:nil];
 	    [[CashStoreManager sharedCashStoreManager] purchaseProduct:_identifier];
 	}
 	else

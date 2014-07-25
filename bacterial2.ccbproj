@@ -82,20 +82,6 @@
 		</dict>
 		<key>Sprites</key>
 		<dict/>
-		<key>ccbResources/ccbButtonHighlighted.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-			<key>tabletScale</key>
-			<integer>1</integer>
-		</dict>
-		<key>ccbResources/ccbButtonNormal.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-			<key>tabletScale</key>
-			<integer>1</integer>
-		</dict>
 		<key>ccbResources/ccbParticleFire.png</key>
 		<dict>
 			<key>scaleFrom</key>
@@ -131,34 +117,6 @@
 			<key>tabletScale</key>
 			<integer>1</integer>
 		</dict>
-		<key>ccbResources/ccbSliderBgHighlighted.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-			<key>tabletScale</key>
-			<integer>1</integer>
-		</dict>
-		<key>ccbResources/ccbSliderBgNormal.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-			<key>tabletScale</key>
-			<integer>1</integer>
-		</dict>
-		<key>ccbResources/ccbSliderHandle.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-			<key>tabletScale</key>
-			<integer>1</integer>
-		</dict>
-		<key>ccbResources/ccbTextField.png</key>
-		<dict>
-			<key>scaleFrom</key>
-			<integer>2</integer>
-			<key>tabletScale</key>
-			<integer>1</integer>
-		</dict>
 		<key>enemy</key>
 		<dict>
 			<key>isSmartSpriteSheet</key>
@@ -176,15 +134,11 @@
 		</dict>
 		<key>store</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>
 		<key>virtualstore</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>

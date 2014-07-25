@@ -60,7 +60,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "NSZombieEnabled"
-            value = "NO"
+            value = "YES"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable

@@ -79,7 +79,6 @@
     [YouMiConfig setShouldGetLocation:NO];
     [YouMiConfig launchWithAppID:@"4d8d51cf2afd8db6" appSecret:@"8bec478c6d3f2efc"];
     [YouMiPointsManager enable];
-    [YouMiWall enable];
 
 #ifdef DEBUG_MODE
    [MobClick setLogEnabled:YES];

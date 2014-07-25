@@ -10,6 +10,7 @@
 #import "VirtualStore.h"
 #import "PZLabelScore.h"
 #import "DataStorageManager.h"
+#import "YouMiWall.h"
 
 #define BUYSTEP50 @"step50"
 #define BUYSTEP500 @"step500"
@@ -65,6 +66,7 @@
     gold = dataExp;
     [lblGold setScore:gold];
     containerMessage.visible = NO;
+    btnScoreboard.visible = NO;
     btnMask.enabled = NO;
     currentSelected = 0;
     
@@ -74,6 +76,23 @@
         if(virtualResult)
         {
             virtual = [virtualResult objectForKey:@"result"];
+        }
+        
+        NSDictionary *scoreboardResult = [dataConfig objectForKey:@"score_board"];
+        int scoreboard = [[scoreboardResult objectForKey:@"result"] intValue];
+        if(scoreboard == 1)
+        {
+            btnScoreboard.visible = YES;
+            int *points = [YouMiPointsManager pointsRemained];
+            if(*points > 0)
+            {
+                [YouMiPointsManager spendPoints:*points];
+                [DataStorageManager sharedDataStorageManager].exp = [DataStorageManager sharedDataStorageManager].exp + *points;
+                [[DataStorageManager sharedDataStorageManager] saveData];
+                
+                [self setGold:dataExp];
+            }
+            free(points);
         }
     }
     
@@ -123,7 +142,12 @@
 
 -(void)btnScoreboardTouch
 {
-    
+    [YouMiWall enable];
+    [YouMiWall showOffers:YES didShowBlock:^{
+        
+    } didDismissBlock:^{
+        
+    }];
 }
 
 -(void)btnStep50Touch
