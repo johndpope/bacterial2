@@ -10,4 +10,6 @@
 
 @interface ScoreNode : CCNode
 
+@property (nonatomic) int score;
+
 @end

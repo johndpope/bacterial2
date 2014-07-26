@@ -8,26 +8,45 @@
 
 #import "ScoreNode.h"
 #import "PZLabelScore.h"
+#import "MainScene.h"
 
 @implementation ScoreNode
 {
     PZLabelScore *lblScore;
-    int score;
+    CCButton *btnMessageMask;
+    MainScene *mainScene;
 }
 
--(void)btnCloseTouch
+-(void)didLoadFromCCB
 {
+    lblScore = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
+    lblScore.position = ccp(160.f, 250.f);
+    [self addChild:lblScore];
     
+    btnMessageMask.enabled = NO;
+}
+
+-(void)onEnter
+{
+    [super onEnter];
+    mainScene = (MainScene *)self.parent;
 }
 
 -(void)btnResetTouch
 {
-    
+    [mainScene reset];
+    [self removeFromParentAndCleanup:YES];
 }
 
 -(void)btnMenuTouch
 {
-    
+    [mainScene showScoreScene];
+}
+
+-(void)setScore:(int)score
+{
+    _score = score;
+    [lblScore setScore:score];
 }
 
 @end

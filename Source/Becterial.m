@@ -18,6 +18,7 @@
     CCSprite *lv;
     PZLabelScore *lblLevel;
     MainScene *mainScene;
+    CCProgressNode *cdNode;
 }
 
 -(id)init
@@ -25,17 +26,8 @@
     self = [super init];
     if(self)
     {
-        lv = [CCSprite spriteWithImageNamed:@"number_small/lv.png"];
-        lv.anchorPoint = ccp(0.f, 0.f);
-        lv.position = ccp(0.f, 0.f);
-        [self addChild:lv];
-        
-        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:8 itemHeight:10];
-        lblLevel.anchorPoint = ccp(0.f, 0.f);
-        lblLevel.position = ccp(15.f, 0.f);
-        [self addChild:lblLevel];
-        
         self.nextEvolution = ENEMY_EVOLUTION_BASIC_TIME;
+        self.nextEvolutionCurrent = ENEMY_EVOLUTION_BASIC_TIME;
         self.userInteractionEnabled = YES;
     }
     return self;
@@ -53,11 +45,12 @@
 
 -(void)update:(CCTime)delta
 {
-    if(_type == 1)
+    if(mainScene.isRunning && _type == 1)
     {
-        if(_nextEvolution > 0)
+        if(_nextEvolutionCurrent > 0)
         {
-            self.nextEvolution = _nextEvolution - delta;
+            self.nextEvolutionCurrent = _nextEvolutionCurrent - delta;
+            cdNode.percentage = (_nextEvolutionCurrent / _nextEvolution) * 100.f;
         }
         else
         {
@@ -137,11 +130,13 @@
 
         if(level <= 9)
         {
-            self.nextEvolution = ENEMY_EVOLUTION_BASIC_TIME + (level - 1) * 5;
+            self.nextEvolutionCurrent = ENEMY_EVOLUTION_BASIC_TIME + (level - 1) * 5;
+            self.nextEvolution = _nextEvolutionCurrent;
         }
         else
         {
-            self.nextEvolution = ENEMY_EVOLUTION_MAX_TIME;
+            self.nextEvolutionCurrent = ENEMY_EVOLUTION_MAX_TIME;
+            self.nextEvolution = _nextEvolutionCurrent;
         }
 	}
 }
@@ -152,25 +147,25 @@
     if(type == 1)
     {
         self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"enemy/enemy1.png"];
+        
+        lv = [CCSprite spriteWithImageNamed:@"number_small/lv.png"];
+        lv.anchorPoint = ccp(0.f, 0.f);
+        lv.position = ccp(0.f, 0.f);
+        [self addChild:lv];
+        
+        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:8 itemHeight:10];
+        lblLevel.anchorPoint = ccp(0.f, 0.f);
+        lblLevel.position = ccp(15.f, 0.f);
+        [self addChild:lblLevel];
+        
+        CCSprite *s = [CCSprite spriteWithImageNamed:@"resources/bacterial_cd.png"];
+        cdNode = [CCProgressNode progressWithSprite:s];
+        cdNode.type = CCProgressNodeTypeRadial;
+        cdNode.anchorPoint = ccp(0.f, 0.f);
+        cdNode.position = ccp(0.f, 0.f);
+        cdNode.percentage = 0.f;
+        [self addChild:cdNode];
     }
-    else
-    {
-        lv.visible = NO;
-        lblLevel.visible = NO;
-    }
-}
-
--(Becterial *)clone
-{
-    Becterial *b = (Becterial *)[CCBReader load:@"Becterial"];
-    b.level = self.level;
-    b.type = self.type;
-    b.positionX = self.positionX;
-    b.positionY = self.positionY;
-    b.position = ccp(self.position.x, self.position.y);
-    b.anchorPoint = ccp(0.f, 0.f);
-    
-    return b;
 }
 
 //序列化
@@ -181,6 +176,7 @@
     [aCoder encodeInt:_positionX forKey:@"positionX"];
     [aCoder encodeInt:_positionY forKey:@"positionY"];
     [aCoder encodeFloat:_nextEvolution forKey:@"nextEvolution"];
+    [aCoder encodeFloat:_nextEvolutionCurrent forKey:@"nextEvolutionCurrent"];
 }
 
 //反序列化
@@ -188,24 +184,13 @@
 {
     if(self = [super init])
     {
-        lv = [CCSprite spriteWithImageNamed:@"number_small/lv.png"];
-        lv.anchorPoint = ccp(0.f, 0.f);
-        lv.position = ccp(0.f, 0.f);
-        [self addChild:lv];
-        
-        lblLevel = [PZLabelScore initWithScore:0 fileName:@"number_small/" itemWidth:14 itemHeight:22];
-        lblLevel.anchorPoint = ccp(0.f, 0.f);
-        lblLevel.position = ccp(15.f, 0.f);
-        [self addChild:lblLevel];
-        
-        self.nextEvolution = 60.f;
         self.userInteractionEnabled = YES;
-        
         self.type = [aDecoder decodeIntForKey:@"type"];
         self.level = [aDecoder decodeIntForKey:@"level"];
         self.positionX = [aDecoder decodeIntForKey:@"positionX"];
         self.positionY = [aDecoder decodeIntForKey:@"positionY"];
         self.nextEvolution = [aDecoder decodeFloatForKey:@"nextEvolution"];
+        self.nextEvolutionCurrent = [aDecoder decodeFloatForKey:@"nextEvolutionCurrent"];
     }
 
     return self;

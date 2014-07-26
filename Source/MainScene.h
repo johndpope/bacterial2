@@ -12,6 +12,7 @@
 
 @interface MainScene : CCNode
 
+@property (nonatomic) BOOL isRunning;
 @property (nonatomic) CGFloat score; //分数
 @property (nonatomic) int stepCount; //步数
 @property (nonatomic) int exp; //金币
@@ -27,5 +28,6 @@
 -(BOOL)loadGame;
 -(void)checkResult;
 -(void)reset;
+-(ScoreScene *)showScoreScene;
 
 @end

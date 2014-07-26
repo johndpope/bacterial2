@@ -16,6 +16,7 @@
 #import "CashStoreManager.h"
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
+#import "ScoreNode.h"
 
 #define defaultStepCount 2000
 #define accelerateIncreaseBiomassRate 1.f;
@@ -70,7 +71,7 @@ NSArray *checkRevolutionPosition = nil;
     {
         isR4 = NO;
     }
-
+    _isRunning = YES;
     _lblScore = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
     {
@@ -116,51 +117,54 @@ NSArray *checkRevolutionPosition = nil;
 
 -(void)update:(CCTime)delta
 {
-    runningTime = runningTime + delta;
-    enemyGenerateTime = enemyGenerateTime + delta;
-    if(runningTime <= 121.f)
+    if(_isRunning)
     {
-        if(enemyGenerateTime >= 30.f)
+        runningTime = runningTime + delta;
+        enemyGenerateTime = enemyGenerateTime + delta;
+        if(runningTime <= 121.f)
         {
-            //产生新的生物虫
-            [self putNewEnemy];
-            enemyGenerateTime = 0.f;
+            if(enemyGenerateTime >= 30.f)
+            {
+                //产生新的生物虫
+                [self putNewEnemy];
+                enemyGenerateTime = 0.f;
+            }
         }
-    }
-    else if(runningTime <= 301.f)
-    {
-        if(enemyGenerateTime >= 20.f)
+        else if(runningTime <= 301.f)
         {
-            //产生新的生物虫
-            [self putNewEnemy:(arc4random() % 3)];
-            enemyGenerateTime = 0.f;
+            if(enemyGenerateTime >= 20.f)
+            {
+                //产生新的生物虫
+                [self putNewEnemy:(arc4random() % 3)];
+                enemyGenerateTime = 0.f;
+            }
         }
-    }
-    else if(runningTime <= 601.f)
-    {
-        if(enemyGenerateTime >= 10.f)
+        else if(runningTime <= 601.f)
         {
-            //产生新的生物虫
-            [self putNewEnemy:(arc4random() % 4)];
-            enemyGenerateTime = 0.f;
+            if(enemyGenerateTime >= 10.f)
+            {
+                //产生新的生物虫
+                [self putNewEnemy:(arc4random() % 4)];
+                enemyGenerateTime = 0.f;
+            }
         }
-    }
-    else if(runningTime <= 901.f)
-    {
-        if(enemyGenerateTime >= 5.f)
+        else if(runningTime <= 901.f)
         {
-            //产生新的生物虫
-            [self putNewEnemy:1 telent:YES];
-            enemyGenerateTime = 0.f;
+            if(enemyGenerateTime >= 5.f)
+            {
+                //产生新的生物虫
+                [self putNewEnemy:1 telent:YES];
+                enemyGenerateTime = 0.f;
+            }
         }
-    }
-    else
-    {
-        if(enemyGenerateTime >= 3.f)
+        else
         {
-            //产生新的生物虫
-            [self putNewEnemy:1 telent:YES];
-            enemyGenerateTime = 0.f;
+            if(enemyGenerateTime >= 3.f)
+            {
+                //产生新的生物虫
+                [self putNewEnemy:1 telent:YES];
+                enemyGenerateTime = 0.f;
+            }
         }
     }
 }
@@ -784,7 +788,7 @@ NSArray *checkRevolutionPosition = nil;
     {
         other = [list objectAtIndex:m];
         [[_becterialContainer objectAtIndex:other.positionX] replaceObjectAtIndex:other.positionY withObject:[NSNull null]];
-
+        
         CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(becterial.position.x, becterial.position.y)];
         CCActionRemove *aRemove = [CCActionRemove action];
         if(!isCallback)
@@ -1168,6 +1172,7 @@ NSArray *checkRevolutionPosition = nil;
     Becterial *b = [[_becterialContainer objectAtIndex:x] objectAtIndex:y];
     if(b.type == 1)
     {
+        b.nextEvolutionCurrent = b.nextEvolutionCurrent  + 60.f;
         b.nextEvolution = b.nextEvolution  + 60.f;
         self.killerCount--;
         [self checkResult];
@@ -1187,8 +1192,11 @@ NSArray *checkRevolutionPosition = nil;
     {
         b.level++;
         self.uperCount--;
-        [self checkResult];
-        [self saveGame];
+        if(![self evolution])
+        {
+            [self checkResult];
+            [self saveGame];
+        }
     }
 }
 
@@ -1213,10 +1221,10 @@ NSArray *checkRevolutionPosition = nil;
         enemy = (Becterial *)[_enemyList objectAtIndex:i];
         enemy.checked = NO;
     }
-
+    
+    list = [[NSMutableArray alloc] init];
     for (int i = 0; i < [_enemyList count]; ++i)
     {
-        list = [[NSMutableArray alloc] init];
         enemy = (Becterial *)[_enemyList objectAtIndex:i];
 
         //判断吞噬;
@@ -1251,15 +1259,22 @@ NSArray *checkRevolutionPosition = nil;
         }
         [self doEatEffect:list byEnemy:enemy];
         [list removeAllObjects];
-        list = nil;
-
+    }
+    
+    for (int i = 0; i < [_enemyList count]; ++i)
+    {
+        enemy = (Becterial *)[_enemyList objectAtIndex:i];
+        
         //判断是否被包围
         if(!enemy.checked)
         {
             list = [self isSurrounded:enemy];
+            if([list count] == 0)
+            {
+                break;
+            }
             [self doTerminatedEffect:list];
             [list removeAllObjects];
-            list = nil;
         }
     }
 
@@ -1284,8 +1299,11 @@ NSArray *checkRevolutionPosition = nil;
 
     if(availableBlock == 0)
     {
-        ScoreScene *score = [self showScoreScene];
-        [score setOver:YES];
+        _isRunning = NO;
+        ScoreNode *s = (ScoreNode *)[CCBReader load:@"Score"];
+        s.score = _score;
+        
+        [self addChild:s];
     }
 }
 
@@ -1329,6 +1347,11 @@ NSArray *checkRevolutionPosition = nil;
                         [tmpArray removeAllObjects];
                         top = YES;
                     }
+                    else
+                    {
+                        [list removeAllObjects];
+                        return list;
+                    }
                     tmpArray = nil;
                 }
                 else
@@ -1370,6 +1393,11 @@ NSArray *checkRevolutionPosition = nil;
                         }
                         [tmpArray removeAllObjects];
                         bottom = YES;
+                    }
+                    else
+                    {
+                        [list removeAllObjects];
+                        return list;
                     }
                     tmpArray = nil;
                 }
@@ -1413,6 +1441,11 @@ NSArray *checkRevolutionPosition = nil;
                         [tmpArray removeAllObjects];
                         left = YES;
                     }
+                    else
+                    {
+                        [list removeAllObjects];
+                        return list;
+                    }
                     tmpArray = nil;
                 }
                 else
@@ -1454,6 +1487,11 @@ NSArray *checkRevolutionPosition = nil;
                         }
                         [tmpArray removeAllObjects];
                         right = YES;
+                    }
+                    else
+                    {
+                        [list removeAllObjects];
+                        return list;
                     }
                     tmpArray = nil;
                 }
@@ -1582,6 +1620,7 @@ NSArray *checkRevolutionPosition = nil;
 
 -(void)reset
 {
+    _isRunning = YES;
     runningTime = 0;
     enemyGenerateTime = 0;
     self.maxLevel = 0;

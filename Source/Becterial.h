@@ -15,8 +15,7 @@
 @property (nonatomic) int positionX;
 @property (nonatomic) int positionY;
 @property (nonatomic) CGFloat nextEvolution;
+@property (nonatomic) CGFloat nextEvolutionCurrent;
 @property (nonatomic) BOOL checked; //用于检查生物虫是否已判定被包围
-
--(Becterial *)clone;
 
 @end
