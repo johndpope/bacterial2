@@ -36,6 +36,7 @@
 		B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
+		BE0867F71985405C007260E9 /* achievement_const.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0867F61985405C007260E9 /* achievement_const.plist */; };
 		BE1E4ED219813E01000EED56 /* StoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED119813E01000EED56 /* StoreScene.m */; };
 		BE1E4ED519814ACE000EED56 /* StoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED419814ACE000EED56 /* StoreItem.m */; };
 		BE47C97B197BF836003743C5 /* libMobClickGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C953197BF836003743C5 /* libMobClickGameLibrary.a */; };
@@ -131,6 +132,7 @@
 		B77F1B3F17B978D7009739AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
+		BE0867F61985405C007260E9 /* achievement_const.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = achievement_const.plist; path = Source/achievement_const.plist; sourceTree = "<group>"; };
 		BE1E4ED019813E01000EED56 /* StoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreScene.h; path = Source/StoreScene.h; sourceTree = "<group>"; };
 		BE1E4ED119813E01000EED56 /* StoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreScene.m; path = Source/StoreScene.m; sourceTree = "<group>"; };
 		BE1E4ED319814ACE000EED56 /* StoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreItem.h; path = Source/StoreItem.h; sourceTree = "<group>"; };
@@ -138,7 +140,6 @@
 		BE47C953197BF836003743C5 /* libMobClickGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickGameLibrary.a; sourceTree = "<group>"; };
 		BE47C954197BF836003743C5 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		BE47C955197BF836003743C5 /* MobClickGameAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickGameAnalytics.h; sourceTree = "<group>"; };
-		BE47C958197BF836003743C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
 		BE47C95A197BF836003743C5 /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
 		BE47C95B197BF836003743C5 /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
 		BE47C95C197BF836003743C5 /* UMSocialBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialBar.h; sourceTree = "<group>"; };
@@ -263,6 +264,7 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BE0867F61985405C007260E9 /* achievement_const.plist */,
 				BE1E4ECE19813DEB000EED56 /* Store */,
 				BE83D2FA197FF4DD00E3D7AA /* VirtualStore */,
 				BEDFB220197D556100A4E561 /* Uper.h */,
@@ -618,6 +620,7 @@
 				BE47C97E197BF836003743C5 /* UMSCommentDetailController.xib in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
 				BE47C97C197BF836003743C5 /* UMSocialLocalizable.strings in Resources */,
+				BE0867F71985405C007260E9 /* achievement_const.plist in Resources */,
 				BE47C981197BF836003743C5 /* UMShareEditViewController.xib in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
@@ -706,7 +709,6 @@
 		BE47C957197BF836003743C5 /* UMSocialLocalizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BE47C958197BF836003743C5 /* en */,
 				BE47C974197BF836003743C5 /* zh-Hans */,
 			);
 			name = UMSocialLocalizable.strings;

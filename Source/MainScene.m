@@ -17,6 +17,7 @@
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 #import "ScoreNode.h"
+#import "MobClickGameAnalytics.h"
 
 #define defaultStepCount 2000
 #define accelerateIncreaseBiomassRate 1.f;
@@ -409,6 +410,19 @@ NSArray *checkRevolutionPosition = nil;
     [super onEnter];
 
     [self prepareStage];
+    
+//    [self generateBacterial:1 x:4 y:5 level:1];
+//    
+//    [self generateBacterial:1 x:0 y:0 level:1];
+//    [self generateBacterial:1 x:1 y:0 level:1];
+//    [self generateBacterial:1 x:2 y:0 level:1];
+//    [self generateBacterial:1 x:0 y:1 level:1];
+//    [self generateBacterial:1 x:1 y:1 level:1];
+//    [self generateBacterial:1 x:0 y:2 level:1];
+//    
+//    [self generateBacterial:0 x:3 y:0 level:6];
+//    [self generateBacterial:0 x:2 y:1 level:4];
+//    [self generateBacterial:0 x:1 y:1 level:4];
 }
 
 -(void)onExit
@@ -1177,6 +1191,8 @@ NSArray *checkRevolutionPosition = nil;
         self.killerCount--;
         [self checkResult];
         [self saveGame];
+        
+        [MobClickGameAnalytics use:@"killer" amount:1 price:0];
     }
 }
 
@@ -1197,6 +1213,8 @@ NSArray *checkRevolutionPosition = nil;
             [self checkResult];
             [self saveGame];
         }
+        
+        [MobClickGameAnalytics use:@"uper" amount:1 price:0];
     }
 }
 
@@ -1271,7 +1289,7 @@ NSArray *checkRevolutionPosition = nil;
             list = [self isSurrounded:enemy];
             if([list count] == 0)
             {
-                break;
+                continue;
             }
             [self doTerminatedEffect:list];
             [list removeAllObjects];
@@ -1304,12 +1322,14 @@ NSArray *checkRevolutionPosition = nil;
         s.score = _score;
         
         [self addChild:s];
+        [[GameCenterManager sharedGameCenterManager] reportScore:_score];
     }
 }
 
 -(NSMutableArray *)isSurrounded:(Becterial *)enemy
 {
     NSMutableArray *list = [[NSMutableArray alloc] init];
+    NSMutableArray *listLeft, *listRight, *listTop, *listBottom;
     NSMutableArray *tmp;
     Becterial *bacterial;
     enemy.checked = YES;
@@ -1319,6 +1339,10 @@ NSArray *checkRevolutionPosition = nil;
     BOOL left = enemy.positionX == 0;
     BOOL bottom = enemy.positionY == 0;
     BOOL right = enemy.positionX == 4;
+    BOOL topIsEnemy = NO;
+    BOOL bottomIsEnemy = NO;
+    BOOL leftIsEnemy = NO;
+    BOOL rightIsEnemy = NO;
     //上
     if(!top)
     {
@@ -1335,35 +1359,20 @@ NSArray *checkRevolutionPosition = nil;
             }
             else 
             {
+                topIsEnemy = YES;
                 if(!bacterial.checked)
                 {
-                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    if ([tmpArray count] > 0)
+                    listTop = [self isSurrounded:bacterial];
+                    if ([listTop count] > 0)
                     {
-                        for(Becterial *b in tmpArray)
-                        {
-                            [list addObject:b];
-                        }
-                        [tmpArray removeAllObjects];
                         top = YES;
                     }
-                    else
-                    {
-                        [list removeAllObjects];
-                        return list;
-                    }
-                    tmpArray = nil;
                 }
                 else
                 {
                     top = YES;
                 }
             }
-        }
-        else
-        {
-            [list removeAllObjects];
-            return list;
         }
     }
     //下
@@ -1382,35 +1391,20 @@ NSArray *checkRevolutionPosition = nil;
             }
             else 
             {
+                bottomIsEnemy = YES;
                 if(!bacterial.checked)
                 {
-                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    if ([tmpArray count] > 0)
+                    listBottom = [self isSurrounded:bacterial];
+                    if ([listBottom count] > 0)
                     {
-                        for(Becterial *b in tmpArray)
-                        {
-                            [list addObject:b];
-                        }
-                        [tmpArray removeAllObjects];
                         bottom = YES;
                     }
-                    else
-                    {
-                        [list removeAllObjects];
-                        return list;
-                    }
-                    tmpArray = nil;
                 }
                 else
                 {
                     bottom = YES;
                 }
             }
-        }
-        else
-        {
-            [list removeAllObjects];
-            return list;
         }
     }
     //左
@@ -1429,35 +1423,20 @@ NSArray *checkRevolutionPosition = nil;
             }
             else 
             {
+                leftIsEnemy = YES;
                 if(!bacterial.checked)
                 {
-                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    if ([tmpArray count] > 0)
+                    listLeft = [self isSurrounded:bacterial];
+                    if ([listLeft count] > 0)
                     {
-                        for(Becterial *b in tmpArray)
-                        {
-                            [list addObject:b];
-                        }
-                        [tmpArray removeAllObjects];
                         left = YES;
                     }
-                    else
-                    {
-                        [list removeAllObjects];
-                        return list;
-                    }
-                    tmpArray = nil;
                 }
                 else
                 {
                     left = YES;
                 }
             }
-        }
-        else
-        {
-            [list removeAllObjects];
-            return list;
         }
     }
     //右
@@ -1476,24 +1455,14 @@ NSArray *checkRevolutionPosition = nil;
             }
             else 
             {
+                rightIsEnemy = YES;
                 if(!bacterial.checked)
                 {
-                    NSMutableArray *tmpArray = [self isSurrounded:bacterial];
-                    if ([tmpArray count] > 0)
+                    listRight = [self isSurrounded:bacterial];
+                    if ([listRight count] > 0)
                     {
-                        for(Becterial *b in tmpArray)
-                        {
-                            [list addObject:b];
-                        }
-                        [tmpArray removeAllObjects];
                         right = YES;
                     }
-                    else
-                    {
-                        [list removeAllObjects];
-                        return list;
-                    }
-                    tmpArray = nil;
                 }
                 else
                 {
@@ -1507,10 +1476,86 @@ NSArray *checkRevolutionPosition = nil;
             return list;
         }
     }
-
+    
+    if(topIsEnemy && listTop)
+    {
+        if([listTop count] > 0)
+        {
+            for (Becterial *b in listTop)
+            {
+                [list addObject:b];
+            }
+            [listTop removeAllObjects];
+            listTop = nil;
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
+        }
+    }
+    
+    if(bottomIsEnemy && listBottom)
+    {
+        if([listBottom count] > 0)
+        {
+            for (Becterial *b in listBottom)
+            {
+                [list addObject:b];
+            }
+            [listBottom removeAllObjects];
+            listBottom = nil;
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
+        }
+    }
+    
+    if(leftIsEnemy && listLeft)
+    {
+        if([listLeft count] > 0)
+        {
+            for (Becterial *b in listLeft)
+            {
+                [list addObject:b];
+            }
+            [listLeft removeAllObjects];
+            listLeft = nil;
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
+        }
+    }
+    
+    if(rightIsEnemy && listRight)
+    {
+        if([listRight count] > 0)
+        {
+            for (Becterial *b in listRight)
+            {
+                [list addObject:b];
+            }
+            [listRight removeAllObjects];
+            listRight = nil;
+        }
+        else
+        {
+            [list removeAllObjects];
+            return list;
+        }
+    }
+    
     if(top && bottom && left && right)
     {
         [list addObject:enemy];
+    }
+    else
+    {
+        [list removeAllObjects];
     }
 
     return list;

@@ -130,7 +130,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                     int step = [number intValue];
                     if(step > 0)
                     {
-                        
+                        [MobClickGameAnalytics bonus:@"step" amount:step price:0 source:1];
                     }
                 }
                 number = [items objectForKey:@"uper"];
@@ -139,7 +139,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                     int uper = [number intValue];
                     if(uper > 0)
                     {
-                        
+                        [MobClickGameAnalytics bonus:@"uper" amount:uper price:0 source:1];
                     }
                 }
                 number = [items objectForKey:@"killer"];
@@ -148,7 +148,7 @@ static CashStorePaymentObserver *_sharedCashStorePaymentObserver = nil;
                     int killer = [number intValue];
                     if(killer > 0)
                     {
-                        
+                        [MobClickGameAnalytics bonus:@"killer" amount:killer price:0 source:1];
                     }
                 }
                 break;

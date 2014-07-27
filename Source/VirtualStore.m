@@ -11,6 +11,7 @@
 #import "PZLabelScore.h"
 #import "DataStorageManager.h"
 #import "YouMiWall.h"
+#import "MobClickGameAnalytics.h"
 
 #define BUYSTEP50 @"step50"
 #define BUYSTEP500 @"step500"
@@ -291,16 +292,19 @@
                 {
                     count = [[[[virtual objectForKey:currentSelected] objectForKey:@"additional"] objectForKey:@"step"] intValue];
                     dataStep = dataStep + count;
+                    [MobClickGameAnalytics buy:@"step" amount:count price:cost];
                 }
                 else if([currentSelected isEqualToString:BUYUPER1] || [currentSelected isEqualToString:BUYUPER10])
                 {
                     count = [[[[virtual objectForKey:currentSelected] objectForKey:@"additional"] objectForKey:@"uper"] intValue];
                     dataUper = dataUper + count;
+                    [MobClickGameAnalytics buy:@"uper" amount:count price:cost];
                 }
                 else if([currentSelected isEqualToString:BUYKILLER1] || [currentSelected isEqualToString:BUYKILLER10])
                 {
                     count = [[[[virtual objectForKey:currentSelected] objectForKey:@"additional"] objectForKey:@"killer"] intValue];
                     dataKiller = dataKiller + count;
+                    [MobClickGameAnalytics buy:@"killer" amount:count price:cost];
                 }
             }
             else

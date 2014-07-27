@@ -140,10 +140,6 @@
 {
     _over = over;
     btnContinue.enabled = !over;
-    if (over)
-    {
-        [[GameCenterManager sharedGameCenterManager] reportScore:_score];
-    }
 }
 
 -(void)setScore:(int)score
