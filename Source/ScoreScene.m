@@ -146,26 +146,6 @@
 {
     _score = score;
     [_lblScore setScore:score];
-
-    if([GameCenterManager sharedGameCenterManager].enabled && dataStorageManagerAchievement)
-    {
-        NSDictionary *goalList = [dataStorageManagerAchievement objectForKey:@"exp"];
-        NSArray *goalListKeys = [goalList allKeys];
-        NSDictionary *goal;
-        for(NSString *key in goalListKeys)
-        {
-            goal = [goalList objectForKey:key];
-            int goalValue = [[goal objectForKey:@"goal"] intValue];
-            if(_score > goalValue)
-            {
-                [[GameCenterManager sharedGameCenterManager] reportAchievementIdentifier:key percentComplete:100.f];
-            }
-            else
-            {
-                [[GameCenterManager sharedGameCenterManager] reportAchievementIdentifier:key percentComplete:(CGFloat)(_score / goalValue)];
-            }
-        }
-    }
 }
 
 -(void)setExp:(int)exp

@@ -145,22 +145,13 @@ NSArray *checkRevolutionPosition = nil;
             if(enemyGenerateTime >= 10.f)
             {
                 //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 4)];
-                enemyGenerateTime = 0.f;
-            }
-        }
-        else if(runningTime <= 901.f)
-        {
-            if(enemyGenerateTime >= 5.f)
-            {
-                //产生新的生物虫
-                [self putNewEnemy:1 telent:YES];
+                [self putNewEnemy:(arc4random() % 3)];
                 enemyGenerateTime = 0.f;
             }
         }
         else
         {
-            if(enemyGenerateTime >= 3.f)
+            if(enemyGenerateTime >= 5.f)
             {
                 //产生新的生物虫
                 [self putNewEnemy:1 telent:YES];
@@ -984,33 +975,15 @@ NSArray *checkRevolutionPosition = nil;
         long firstCount = [listFirst count];
         if(firstCount > 0)
         {
-            //有首选空格，那么就统计当前等级最集中的细菌的等级
-//            NSMutableArray *levelList = [NSMutableArray arrayWithCapacity:MAXLEVEL];
-//            for(int i = 0; i < MAXLEVEL; i++)
-//            {
-//                [levelList addObject:[NSNumber numberWithInt:0]];
-//            }
-//            for(Becterial *b in _becterialList)
-//            {
-//                int count = [[levelList objectAtIndex:b.level-1] intValue];
-//                [levelList replaceObjectAtIndex:b.level-1 withObject:[NSNumber numberWithInt:count+1]];
-//            }
-//            for(int i = 0; i < [levelList count]; i++)
-//            {
-//                int count = [[levelList objectAtIndex:i] intValue];
-//                if(count > level)
-//                {
-//                    level = count;
-//                    index = i;
-//                }
-//            }
             CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
-//            level = fmax(1, index + 1);
-            level = arc4random() % 5;
+            level = arc4random() % 3;
 
             [listFirst removeAllObjects];
             listFirst = nil;
-            [self generateBacterial:1 x:position.x y:position.y level:level];
+            if([self generateBacterial:1 x:position.x y:position.y level:level])
+            {
+                [self checkResult];
+            }
             return;
         }
 
@@ -1042,7 +1015,10 @@ NSArray *checkRevolutionPosition = nil;
 
             [list removeAllObjects];
             list = nil;
-            [self generateBacterial:1 x:position.x y:position.y level:level];
+            if([self generateBacterial:1 x:position.x y:position.y level:level])
+            {
+                [self checkResult];
+            }
             return;
         }
     }
@@ -1214,6 +1190,7 @@ NSArray *checkRevolutionPosition = nil;
             [self saveGame];
         }
         
+        self.maxLevel = b.level;
         [MobClickGameAnalytics use:@"uper" amount:1 price:0];
     }
 }
