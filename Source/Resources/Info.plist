@@ -39,7 +39,8 @@
 			<string>sinaweibo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>sina.53b031e856240b128d1615f7</string>
+				<string>sina.</string>
+				<string>53d22a9c56240b9ab2080b1c</string>
 			</array>
 		</dict>
 		<dict>
@@ -49,7 +50,7 @@
 			<string>qqweibo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb801522536</string>
+				<string>wb801527686</string>
 			</array>
 		</dict>
 		<dict>
@@ -59,7 +60,7 @@
 			<string>renren</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>rmnet.profzone.bacterial</string>
+				<string>rmnet.profzone.bacterial2</string>
 			</array>
 		</dict>
 	</array>

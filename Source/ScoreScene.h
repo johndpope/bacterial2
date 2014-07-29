@@ -12,7 +12,5 @@
 
 -(void)setOver:(BOOL)over;
 -(void)setScore:(int)score;
--(void)setExp:(int)exp;
--(void)setTime:(int)Time;
 
 @end

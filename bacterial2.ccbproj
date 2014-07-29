@@ -132,6 +132,11 @@
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>
+		<key>scorescene</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>store</key>
 		<dict>
 			<key>isSmartSpriteSheet</key>

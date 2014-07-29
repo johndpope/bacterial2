@@ -7,6 +7,7 @@
 //
 
 #import "ScoreNode.h"
+#import "ScoreScene.h"
 #import "PZLabelScore.h"
 #import "MainScene.h"
 
@@ -40,7 +41,8 @@
 
 -(void)btnMenuTouch
 {
-    [mainScene showScoreScene];
+    ScoreScene *s = [mainScene showScoreScene];
+    [s setOver:YES];
 }
 
 -(void)setScore:(int)score

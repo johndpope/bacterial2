@@ -10,30 +10,21 @@
 #import "MainScene.h"
 #import "ScoreScene.h"
 #import "VirtualStore.h"
-#import "PZLabelScore.h"
 #import "UMSocial.h"
 #import "UMSocialScreenShoter.h"
 #import "MobClick.h"
-#import "YouMiWall.h"
-#import "YouMiPointsManager.h"
 
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 
 #define dataStorageManagerConfig [DataStorageManager sharedDataStorageManager].config
-#define dataStorageManagerAchievement [DataStorageManager sharedDataStorageManager].achievementConst
 
 @implementation ScoreScene
 {
-    BOOL isR4;
     BOOL _over;
+    BOOL isR4;
     int _score;
-    int _time;
-    CGFloat _rate;
-    int _exp;
-    PZLabelScore *_lblScore;
-    PZLabelScore *_lblTime;
-    PZLabelScore *_lblExp;
+    
     CCButton *btnContinue;
     CCButton *btnScoreboard;
     CCButton *btnTop10;
@@ -42,74 +33,13 @@
 
 -(void)didLoadFromCCB
 {
-    if(iPhone5)
-    {
-        isR4 = YES;
-    }
-    else
-    {
-        isR4 = NO;
-    }
-    _lblScore = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
-    _lblScore.anchorPoint = ccp(0.f, 0.f);
-    if(isR4)
-    {
-        _lblScore.position = ccp(24.f, 486.f);
-    }
-    else
-    {
-        _lblScore.position = ccp(24.f, 410.f);
-    }
-    [self addChild:_lblScore];
-
-    _lblTime = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
-    _lblTime.anchorPoint = ccp(0.f, 0.f);
-    if(isR4)
-    {
-        _lblTime.position = ccp(24.f, 416.f);
-    }
-    else
-    {
-        _lblTime.position = ccp(24.f, 340.f);
-    }
-    [self addChild:_lblTime];
-
-    _lblExp = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
-    _lblExp.anchorPoint = ccp(0.f, 0.f);
-    if(isR4)
-    {
-        _lblExp.position = ccp(24.f, 281.f);
-    }
-    else
-    {
-        _lblExp.position = ccp(24.f, 205.f);
-    }
-    [self addChild:_lblExp];
-    
+    isR4 = iPhone5;
     _over = NO;
     
     btnTop10.enabled = [GameCenterManager sharedGameCenterManager].enabled;
-    btnScoreboard.visible = NO;
 
     if(dataStorageManagerConfig)
     {
-        NSDictionary *scoreboardResult = [dataStorageManagerConfig objectForKey:@"score_board"];
-        int scoreboard = [[scoreboardResult objectForKey:@"result"] intValue];
-        if(scoreboard == 1)
-        {
-            btnScoreboard.visible = YES;
-            int *points = [YouMiPointsManager pointsRemained];
-            if(*points > 0)
-            {
-                [YouMiPointsManager spendPoints:*points];
-                [DataStorageManager sharedDataStorageManager].exp = [DataStorageManager sharedDataStorageManager].exp + *points;
-                [[DataStorageManager sharedDataStorageManager] saveData];
-                
-                [self setExp:[DataStorageManager sharedDataStorageManager].exp];
-            }
-            free(points);
-        }
-        
         if(nodeAd)
         {
             NSDictionary *adResult = [dataStorageManagerConfig objectForKey:@"ad"];
@@ -120,20 +50,6 @@
             }
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadExp" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadExp) name:@"reloadExp" object:nil];
-}
-
--(void)onExit
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadExp" object:nil];
-    [super onExit];
-}
-
--(void)reloadExp
-{
-    [self setExp:[DataStorageManager sharedDataStorageManager].exp];
 }
 
 -(void)setOver:(BOOL)over
@@ -145,31 +61,9 @@
 -(void)setScore:(int)score
 {
     _score = score;
-    [_lblScore setScore:score];
 }
 
--(void)setExp:(int)exp
-{
-    _exp = exp;
-    [_lblExp setScore:exp];
-}
-
--(void)setTime:(int)time
-{
-    _time = time;
-    [_lblTime setScore:time];
-}
-
--(void)showScoreboard
-{
-    [YouMiWall showOffers:YES didShowBlock:^{
-        NSLog(@"有米积分墙已显示");
-    } didDismissBlock:^{
-        NSLog(@"有米积分墙已退出");
-    }];
-}
-
--(void)btnCloseAd
+-(void)btnCloseAdTouch
 {
     [self removeChild:nodeAd cleanup:YES];
 }
@@ -180,7 +74,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://moesister.taobao.com/"]];
 }
 
--(void)back
+-(void)btnResetTouch
 {
     MainScene *main;
     if(isR4)
@@ -197,7 +91,7 @@
     [[CCDirector sharedDirector] replaceScene:scene];
 }
 
--(void)share
+-(void)btnShareTouch
 {
     UIImage *screenshot = [[UMSocialScreenShoterCocos2d screenShoter] getScreenShot];
     [UMSocialSnsService presentSnsIconSheetView:(UIViewController *)[CCDirector sharedDirector].view.nextResponder
@@ -208,7 +102,7 @@
                                        delegate:nil];
 }
 
--(void)store
+-(void)btnVirtualStoreTouch
 {
     CCScene *s;
     if(isR4)
@@ -223,7 +117,7 @@
     [[CCDirector sharedDirector] replaceScene:s withTransition:[CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft duration:.3f]];
 }
 
--(void)continueGame
+-(void)btnContinueTouch
 {
     MainScene *main;
     if(isR4)
@@ -239,7 +133,7 @@
     [[CCDirector sharedDirector] replaceScene:scene];
 }
 
--(void)top10
+-(void)btnTop10Touch
 {
     [[GameCenterManager sharedGameCenterManager] showLeaderboard];
 }

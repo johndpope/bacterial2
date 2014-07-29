@@ -1666,8 +1666,6 @@ NSArray *checkRevolutionPosition = nil;
         scoreScene = (ScoreScene *)[CCBReader load:@"ScoreScene"];
     }
     [scoreScene setScore:_score];
-    [scoreScene setTime:enemyGenerateTime];
-    [scoreScene setExp:[DataStorageManager sharedDataStorageManager].exp];
     CCScene *scene = [CCScene new];
     [scene addChild:scoreScene];
     [[CCDirector sharedDirector] replaceScene:scene];
