@@ -13,6 +13,7 @@
 #import "UMSocial.h"
 #import "UMSocialScreenShoter.h"
 #import "MobClick.h"
+#import "YouMiView.h"
 
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
@@ -29,6 +30,7 @@
     CCButton *btnScoreboard;
     CCButton *btnTop10;
     CCNode *nodeAd;
+    YouMiView *adView;
 }
 
 -(void)didLoadFromCCB
@@ -47,6 +49,15 @@
             if(ad == 0)
             {
                 nodeAd.visible = NO;
+            }
+            else
+            {
+                adView = [[YouMiView alloc] initWithContentSizeIdentifier:YouMiBannerContentSizeIdentifier320x50 delegate:nil];
+                adView.indicateTranslucency = YES;
+                adView.indicateRounded = NO;
+                [adView start];
+
+                [[[CCDirector sharedDirector] view] addSubview:adView];
             }
         }
     }
