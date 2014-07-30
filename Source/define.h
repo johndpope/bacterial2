@@ -14,7 +14,7 @@
 
 #define MAXLEVEL 21
 #define BACTERIAL_BASIC_SCORE 5
-#define ENEMY_BASIC_EXP 20
+#define ENEMY_BASIC_EXP 10
 #define ENEMY_EVOLUTION_BASIC_TIME 20.f
 #define ENEMY_EVOLUTION_MAX_TIME 60.f
 #define BECTERIAL_MESSAGE @"Becterial.BecterialTouched"

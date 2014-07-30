@@ -12,5 +12,6 @@
 
 -(void)setOver:(BOOL)over;
 -(void)setScore:(int)score;
+-(void)setScreenshot:(UIImage *)screenshot;
 
 @end

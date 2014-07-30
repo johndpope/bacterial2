@@ -18,6 +18,7 @@
 #import "GameCenterManager.h"
 #import "ScoreNode.h"
 #import "MobClickGameAnalytics.h"
+#import "UMSocialScreenShoter.h"
 
 #define defaultStepCount 2000
 #define accelerateIncreaseBiomassRate 1.f;
@@ -801,7 +802,7 @@ NSArray *checkRevolutionPosition = nil;
             CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
             {
                 becterial.level++;
-                self.score = _score + BACTERIAL_BASIC_SCORE * pow(4, becterial.level - 1);
+                self.score = _score + BACTERIAL_BASIC_SCORE * pow(2, becterial.level - 1);
                 self.maxLevel = becterial.level;
                 if (gLayer)
                 {
@@ -1665,6 +1666,8 @@ NSArray *checkRevolutionPosition = nil;
     {
         scoreScene = (ScoreScene *)[CCBReader load:@"ScoreScene"];
     }
+    UIImage *screenshot = [[UMSocialScreenShoterCocos2d screenShoter] getScreenShot];
+    [scoreScene setScreenshot:screenshot];
     [scoreScene setScore:_score];
     CCScene *scene = [CCScene new];
     [scene addChild:scoreScene];

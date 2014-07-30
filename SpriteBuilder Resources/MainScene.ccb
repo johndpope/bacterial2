@@ -1086,7 +1086,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>resources/menu_highlight.png</string>
+							<string>resources/menu_normal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1129,7 +1129,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>resources/menu_highlight.png</string>
+							<string>resources/menu_normal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1273,6 +1273,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1599,8 +1601,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

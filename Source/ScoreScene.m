@@ -29,8 +29,8 @@
     CCButton *btnContinue;
     CCButton *btnScoreboard;
     CCButton *btnTop10;
-    CCNode *nodeAd;
     YouMiView *adView;
+    UIImage *screenShot;
 }
 
 -(void)didLoadFromCCB
@@ -42,25 +42,26 @@
 
     if(dataStorageManagerConfig)
     {
-        if(nodeAd)
+        NSDictionary *adResult = [dataStorageManagerConfig objectForKey:@"ad"];
+        int ad = [[adResult objectForKey:@"result"] intValue];
+        if (ad == 1)
         {
-            NSDictionary *adResult = [dataStorageManagerConfig objectForKey:@"ad"];
-            int ad = [[adResult objectForKey:@"result"] intValue];
-            if(ad == 0)
-            {
-                nodeAd.visible = NO;
-            }
-            else
-            {
-                adView = [[YouMiView alloc] initWithContentSizeIdentifier:YouMiBannerContentSizeIdentifier320x50 delegate:nil];
-                adView.indicateTranslucency = YES;
-                adView.indicateRounded = NO;
-                [adView start];
+            adView = [[YouMiView alloc] initWithContentSizeIdentifier:YouMiBannerContentSizeIdentifier320x50 delegate:nil];
+            adView.indicateTranslucency = YES;
+            adView.indicateRounded = NO;
+            [adView start];
 
-                [[[CCDirector sharedDirector] view] addSubview:adView];
-            }
+            [[[CCDirector sharedDirector] view] addSubview:adView];
         }
     }
+}
+
+-(void)onExit
+{
+    [super onExit];
+    [adView removeFromSuperview];
+    adView = nil;
+    screenShot = nil;
 }
 
 -(void)setOver:(BOOL)over
@@ -74,15 +75,9 @@
     _score = score;
 }
 
--(void)btnCloseAdTouch
+-(void)setScreenshot:(UIImage *)screenshot
 {
-    [self removeChild:nodeAd cleanup:YES];
-}
-
--(void)btnAdTouch
-{
-    [MobClick event:@"touchTaobaoUrl"];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://moesister.taobao.com/"]];
+    screenShot = screenshot;
 }
 
 -(void)btnResetTouch
@@ -104,11 +99,10 @@
 
 -(void)btnShareTouch
 {
-    UIImage *screenshot = [[UMSocialScreenShoterCocos2d screenShoter] getScreenShot];
     [UMSocialSnsService presentSnsIconSheetView:(UIViewController *)[CCDirector sharedDirector].view.nextResponder
                                          appKey:@"53ca09da56240bbd9b011e55"
-                                      shareText:[NSString stringWithFormat:@"我在细菌培育者中获得了 %i 的生物酶，你也来试试吧！", _score]
-                                     shareImage:screenshot
+                                      shareText:[NSString stringWithFormat:@"我在细菌博士的游戏中获得了 %i 的分数，你也来试试吧！", _score]
+                                     shareImage:screenShot
                                 shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,nil]
                                        delegate:nil];
 }
