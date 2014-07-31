@@ -15,10 +15,12 @@
 #import "MobClick.h"
 #import "YouMiView.h"
 
+#import "PZWebManager.h"
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 
 #define dataStorageManagerConfig [DataStorageManager sharedDataStorageManager].config
+#define dataExp [DataStorageManager sharedDataStorageManager].exp
 
 @implementation ScoreScene
 {
@@ -29,6 +31,11 @@
     CCButton *btnContinue;
     CCButton *btnScoreboard;
     CCButton *btnTop10;
+    CCButton *btnActivity;
+    CCButton *btnMask;
+    CCSprite *imgReward;
+    CCTextField *iptCode;
+    CCNode *nodeActivity1;
     YouMiView *adView;
     UIImage *screenShot;
 }
@@ -37,7 +44,10 @@
 {
     isR4 = iPhone5;
     _over = NO;
-    
+    nodeActivity1.visible = NO;
+    imgReward.visible = NO;
+    btnActivity.visible = NO;
+    btnMask.enabled = NO;
     btnTop10.enabled = [GameCenterManager sharedGameCenterManager].enabled;
 
     if(dataStorageManagerConfig)
@@ -53,6 +63,24 @@
 
             [[[CCDirector sharedDirector] view] addSubview:adView];
         }
+        
+        NSDictionary *rewardResult = [dataStorageManagerConfig objectForKey:@"share_reward"];
+        int reward = [[rewardResult objectForKey:@"result"] intValue];
+        if(reward > 0)
+        {
+            imgReward.visible = YES;
+        }
+        
+        NSDictionary *activityResult = [dataStorageManagerConfig objectForKey:@"activity"];
+        int activity = [[activityResult objectForKey:@"result"] intValue];
+        if(activity == 1)
+        {
+            btnActivity.visible = YES;
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:@"activityDownloadCode" object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityDownloadCode:) name:@"activityDownloadCode" object:nil];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:@"activityConnectionError1009" object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityConnectionError1009:) name:@"activityConnectionError1009" object:nil];
+        }
     }
 }
 
@@ -62,6 +90,9 @@
     [adView removeFromSuperview];
     adView = nil;
     screenShot = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"activityDownloadCode" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"activityConnectionError1009" object:nil];
 }
 
 -(void)setOver:(BOOL)over
@@ -104,7 +135,26 @@
                                       shareText:[NSString stringWithFormat:@"我在细菌博士的游戏中获得了 %i 的分数，你也来试试吧！", _score]
                                      shareImage:screenShot
                                 shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,nil]
-                                       delegate:nil];
+                                       delegate:self];
+}
+
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        if(dataStorageManagerConfig)
+        {
+            NSDictionary *rewardResult = [dataStorageManagerConfig objectForKey:@"share_reward"];
+            int reward = [[rewardResult objectForKey:@"result"] intValue];
+            if(reward > 0)
+            {
+                dataExp = dataExp + reward;
+                [[DataStorageManager sharedDataStorageManager] saveData];
+            }
+        }
+    }
 }
 
 -(void)btnVirtualStoreTouch
@@ -141,6 +191,42 @@
 -(void)btnTop10Touch
 {
     [[GameCenterManager sharedGameCenterManager] showLeaderboard];
+}
+
+-(void)btnCommentTouch
+{
+    [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id894478844"]];
+}
+
+-(void)btnActivityTouch
+{
+    nodeActivity1.visible = YES;
+}
+
+-(void)btnCloseTouch
+{
+    [iptCode setString:@""];
+    nodeActivity1.visible = NO;
+}
+
+-(void)btnConfirmTouch
+{
+    NSString *code = iptCode.string;
+    if(![code isEqualToString:@""])
+    {
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:code, @"code", nil];
+        [[PZWebManager sharedPZWebManager] asyncPostRequest:@"http://b2.profzone.net/activity/download_code" withData:data];
+    }
+}
+
+-(void)activityDownloadCode:(NSNotification *)notification
+{
+    
+}
+
+-(void)activityConnectionError1009:(NSNotification *)notification
+{
+    
 }
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import "CCNode.h"
+#import "UMSocial.h"
 
 @interface ScoreScene : CCNode
+<UMSocialUIDelegate>
 
 -(void)setOver:(BOOL)over;
 -(void)setScore:(int)score;

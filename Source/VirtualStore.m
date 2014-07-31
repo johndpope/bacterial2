@@ -88,7 +88,7 @@
             if(*points > 0)
             {
                 [YouMiPointsManager spendPoints:*points];
-                [DataStorageManager sharedDataStorageManager].exp = [DataStorageManager sharedDataStorageManager].exp + *points;
+                dataExp = dataExp + *points;
                 [[DataStorageManager sharedDataStorageManager] saveData];
                 
                 [self setGold:dataExp];

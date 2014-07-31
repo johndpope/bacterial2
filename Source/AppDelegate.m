@@ -128,6 +128,18 @@
                                       [NSDictionary new], @"version", nil];
     [[DataStorageManager sharedDataStorageManager].config setObject:adResult forKey:@"ad"];
     
+    //share reward
+    NSDictionary *rewardResult = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:0], @"result",
+                              [NSDictionary new], @"version", nil];
+    [[DataStorageManager sharedDataStorageManager].config setObject:rewardResult forKey:@"share_reward"];
+    
+    //activity
+    NSDictionary *activityResult = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:0], @"result",
+                                  [NSDictionary new], @"version", nil];
+    [[DataStorageManager sharedDataStorageManager].config setObject:activityResult forKey:@"activity"];
+    
     [[DataStorageManager sharedDataStorageManager] saveConfig];
 }
 
@@ -249,6 +261,40 @@
                 [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"ad"];
             }
             [config setObject:[NSNumber numberWithInt:ad] forKey:@"result"];
+            
+            //share reward
+            NSDictionary *rewardResult = [data objectForKey:@"share_reward"];
+            int reward = [[rewardResult objectForKey:@"result"] intValue];
+            version = [rewardResult objectForKey:@"version"];
+            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"share_reward"];
+            if(config)
+            {
+                [config setObject:version forKey:@"version"];
+            }
+            else
+            {
+                config = [NSMutableDictionary new];
+                [config setObject:version forKey:@"version"];
+                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"share_reward"];
+            }
+            [config setObject:[NSNumber numberWithInt:reward] forKey:@"result"];
+            
+            //activity
+            NSDictionary *activityResult = [data objectForKey:@"activity"];
+            int activity = [[activityResult objectForKey:@"result"] intValue];
+            version = [activityResult objectForKey:@"version"];
+            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"activity"];
+            if(config)
+            {
+                [config setObject:version forKey:@"version"];
+            }
+            else
+            {
+                config = [NSMutableDictionary new];
+                [config setObject:version forKey:@"version"];
+                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"activity"];
+            }
+            [config setObject:[NSNumber numberWithInt:activity] forKey:@"result"];
         }
         else if([command isEqualToString:@"requestProductIds"])
         {
@@ -321,6 +367,42 @@
                 [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"ad"];
             }
             [config setObject:[NSNumber numberWithInt:ad] forKey:@"result"];
+        }
+        else if([command isEqualToString:@"requestShareReward"])
+        {
+            NSDictionary *rewardResult = [data objectForKey:@"share_reward"];
+            int reward = [[rewardResult objectForKey:@"result"] intValue];
+            NSDictionary *version = [rewardResult objectForKey:@"version"];
+            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"share_reward"];
+            if(config)
+            {
+                [config setObject:version forKey:@"version"];
+            }
+            else
+            {
+                config = [NSMutableDictionary new];
+                [config setObject:version forKey:@"version"];
+                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"share_reward"];
+            }
+            [config setObject:[NSNumber numberWithInt:reward] forKey:@"result"];
+        }
+        else if([command isEqualToString:@"requestActivity"])
+        {
+            NSDictionary *activityResult = [data objectForKey:@"activity"];
+            int activity = [[activityResult objectForKey:@"result"] intValue];
+            NSDictionary *version = [activityResult objectForKey:@"version"];
+            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"activity"];
+            if(config)
+            {
+                [config setObject:version forKey:@"version"];
+            }
+            else
+            {
+                config = [NSMutableDictionary new];
+                [config setObject:version forKey:@"version"];
+                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"activity"];
+            }
+            [config setObject:[NSNumber numberWithInt:activity] forKey:@"result"];
         }
 
         [[DataStorageManager sharedDataStorageManager] saveConfig];
