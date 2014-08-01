@@ -19,6 +19,8 @@
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 
+#import <AdSupport/AdSupport.h>
+
 #define dataStorageManagerConfig [DataStorageManager sharedDataStorageManager].config
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
 #define dataStep [DataStorageManager sharedDataStorageManager].stepCount
@@ -36,9 +38,16 @@
     CCButton *btnTop10;
     CCButton *btnActivity;
     CCButton *btnMask;
+    CCButton *btnLoadingMask;
+    CCButton *btnMessageMask;
     CCSprite *imgReward;
+    CCSprite *spriteLoading;
     CCTextField *iptCode;
+    CCLabelTTF *lblLoadingMessage;
+    CCLabelTTF *lblMessage;
     CCNode *nodeActivity1;
+    CCNode *nodeLoading;
+    CCNode *nodeMessage;
     YouMiView *adView;
     UIImage *screenShot;
 }
@@ -48,10 +57,20 @@
     isR4 = iPhone5;
     _over = NO;
     nodeActivity1.visible = NO;
+    nodeLoading.visible = NO;
+    nodeMessage.visible = NO;
     imgReward.visible = NO;
     btnActivity.visible = NO;
     btnMask.enabled = NO;
+    btnLoadingMask.enabled = NO;
+    btnMessageMask.enabled = NO;
     btnTop10.enabled = [GameCenterManager sharedGameCenterManager].enabled;
+    
+    CCAnimationManager *animate = spriteLoading.animationManager;
+    [animate setCompletedAnimationCallbackBlock:^(id sender)
+    {
+        [sender runAnimationsForSequenceNamed:@"loading"];
+    }];
 
     if(dataStorageManagerConfig)
     {
@@ -217,8 +236,14 @@
     NSString *code = iptCode.string;
     if(![code isEqualToString:@""])
     {
-        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:code, @"code", nil];
+        NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              code, @"code",
+                              idfa, @"idfa", nil];
         [[PZWebManager sharedPZWebManager] asyncPostRequest:@"http://b2.profzone.net/activity/download_code" withData:data];
+        nodeActivity1.visible = NO;
+        nodeLoading.visible = YES;
+        [lblLoadingMessage setString:@"加载中..."];
     }
 }
 
@@ -241,26 +266,62 @@
             else if([key isEqualToString:@"step"])
             {
                 value = [[items objectForKey:@"step"] intValue];
-                dateStep = dataStep + value;
+                dataStep = dataStep + value;
             }
             else if([key isEqualToString:@"uper"])
             {
                 value = [[items objectForKey:@"uper"] intValue];
-                dateUper = dateUper + value;
+                dataUper = dataUper + value;
             }
             else if([key isEqualToString:@"killer"])
             {
                 value = [[items objectForKey:@"killer"] intValue];
-                dateKiller = dateKiller + value;
+                dataKiller = dataKiller + value;
             }
         }
         [[DataStorageManager sharedDataStorageManager] saveData];
+        
+        [lblMessage setString:@"已成功获得奖励"];
+        nodeMessage.visible = YES;
     }
+    else if(code == 1404)
+    {
+        [lblMessage setString:@"这个下载码我好像没找到哦"];
+        nodeMessage.visible = YES;
+    }
+    else if(code == 1400)
+    {
+        [lblMessage setString:@"嗯？我发现这个下载码有问题哦\n我已经通知管理员了，稍等一下吧"];
+        nodeMessage.visible = YES;
+    }
+    else if(code == 1401)
+    {
+        [lblMessage setString:@"嗯？这个下载码已经使用过了哦"];
+        nodeMessage.visible = YES;
+    }
+    else if(code == 1403)
+    {
+        [lblMessage setString:@"您的设备已经参加过该活动了哟"];
+        nodeMessage.visible = YES;
+    }
+    else
+    {
+        [lblMessage setString:@"我已经很努力了\n可是服务器君好像挂啦……"];
+        nodeMessage.visible = YES;
+    }
+    nodeLoading.visible = NO;
 }
 
 -(void)activityConnectionError1009:(NSNotification *)notification
 {
-    
+    nodeLoading.visible = NO;
+    [lblMessage setString:@"似乎没有连接互联网哦"];
+    nodeMessage.visible = YES;
+}
+
+-(void)btnMessageConfirmTouch
+{
+    nodeMessage.visible = NO;
 }
 
 @end

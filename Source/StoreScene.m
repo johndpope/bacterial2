@@ -23,7 +23,9 @@
     CCButton *btnMessageMask;
     CCButton *btnLoadingMask;
     CCLabelTTF *lblMessage;
+    CCLabelTTF *lblLoadingMessage;
     CCNode *containerItems;
+    CCSprite *spriteLoading;
     
     BOOL isR4;
 }
@@ -35,6 +37,12 @@
     containerMessage.visible = NO;
     btnMessageMask.enabled = NO;
     btnLoadingMask.enabled = NO;
+    
+    CCAnimationManager *animate = spriteLoading.animationManager;
+    [animate setCompletedAnimationCallbackBlock:^(id sender)
+    {
+        [sender runAnimationsForSequenceNamed:@"loading"];
+    }];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"hideLoadingIcon" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideLoadingIcon:) name:@"hideLoadingIcon" object:nil];
@@ -136,6 +144,7 @@
                 [idArray addObject:_id];
             }
             [sharedCashStoreManager validateProductIdentifiers:idArray];
+            [lblLoadingMessage setString:@"加载商品列表"];
             containerLoading.visible = YES;
         }
         else
@@ -242,6 +251,7 @@
 
 -(void)showLoadingIcon:(NSNotification *)notification
 {
+    [lblLoadingMessage setString:@"正在获取..."];
     containerLoading.visible = YES;
 }
 

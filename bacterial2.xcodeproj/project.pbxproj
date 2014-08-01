@@ -77,6 +77,7 @@
 		BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C4197C10FF00D8322D /* StoreKit.framework */; };
 		BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C6197C113300D8322D /* CFNetwork.framework */; };
 		BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C8197C114900D8322D /* SystemConfiguration.framework */; };
+		BEAF716C198BD5E0004F6BED /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEAF716B198BD5E0004F6BED /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BEDFB222197D556100A4E561 /* Uper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDFB221197D556100A4E561 /* Uper.m */; };
 /* End PBXBuildFile section */
 
@@ -216,6 +217,7 @@
 		BE97B5C4197C10FF00D8322D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE97B5C6197C113300D8322D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BE97B5C8197C114900D8322D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BEAF716B198BD5E0004F6BED /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		BEDFB220197D556100A4E561 /* Uper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uper.h; path = Source/Uper.h; sourceTree = "<group>"; };
 		BEDFB221197D556100A4E561 /* Uper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Uper.m; path = Source/Uper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEAF716C198BD5E0004F6BED /* AdSupport.framework in Frameworks */,
 				BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */,
 				BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
@@ -351,6 +354,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BEAF716B198BD5E0004F6BED /* AdSupport.framework */,
 				BE97B5C8197C114900D8322D /* SystemConfiguration.framework */,
 				BE97B5C6197C113300D8322D /* CFNetwork.framework */,
 				BE97B5C4197C10FF00D8322D /* StoreKit.framework */,
