@@ -21,6 +21,9 @@
 
 #define dataStorageManagerConfig [DataStorageManager sharedDataStorageManager].config
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
+#define dataStep [DataStorageManager sharedDataStorageManager].stepCount
+#define dataUper [DataStorageManager sharedDataStorageManager].uperCount
+#define dataKiller [DataStorageManager sharedDataStorageManager].killerCount
 
 @implementation ScoreScene
 {
@@ -221,7 +224,38 @@
 
 -(void)activityDownloadCode:(NSNotification *)notification
 {
-    
+    NSDictionary *data = [notification object];
+    int code = [[data objectForKey:@"code"] intValue];
+    if(code == 1001)
+    {
+        NSDictionary *items = [data objectForKey:@"items"];
+        NSArray *keys = [items allKeys];
+        int value;
+        for(NSString *key in keys)
+        {
+            if([key isEqualToString:@"gold"])
+            {
+                value = [[items objectForKey:@"gold"] intValue];
+                dataExp = dataExp + value;
+            }
+            else if([key isEqualToString:@"step"])
+            {
+                value = [[items objectForKey:@"step"] intValue];
+                dateStep = dataStep + value;
+            }
+            else if([key isEqualToString:@"uper"])
+            {
+                value = [[items objectForKey:@"uper"] intValue];
+                dateUper = dateUper + value;
+            }
+            else if([key isEqualToString:@"killer"])
+            {
+                value = [[items objectForKey:@"killer"] intValue];
+                dateKiller = dateKiller + value;
+            }
+        }
+        [[DataStorageManager sharedDataStorageManager] saveData];
+    }
 }
 
 -(void)activityConnectionError1009:(NSNotification *)notification
