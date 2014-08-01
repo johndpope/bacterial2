@@ -165,7 +165,7 @@
     //根据`responseCode`得到发送结果,如果分享成功
     if(response.responseCode == UMSResponseCodeSuccess)
     {
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+//        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
         if(dataStorageManagerConfig)
         {
             NSDictionary *rewardResult = [dataStorageManagerConfig objectForKey:@"share_reward"];
@@ -174,6 +174,9 @@
             {
                 dataExp = dataExp + reward;
                 [[DataStorageManager sharedDataStorageManager] saveData];
+                
+                [lblMessage setString:[NSString stringWithFormat:@"分享成功！\n奖励%i金币！", reward]];
+                nodeMessage.visible = YES;
             }
         }
     }

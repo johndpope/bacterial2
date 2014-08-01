@@ -128,7 +128,7 @@ NSArray *checkRevolutionPosition = nil;
             if(enemyGenerateTime >= 30.f)
             {
                 //产生新的生物虫
-                [self putNewEnemy];
+                [self putNewEnemy:1 telent:YES];
                 enemyGenerateTime = 0.f;
             }
         }
@@ -137,7 +137,7 @@ NSArray *checkRevolutionPosition = nil;
             if(enemyGenerateTime >= 20.f)
             {
                 //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 3)];
+                [self putNewEnemy:(arc4random() % 3) telent:YES];
                 enemyGenerateTime = 0.f;
             }
         }
@@ -146,16 +146,25 @@ NSArray *checkRevolutionPosition = nil;
             if(enemyGenerateTime >= 10.f)
             {
                 //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 3)];
+                [self putNewEnemy:(arc4random() % 3) telent:YES];
+                enemyGenerateTime = 0.f;
+            }
+        }
+        else if(runningTime <= 901.f)
+        {
+            if(enemyGenerateTime >= 5.f)
+            {
+                //产生新的生物虫
+                [self putNewEnemy:(arc4random() % 3) telent:YES];
                 enemyGenerateTime = 0.f;
             }
         }
         else
         {
-            if(enemyGenerateTime >= 5.f)
+            if(enemyGenerateTime >= 3.f)
             {
                 //产生新的生物虫
-                [self putNewEnemy:1 telent:YES];
+                [self putNewEnemy:(arc4random() % 3) telent:YES];
                 enemyGenerateTime = 0.f;
             }
         }
@@ -971,13 +980,11 @@ NSArray *checkRevolutionPosition = nil;
                 }
             }
         }
-        int level = 0;
 //        int index = 0;
         long firstCount = [listFirst count];
         if(firstCount > 0)
         {
             CGPoint position = [[listFirst objectAtIndex:(arc4random() % firstCount)] CGPointValue];
-            level = arc4random() % 3;
 
             [listFirst removeAllObjects];
             listFirst = nil;
