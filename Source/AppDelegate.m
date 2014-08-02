@@ -41,8 +41,12 @@
 #import "CashStoreManager.h"
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
+#import "GuideScene.h"
 
 #import <StoreKit/StoreKit.h>
+
+#define dataStorageManagerGuide [DataStorageManager sharedDataStorageManager].guide
+#define dataStorageManagerGuideStep [DataStorageManager sharedDataStorageManager].guideStep
 
 @implementation AppController
 
@@ -72,9 +76,9 @@
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:[CashStorePaymentObserver sharedCashStorePaymentObserver]];
     
-    [MobClick startWithAppkey:@"53ca09da56240bbd9b011e55"];
-    [UMSocialData setAppKey:@"53ca09da56240bbd9b011e55"];
-    [UMSocialWechatHandler setWXAppId:@"wxfa1868e8028fdf80" url:@"http://b2.profzone.net/services/share/wechat"];
+    [MobClick startWithAppkey:@"53d22a9c56240b9ab2080b1c"];
+    [UMSocialData setAppKey:@"53d22a9c56240b9ab2080b1c"];
+    [UMSocialWechatHandler setWXAppId:@"wxcb415985730902db" url:@"http://b2.profzone.net/services/share/wechat"];
 
     [YouMiConfig setShouldGetLocation:NO];
     [YouMiConfig launchWithAppID:@"4d8d51cf2afd8db6" appSecret:@"8bec478c6d3f2efc"];
@@ -423,14 +427,36 @@
     #ifdef DEBUG_MODE
     [[CCDirector sharedDirector] setDisplayStats:YES];
     #endif
-
-    if(iPhone5)
+    
+    if (dataStorageManagerGuide)
     {
-        return [CCBReader loadAsScene:@"MainScene-r4"];
+        int guideStep = dataStorageManagerGuideStep;
+        guideStep = fmax(1, guideStep);
+        
+        GuideScene *guide;
+        if(iPhone5)
+        {
+            guide = (GuideScene *)[CCBReader load:@"GuideScene-r4"];
+        }
+        else
+        {
+            guide = (GuideScene *)[CCBReader load:@"GuideScene"];
+        }
+        guide.guideStep = guideStep;
+        CCScene *scene = [CCScene node];
+        [scene addChild:guide];
+        return scene;
     }
     else
     {
-        return [CCBReader loadAsScene:@"MainScene"];
+        if(iPhone5)
+        {
+            return [CCBReader loadAsScene:@"MainScene-r4"];
+        }
+        else
+        {
+            return [CCBReader loadAsScene:@"MainScene"];
+        }
     }
 }
 

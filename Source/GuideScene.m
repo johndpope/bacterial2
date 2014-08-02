@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Apportable. All rights reserved.
 //
 
-#import "MainScene.h"
+#import "GuideScene.h"
 #import "ScoreScene.h"
 #import "Becterial.h"
 #import "define.h"
@@ -29,7 +29,7 @@
 #define dataStorageManagerGuide [DataStorageManager sharedDataStorageManager].guide
 #define dataStorageManagerGuideStep [DataStorageManager sharedDataStorageManager].guideStep
 
-@implementation MainScene
+@implementation GuideScene
 {
     BOOL isR4;
     CCLabelTTF *_lblKillerCount;
@@ -38,6 +38,12 @@
     PZLabelScore *_lblStepCount; //步数
     PZLabelScore *_lblScore; //分数
     CCNode *_container;
+    CCButton *imgGuideMask;
+    CCSprite *spriteShining;
+    CCSprite *imgContinue;
+    CCNode *nodeMessage;
+    CCNode *nodeGuide;
+    CCLabelTTF *lblGuideMessage;
     NSMutableArray *_becterialContainer;
     NSMutableArray *_becterialList;
     NSMutableArray *_enemyList;
@@ -98,8 +104,15 @@
     }
     [self addChild:_lblStepCount];
     
+    _isRunning = NO;
     _maxLevel = 0;
     self.userInteractionEnabled = YES;
+    
+    imgGuideMask.enabled = NO;
+    [spriteShining.animationManager setCompletedAnimationCallbackBlock:^(id sender)
+    {
+        [sender runAnimationsForSequenceNamed:@"loop"];
+    }];
 }
 
 -(void)update:(CCTime)delta
@@ -200,6 +213,28 @@
     }
 }
 
+-(void)didReceiveGuideNotification:(NSNotification *) notification
+{
+    if([notification.name isEqualToString:@"guideClickBiomass"])
+    {
+        self.guideStep++;
+    }
+    else if([notification.name isEqualToString:@"guideFinish"])
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBiomass" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickScore" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickEnemy" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBacterial" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBiomass2" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickScore2" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickEnemy2" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBacterial2" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideTouchBacterial" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideTouchBacterialEnd" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideFinish" object:nil];
+    }
+}
+
 -(void)onEnter
 {
     [super onEnter];
@@ -209,6 +244,19 @@
 -(void)onExit
 {
     [super onExit];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBiomass" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickScore" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickEnemy" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBacterial" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBiomass2" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickScore2" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickEnemy2" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideClickBacterial2" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideTouchBacterial" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideTouchBacterialEnd" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"guideFinish" object:nil];
+
     [self saveGame];
 }
 
@@ -220,11 +268,42 @@
     int x = position.x / 60.5f;
     int y = position.y / 60.5f;
     
-    if (x > 4 || y > 5 || x < 0 || y < 0)
+    if(_guideStep == 1)
     {
-        return;
+        self.guideStep++;
     }
-    [self putNewBacterial:x andY:y];
+    else if(_guideStep == 2)
+    {
+        if (x > 4 || y > 5 || x < 0 || y < 0)
+        {
+            return;
+        }
+        [self putNewBacterial:x andY:y];
+        self.guideStep++;
+    }
+    else
+    {
+        _score = 0;
+        _maxLevel = 0;
+        bacterialCount = 0;
+        enemyCount = 0;
+        enemyGenerateTime = 0;
+        runningTime = 0;
+        dataStorageManagerGuide = NO;
+        [_becterialList removeAllObjects];
+        [self saveGame];
+        
+        CCScene *scene;
+        if(isR4)
+        {
+            scene = [CCBReader loadAsScene:@"MainScene-r4"];
+        }
+        else
+        {
+            scene = [CCBReader loadAsScene:@"MainScene"];
+        }
+        [[CCDirector sharedDirector] replaceScene:scene];
+    }
 }
 
 -(BOOL)generateBacterial:(int)type
@@ -580,6 +659,8 @@
                 self.score = _score + BACTERIAL_BASIC_SCORE * pow(2, becterial.level - 1);
                 self.maxLevel = becterial.level;
                 
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"guideRevolutionDone" object:nil];
+                
                 runningAction--;
                 if(runningAction == 0)
                 {
@@ -737,6 +818,7 @@
                 }
             }
         }
+//        int index = 0;
         long firstCount = [listFirst count];
         if(firstCount > 0)
         {
@@ -824,9 +906,28 @@
     }
 }
 
--(void)menu
+-(void)btnSkipTouch
 {
-    [self showScoreScene];
+    _score = 0;
+    _maxLevel = 0;
+    bacterialCount = 0;
+    enemyCount = 0;
+    enemyGenerateTime = 0;
+    runningTime = 0;
+    dataStorageManagerGuide = NO;
+    [_becterialList removeAllObjects];
+    [self saveGame];
+    
+    CCScene *scene;
+    if(isR4)
+    {
+        scene = [CCBReader loadAsScene:@"MainScene-r4"];
+    }
+    else
+    {
+        scene = [CCBReader loadAsScene:@"MainScene"];
+    }
+    [[CCDirector sharedDirector] replaceScene:scene];
 }
 
 -(void)setStepCount:(int)stepCount
@@ -902,6 +1003,35 @@
                     [[GameCenterManager sharedGameCenterManager] reportAchievementIdentifier:key percentComplete:(CGFloat)(_maxLevel / goalValue)];
                 }
             }
+        }
+    }
+}
+
+-(void)setGuideStep:(int)guideStep
+{
+    if(_guideStep != guideStep)
+    {
+        _guideStep = guideStep;
+        
+        switch (_guideStep)
+        {
+            case 1:
+            {
+                nodeMessage.positionType = CCPositionTypeNormalized;
+                nodeMessage.position = ccp(.5f, .5f);
+                spriteShining.visible = NO;
+                imgGuideMask.visible = YES;
+                imgContinue.visible = YES;
+                [lblGuideMessage setString:@"嗨！欢迎来到细菌博士，我的新朋友"];
+            }
+            break;
+            case 2:
+            {
+                
+            }
+            break;
+            default:
+            break;
         }
     }
 }

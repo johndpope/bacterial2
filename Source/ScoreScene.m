@@ -153,7 +153,7 @@
 -(void)btnShareTouch
 {
     [UMSocialSnsService presentSnsIconSheetView:(UIViewController *)[CCDirector sharedDirector].view.nextResponder
-                                         appKey:@"53ca09da56240bbd9b011e55"
+                                         appKey:@"53d22a9c56240b9ab2080b1c"
                                       shareText:[NSString stringWithFormat:@"我在细菌博士的游戏中获得了 %i 的分数，你也来试试吧！", _score]
                                      shareImage:screenShot
                                 shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite,nil]

@@ -37,6 +37,8 @@
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		BE0867F71985405C007260E9 /* achievement_const.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0867F61985405C007260E9 /* achievement_const.plist */; };
+		BE0B2B4A198CF563000C76DF /* GuideScene.h in Resources */ = {isa = PBXBuildFile; fileRef = BE0B2B49198CF563000C76DF /* GuideScene.h */; };
+		BE0B2B4D198CF597000C76DF /* GuideScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0B2B4C198CF597000C76DF /* GuideScene.m */; };
 		BE1E4ED219813E01000EED56 /* StoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED119813E01000EED56 /* StoreScene.m */; };
 		BE1E4ED519814ACE000EED56 /* StoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED419814ACE000EED56 /* StoreItem.m */; };
 		BE47C97B197BF836003743C5 /* libMobClickGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C953197BF836003743C5 /* libMobClickGameLibrary.a */; };
@@ -62,7 +64,6 @@
 		BE47C9FA197BFAC7003743C5 /* Becterial.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9EB197BFAC7003743C5 /* Becterial.m */; };
 		BE47C9FB197BFAC7003743C5 /* DataStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9ED197BFAC7003743C5 /* DataStorageManager.m */; };
 		BE47C9FC197BFAC7003743C5 /* GameCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F0197BFAC7003743C5 /* GameCenterManager.m */; };
-		BE47C9FD197BFAC7003743C5 /* Guide.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F2197BFAC7003743C5 /* Guide.m */; };
 		BE47C9FE197BFAC7003743C5 /* Killer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F4197BFAC7003743C5 /* Killer.m */; };
 		BE47C9FF197BFAC7003743C5 /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE47C9F5197BFAC7003743C5 /* products.plist */; };
 		BE47CA00197BFAC7003743C5 /* PZLabelScore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */; };
@@ -134,6 +135,8 @@
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
 		BE0867F61985405C007260E9 /* achievement_const.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = achievement_const.plist; path = Source/achievement_const.plist; sourceTree = "<group>"; };
+		BE0B2B49198CF563000C76DF /* GuideScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuideScene.h; path = Source/GuideScene.h; sourceTree = "<group>"; };
+		BE0B2B4C198CF597000C76DF /* GuideScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuideScene.m; path = Source/GuideScene.m; sourceTree = "<group>"; };
 		BE1E4ED019813E01000EED56 /* StoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreScene.h; path = Source/StoreScene.h; sourceTree = "<group>"; };
 		BE1E4ED119813E01000EED56 /* StoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreScene.m; path = Source/StoreScene.m; sourceTree = "<group>"; };
 		BE1E4ED319814ACE000EED56 /* StoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreItem.h; path = Source/StoreItem.h; sourceTree = "<group>"; };
@@ -186,8 +189,6 @@
 		BE47C9EE197BFAC7003743C5 /* define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = define.h; path = Source/define.h; sourceTree = "<group>"; };
 		BE47C9EF197BFAC7003743C5 /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCenterManager.h; path = Source/GameCenterManager.h; sourceTree = "<group>"; };
 		BE47C9F0197BFAC7003743C5 /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCenterManager.m; path = Source/GameCenterManager.m; sourceTree = "<group>"; };
-		BE47C9F1197BFAC7003743C5 /* Guide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Guide.h; path = Source/Guide.h; sourceTree = "<group>"; };
-		BE47C9F2197BFAC7003743C5 /* Guide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Guide.m; path = Source/Guide.m; sourceTree = "<group>"; };
 		BE47C9F3197BFAC7003743C5 /* Killer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Killer.h; path = Source/Killer.h; sourceTree = "<group>"; };
 		BE47C9F4197BFAC7003743C5 /* Killer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Killer.m; path = Source/Killer.m; sourceTree = "<group>"; };
 		BE47C9F5197BFAC7003743C5 /* products.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = products.plist; path = Source/products.plist; sourceTree = "<group>"; };
@@ -268,11 +269,8 @@
 			isa = PBXGroup;
 			children = (
 				BE0867F61985405C007260E9 /* achievement_const.plist */,
-				BE1E4ECE19813DEB000EED56 /* Store */,
-				BE83D2FA197FF4DD00E3D7AA /* VirtualStore */,
-				BEDFB220197D556100A4E561 /* Uper.h */,
-				BEDFB221197D556100A4E561 /* Uper.m */,
-				BE97B5B3197C10D800D8322D /* youmi */,
+				B737893D1807617C0076A88C /* AppDelegate.h */,
+				B737893E1807617C0076A88C /* AppDelegate.m */,
 				BE47C9EA197BFAC7003743C5 /* Becterial.h */,
 				BE47C9EB197BFAC7003743C5 /* Becterial.m */,
 				BE47C9EC197BFAC7003743C5 /* DataStorageManager.h */,
@@ -280,24 +278,27 @@
 				BE47C9EE197BFAC7003743C5 /* define.h */,
 				BE47C9EF197BFAC7003743C5 /* GameCenterManager.h */,
 				BE47C9F0197BFAC7003743C5 /* GameCenterManager.m */,
-				BE47C9F1197BFAC7003743C5 /* Guide.h */,
-				BE47C9F2197BFAC7003743C5 /* Guide.m */,
+				BE0B2B49198CF563000C76DF /* GuideScene.h */,
+				BE0B2B4C198CF597000C76DF /* GuideScene.m */,
 				BE47C9F3197BFAC7003743C5 /* Killer.h */,
 				BE47C9F4197BFAC7003743C5 /* Killer.m */,
-				BE47C9F6197BFAC7003743C5 /* PZLabelScore.h */,
-				BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */,
-				BE47C9F8197BFAC7003743C5 /* ScoreScene.h */,
-				BE47C9F9197BFAC7003743C5 /* ScoreScene.m */,
-				BE47C99C197BF8DC003743C5 /* Network */,
-				BE47C952197BF836003743C5 /* UmengGameAnalytics */,
-				BE47C956197BF836003743C5 /* UMSocial_Sdk_3.3.8 */,
-				BE47C975197BF836003743C5 /* Wechat */,
-				B737893D1807617C0076A88C /* AppDelegate.h */,
-				B737893E1807617C0076A88C /* AppDelegate.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				BE47C99C197BF8DC003743C5 /* Network */,
+				BE47C9F6197BFAC7003743C5 /* PZLabelScore.h */,
+				BE47C9F7197BFAC7003743C5 /* PZLabelScore.m */,
 				BE6423211982BBF500669D61 /* ScoreNode.h */,
 				BE6423221982BBF500669D61 /* ScoreNode.m */,
+				BE47C9F8197BFAC7003743C5 /* ScoreScene.h */,
+				BE47C9F9197BFAC7003743C5 /* ScoreScene.m */,
+				BE1E4ECE19813DEB000EED56 /* Store */,
+				BE47C952197BF836003743C5 /* UmengGameAnalytics */,
+				BE47C956197BF836003743C5 /* UMSocial_Sdk_3.3.8 */,
+				BEDFB220197D556100A4E561 /* Uper.h */,
+				BEDFB221197D556100A4E561 /* Uper.m */,
+				BE83D2FA197FF4DD00E3D7AA /* VirtualStore */,
+				BE47C975197BF836003743C5 /* Wechat */,
+				BE97B5B3197C10D800D8322D /* youmi */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -642,6 +643,7 @@
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
+				BE0B2B4A198CF563000C76DF /* GuideScene.h in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
@@ -690,12 +692,12 @@
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				BE83D2F8197FF48600E3D7AA /* VirtualStore.m in Sources */,
-				BE47C9FD197BFAC7003743C5 /* Guide.m in Sources */,
 				BE47C9A2197BF929003743C5 /* Reachability.m in Sources */,
 				BE47C9DD197BFA37003743C5 /* CashStorePaymentObserver.m in Sources */,
 				BE1E4ED519814ACE000EED56 /* StoreItem.m in Sources */,
 				BE47CA00197BFAC7003743C5 /* PZLabelScore.m in Sources */,
 				BE47CA01197BFAC7003743C5 /* ScoreScene.m in Sources */,
+				BE0B2B4D198CF597000C76DF /* GuideScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
