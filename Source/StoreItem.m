@@ -69,7 +69,10 @@
 
 -(void)setPrice:(NSString *)price
 {
-    [lblPrice setString:price];
+    if(price)
+    {
+        [lblPrice setString:price];
+    }
 }
 
 @end

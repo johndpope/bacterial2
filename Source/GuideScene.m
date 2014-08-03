@@ -20,7 +20,6 @@
 #import "UMSocialScreenShoter.h"
 
 #define defaultStepCount 2000
-#define accelerateIncreaseBiomassRate 1.f;
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
 #define dataStepCount [DataStorageManager sharedDataStorageManager].stepCount
 #define dataKillerCount [DataStorageManager sharedDataStorageManager].killerCount
@@ -40,9 +39,12 @@
     CCNode *_container;
     CCButton *imgGuideMask;
     CCSprite *spriteShining;
+    CCSprite *spriteBigShining;
     CCSprite *imgContinue;
+    CCSprite *imgGuideBoard;
     CCNode *nodeMessage;
     CCNode *nodeGuide;
+    CCNode *nodeLabel;
     CCLabelTTF *lblGuideMessage;
     NSMutableArray *_becterialContainer;
     NSMutableArray *_becterialList;
@@ -80,7 +82,7 @@
     {
         _lblScore.position = ccp(58.f, 456.f);
     }
-    [self addChild:_lblScore];
+    [nodeLabel addChild:_lblScore];
 
     _lblExp = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
@@ -91,7 +93,7 @@
     {
         _lblExp.position = ccp(216.f, 456.f);
     }
-    [self addChild:_lblExp];
+    [nodeLabel addChild:_lblExp];
     
     _lblStepCount = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(isR4)
@@ -102,7 +104,7 @@
     {
         _lblStepCount.position = ccp(10.f, 390.f);
     }
-    [self addChild:_lblStepCount];
+    [nodeLabel addChild:_lblStepCount];
     
     _isRunning = NO;
     _maxLevel = 0;
@@ -110,9 +112,13 @@
     
     imgGuideMask.enabled = NO;
     [spriteShining.animationManager setCompletedAnimationCallbackBlock:^(id sender)
-    {
-        [sender runAnimationsForSequenceNamed:@"loop"];
-    }];
+     {
+         [sender runAnimationsForSequenceNamed:@"loop"];
+     }];
+    [spriteBigShining.animationManager setCompletedAnimationCallbackBlock:^(id sender)
+     {
+         [sender runAnimationsForSequenceNamed:@"loop"];
+     }];
 }
 
 -(void)update:(CCTime)delta
@@ -1017,17 +1023,26 @@
         {
             case 1:
             {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard.png"];
                 nodeMessage.positionType = CCPositionTypeNormalized;
                 nodeMessage.position = ccp(.5f, .5f);
                 spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
                 imgGuideMask.visible = YES;
                 imgContinue.visible = YES;
-                [lblGuideMessage setString:@"嗨！欢迎来到细菌博士，我的新朋友"];
+                [lblGuideMessage setString:@"嗨！欢迎来到细菌博士，我的新朋友。\n我将为你讲解一下该做些什么。"];
             }
             break;
             case 2:
             {
-                
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 420.f);
+                spriteShining.visible = NO;
+                spriteBigShining.visible = YES;
+                imgGuideMask.visible = YES;
+                imgContinue.visible = YES;
+                [lblGuideMessage setString:@"这个5x6的区域叫做培养皿\n点击每个格子就能放置一个细菌。"];
             }
             break;
             default:
