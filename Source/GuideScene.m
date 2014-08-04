@@ -121,59 +121,59 @@
      }];
 }
 
--(void)update:(CCTime)delta
-{
-    if(_isRunning)
-    {
-        runningTime = runningTime + delta;
-        enemyGenerateTime = enemyGenerateTime + delta;
-        if(runningTime <= 121.f)
-        {
-            if(enemyGenerateTime >= 30.f)
-            {
-                //产生新的生物虫
-                [self putNewEnemy:1 telent:YES];
-                enemyGenerateTime = 0.f;
-            }
-        }
-        else if(runningTime <= 301.f)
-        {
-            if(enemyGenerateTime >= 20.f)
-            {
-                //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 3) telent:YES];
-                enemyGenerateTime = 0.f;
-            }
-        }
-        else if(runningTime <= 601.f)
-        {
-            if(enemyGenerateTime >= 10.f)
-            {
-                //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 3) telent:YES];
-                enemyGenerateTime = 0.f;
-            }
-        }
-        else if(runningTime <= 901.f)
-        {
-            if(enemyGenerateTime >= 5.f)
-            {
-                //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 3) telent:YES];
-                enemyGenerateTime = 0.f;
-            }
-        }
-        else
-        {
-            if(enemyGenerateTime >= 3.f)
-            {
-                //产生新的生物虫
-                [self putNewEnemy:(arc4random() % 3) telent:YES];
-                enemyGenerateTime = 0.f;
-            }
-        }
-    }
-}
+// -(void)update:(CCTime)delta
+// {
+//     if(_isRunning)
+//     {
+//         runningTime = runningTime + delta;
+//         enemyGenerateTime = enemyGenerateTime + delta;
+//         if(runningTime <= 121.f)
+//         {
+//             if(enemyGenerateTime >= 30.f)
+//             {
+//                 //产生新的生物虫
+//                 [self putNewEnemy:1 telent:YES];
+//                 enemyGenerateTime = 0.f;
+//             }
+//         }
+//         else if(runningTime <= 301.f)
+//         {
+//             if(enemyGenerateTime >= 20.f)
+//             {
+//                 //产生新的生物虫
+//                 [self putNewEnemy:(arc4random() % 3) telent:YES];
+//                 enemyGenerateTime = 0.f;
+//             }
+//         }
+//         else if(runningTime <= 601.f)
+//         {
+//             if(enemyGenerateTime >= 10.f)
+//             {
+//                 //产生新的生物虫
+//                 [self putNewEnemy:(arc4random() % 3) telent:YES];
+//                 enemyGenerateTime = 0.f;
+//             }
+//         }
+//         else if(runningTime <= 901.f)
+//         {
+//             if(enemyGenerateTime >= 5.f)
+//             {
+//                 //产生新的生物虫
+//                 [self putNewEnemy:(arc4random() % 3) telent:YES];
+//                 enemyGenerateTime = 0.f;
+//             }
+//         }
+//         else
+//         {
+//             if(enemyGenerateTime >= 3.f)
+//             {
+//                 //产生新的生物虫
+//                 [self putNewEnemy:(arc4random() % 3) telent:YES];
+//                 enemyGenerateTime = 0.f;
+//             }
+//         }
+//     }
+// }
 
 -(void)prepareStage
 {
@@ -280,12 +280,15 @@
     }
     else if(_guideStep == 2)
     {
-        if (x > 4 || y > 5 || x < 0 || y < 0)
-        {
-            return;
-        }
-        [self putNewBacterial:x andY:y];
         self.guideStep++;
+    }
+    else if(_guideStep == 3)
+    {
+        if (x == 2 && y == 2)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
     }
     else
     {
@@ -710,12 +713,12 @@
     {
         self.score = _score + BACTERIAL_BASIC_SCORE;
         
-        if(![self evolution])
-        {
-            [self saveGame];
-        }
+        // if(![self evolution])
+        // {
+        //     [self saveGame];
+        // }
 
-        [self checkResult];
+        // [self checkResult];
     }
 }
 
@@ -834,7 +837,7 @@
             listFirst = nil;
             if([self generateBacterial:1 x:position.x y:position.y level:level])
             {
-                [self checkResult];
+                // [self checkResult];
             }
             return;
         }
@@ -869,7 +872,7 @@
             list = nil;
             if([self generateBacterial:1 x:position.x y:position.y level:level])
             {
-                [self checkResult];
+                // [self checkResult];
             }
             return;
         }
@@ -885,12 +888,12 @@
 {
     if([self generateBacterial:1 level:level])
     {
-        if(![self evolution])
-        {
-            [self saveGame];
-        }
+        // if(![self evolution])
+        // {
+        //     [self saveGame];
+        // }
 
-        [self checkResult];
+        // [self checkResult];
     }
 }
 
@@ -903,12 +906,12 @@
 {
     if([self generateBacterial:1 x:x y:y level:level])
     {
-        if(![self evolution])
-        {
-            [self saveGame];
-        }
+        // if(![self evolution])
+        // {
+        //     [self saveGame];
+        // }
 
-        [self checkResult];
+        // [self checkResult];
     }
 }
 
@@ -1043,6 +1046,166 @@
                 imgGuideMask.visible = YES;
                 imgContinue.visible = YES;
                 [lblGuideMessage setString:@"这个5x6的区域叫做培养皿\n点击每个格子就能放置一个细菌。"];
+            }
+            break;
+            case 3:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"触摸这里放置你的第一个细菌吧。"];
+            }
+            break;
+            case 4:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"再在旁边放置第二个细菌。"];
+            }
+            break;
+            case 5:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"再在旁边放置第三个细菌。"];
+            }
+            break;
+            case 6:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"当有三个细菌在横竖斜任意方向上排成一条线时\n中间的细菌就会进化一级。"];
+            }
+            break;
+            case 7:
+            {
+                if(![self evolution])
+                {
+                    [self savegame];
+                }
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"瞧，这样就合成出了一个二级细菌了。"];
+            }
+            break;
+            case 8:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
+            }
+            break;
+            case 9:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
+            }
+            break;
+            case 10:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
+            }
+            break;
+            case 11:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
+            }
+            break;
+            case 12:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
+            }
+            break;
+            case 13:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = YES;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
+            }
+            break;
+            case 14:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"不好，这里产生了一只一级生物虫\n它会吞噬周围八个格子里等级小于等于它的细菌。"];
+            }
+            break;
+            case 15:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 30.f);
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"瞧，你刚刚放置的两个一级细菌被生物虫吞噬了！\n下一步，我将教你如何消灭生物虫。"];
             }
             break;
             default:
