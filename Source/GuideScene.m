@@ -42,6 +42,7 @@
     CCSprite *spriteBigShining;
     CCSprite *imgContinue;
     CCSprite *imgGuideBoard;
+    CCSprite *imgAction;
     CCNode *nodeMessage;
     CCNode *nodeGuide;
     CCNode *nodeLabel;
@@ -284,35 +285,164 @@
     }
     else if(_guideStep == 3)
     {
+        if (x == 1 && y == 4)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 4)
+    {
+        if (x == 2 && y == 4)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 5)
+    {
+        if (x == 3 && y == 4)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 6)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 7)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 8)
+    {
+        if (x == 1 && y == 4)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 9)
+    {
+        if (x == 1 && y == 3)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 10)
+    {
+        if (x == 1 && y == 2)
+        {
+            [self putNewBacterial:x andY:y];
+            [self evolution];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 11)
+    {
+        if (x == 1 && y == 2)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 12)
+    {
         if (x == 2 && y == 2)
         {
             [self putNewBacterial:x andY:y];
             self.guideStep++;
         }
     }
+    else if(_guideStep == 13)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 14)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 15)
+    {
+        if (x == 1 && y == 1)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 16)
+    {
+        if (x == 2 && y == 1)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 17)
+    {
+        if (x == 3 && y == 1)
+        {
+            [self putNewBacterial:x andY:y];
+            [self evolution];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 19)
+    {
+        if (x == 4 && y == 4)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 20)
+    {
+        if (x == 4 && y == 3)
+        {
+            [self putNewBacterial:x andY:y];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 21)
+    {
+        if (x == 4 && y == 2)
+        {
+            [self putNewBacterial:x andY:y];
+            [self evolution];
+            self.guideStep++;
+        }
+    }
+    else if(_guideStep == 23)
+    {
+        [self checkResult];
+        self.guideStep++;
+    }
     else
     {
-        _score = 0;
-        _maxLevel = 0;
-        bacterialCount = 0;
-        enemyCount = 0;
-        enemyGenerateTime = 0;
-        runningTime = 0;
-        dataStorageManagerGuide = NO;
-        [_becterialList removeAllObjects];
-        [self saveGame];
-        
-        CCScene *scene;
-        if(isR4)
-        {
-            scene = [CCBReader loadAsScene:@"MainScene-r4"];
-        }
-        else
-        {
-            scene = [CCBReader loadAsScene:@"MainScene"];
-        }
-        [[CCDirector sharedDirector] replaceScene:scene];
+//        _score = 0;
+//        _maxLevel = 0;
+//        bacterialCount = 0;
+//        enemyCount = 0;
+//        enemyGenerateTime = 0;
+//        runningTime = 0;
+//        dataStorageManagerGuide = NO;
+//        [_becterialList removeAllObjects];
+//        [self saveGame];
+//        
+//        CCScene *scene;
+//        if(isR4)
+//        {
+//            scene = [CCBReader loadAsScene:@"MainScene-r4"];
+//        }
+//        else
+//        {
+//            scene = [CCBReader loadAsScene:@"MainScene"];
+//        }
+//        [[CCDirector sharedDirector] replaceScene:scene];
     }
+    [self saveGame];
 }
 
 -(BOOL)generateBacterial:(int)type
@@ -485,31 +615,42 @@
 
 -(void)moveBecterial:(Becterial *)becterial x:(int)x y:(int)y
 {
-    NSMutableArray *tmp = [_becterialContainer objectAtIndex:x];
-    if([tmp objectAtIndex:y] == [NSNull null] && self.stepCount > 0)
+    if (dataStorageManagerGuide && (_guideStep == 18 || _guideStep == 22))
     {
-        [tmp replaceObjectAtIndex:y withObject:becterial];
-        tmp = [_becterialContainer objectAtIndex:becterial.positionX];
-        [tmp replaceObjectAtIndex:becterial.positionY withObject:[NSNull null]];
-        becterial.positionX = x;
-        becterial.positionY = y;
-        
-        CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(x * 60.5f + 30.f, y * 60.5f + 30.f)];
-        CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
+        if (x == 2 && y == 2)
         {
-            runningAction--;
-            if(runningAction == 0)
+            self.guideStep++;
+        }
+        else if(x == 3 && y == 3)
+        {
+            self.guideStep++;
+        }
+        
+        NSMutableArray *tmp = [_becterialContainer objectAtIndex:x];
+        if([tmp objectAtIndex:y] == [NSNull null] && self.stepCount > 0)
+        {
+            [tmp replaceObjectAtIndex:y withObject:becterial];
+            tmp = [_becterialContainer objectAtIndex:becterial.positionX];
+            [tmp replaceObjectAtIndex:becterial.positionY withObject:[NSNull null]];
+            becterial.positionX = x;
+            becterial.positionY = y;
+            
+            CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(x * 60.5f + 30.f, y * 60.5f + 30.f)];
+            CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
             {
-                if(![self evolution])
+                runningAction--;
+                if(runningAction == 0)
                 {
-                    [self saveGame];
-                    [self checkResult];
+                    if(![self evolution])
+                    {
+                        [self saveGame];
+                    }
                 }
-            }
-        }];
-        self.stepCount--;
-        [becterial runAction:[CCActionSequence actionWithArray:@[aMoveTo, aCallBlock]]];
-        runningAction++;
+            }];
+            self.stepCount--;
+            [becterial runAction:[CCActionSequence actionWithArray:@[aMoveTo, aCallBlock]]];
+            runningAction++;
+        }
     }
 }
 
@@ -1021,6 +1162,7 @@
     if(_guideStep != guideStep)
     {
         _guideStep = guideStep;
+        dataStorageManagerGuideStep = guideStep;
         
         switch (_guideStep)
         {
@@ -1029,6 +1171,7 @@
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard.png"];
                 nodeMessage.positionType = CCPositionTypeNormalized;
                 nodeMessage.position = ccp(.5f, .5f);
+                imgAction.visible = NO;
                 spriteShining.visible = NO;
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = YES;
@@ -1041,6 +1184,7 @@
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
                 nodeMessage.position = ccp(160.f, 420.f);
+                imgAction.visible = NO;
                 spriteShining.visible = NO;
                 spriteBigShining.visible = YES;
                 imgGuideMask.visible = YES;
@@ -1052,8 +1196,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(100.f, 283.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1064,8 +1210,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(161.f, 283.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1076,8 +1224,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(220.f, 283.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1088,24 +1238,27 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
-                spriteShining.visible = YES;
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
-                [lblGuideMessage setString:@"当有三个细菌在横竖斜任意方向上排成一条线时\n中间的细菌就会进化一级。"];
+                [lblGuideMessage setString:@"当有三个细菌在横竖斜任意方向上排\n成一条线时中间的细菌就会进化一级。\n点击继续。"];
             }
             break;
             case 7:
             {
                 if(![self evolution])
                 {
-                    [self savegame];
+                    [self saveGame];
                 }
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(161.f, 283.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1116,8 +1269,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(100.f, 283.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1128,8 +1283,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(100.f, 219.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1140,8 +1297,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(100.f, 161.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1152,8 +1311,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(100.f, 161.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1164,8 +1325,10 @@
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(161.f, 161.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1174,41 +1337,170 @@
             break;
             case 13:
             {
+                [self putNewEnemy:2 andY:3 level:1];
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
-                spriteShining.visible = YES;
-                spriteBigShining.visible = NO;
-                imgGuideMask.visible = NO;
-                imgContinue.visible = NO;
-                [lblGuideMessage setString:@"让我们再来放置一些细菌。"];
-            }
-            break;
-            case 14:
-            {
-                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
-                nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
                 spriteShining.visible = NO;
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
-                [lblGuideMessage setString:@"不好，这里产生了一只一级生物虫\n它会吞噬周围八个格子里等级小于等于它的细菌。"];
+                [lblGuideMessage setString:@"不好，这里产生了一只一级生物虫\n它会吞噬周围八个格子里等级小于等于\n它的细菌。"];
+            }
+            break;
+            case 14:
+            {
+                [self checkResult];
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"瞧，你刚刚放置的两个一级细菌被\n生物虫吞噬了！下一步，我将教你如何\n消灭生物虫。"];
             }
             break;
             case 15:
             {
                 imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypePoints;
-                nodeMessage.position = ccp(160.f, 30.f);
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(100.f, 102.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"现在在这里放置一个细菌。"];
+            }
+            break;
+            case 16:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(161.f, 102.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"再在这里放置一个细菌。"];
+            }
+            break;
+            case 17:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(221.f, 102.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"再在这里放置一个细菌。"];
+            }
+            break;
+            case 18:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = YES;
+                imgAction.position = ccp(189.f, 129.f);
                 spriteShining.visible = NO;
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
-                [lblGuideMessage setString:@"瞧，你刚刚放置的两个一级细菌被生物虫吞噬了！\n下一步，我将教你如何消灭生物虫。"];
+                [lblGuideMessage setString:@"现在你只需要简单的拖动把这个细菌\n移动到上面去。"];
             }
             break;
-            default:
+            case 19:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(282.f, 282.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"继续继续，我们还要放置三个细菌。"];
+            }
+            break;
+            case 20:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(282.f, 221.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"继续继续，我们还要放置三个细菌。"];
+            }
+            break;
+            case 21:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 50.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(282.f, 160.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"继续继续，我们还要放置三个细菌。"];
+            }
+            break;
+            case 22:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = YES;
+                imgAction.rotation = -90.f;
+                imgAction.position = ccp(250.f, 248.f);
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"拖动这个细菌移动到左边去。"];
+            }
+            break;
+            case 23:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"当一个生物虫四周被高于自身等级\n的细菌包围的时候，生物虫就会被消灭。"];
+            }
+            break;
+            case 24:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"干得漂亮，你消灭了一个生物虫，\n游戏中随着时间的推移会产生更多\n的生物虫，你需要用刚才的办法消灭\n他们。"];
+            }
             break;
         }
     }
