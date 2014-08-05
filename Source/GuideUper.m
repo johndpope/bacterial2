@@ -17,7 +17,7 @@
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     GuideScene *scene = (GuideScene *)[self parent];
-    if(scene.guideStep == 28 && scene.uperCount > 0)
+    if((scene.guideStep == 29 || scene.guideStep == 30 || scene.guideStep == 31) && scene.uperCount > 0)
     {
         CGPoint position = [touch locationInNode:self.parent];
         CGPoint anchor = [touch locationInNode:self];
@@ -31,7 +31,7 @@
 -(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
     GuideScene *scene = (GuideScene *)[self parent];
-    if(scene.guideStep == 28 && scene.uperCount > 0 && _target)
+    if((scene.guideStep == 29 || scene.guideStep == 30 || scene.guideStep == 31) && scene.uperCount > 0 && _target)
     {
         CGPoint position = [touch locationInNode:self.parent];
         _target.position = position;
@@ -41,9 +41,9 @@
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     GuideScene *scene = (GuideScene *)[self parent];
-    if(scene.guideStep == 28 && scene.uperCount > 0 && _target)
+    if(scene.uperCount > 0 && _target)
     {
-        [self.parent removeChild:_target];
+        [_target removeFromParentAndCleanup:YES];
         
         CGPoint position = [touch locationInWorld];
         position = [[scene container] convertToNodeSpace:position];
@@ -56,7 +56,18 @@
             return;
         }
         
-        [scene useUper:x andY:y];
+        if(scene.guideStep == 29 && x == 2 && y == 4)
+        {
+            [scene useUper:x andY:y];
+        }
+        else if(scene.guideStep == 30 && x == 3 && y == 3)
+        {
+            [scene useUper:x andY:y];
+        }
+        else if(scene.guideStep == 31 && x == 4 && y == 4)
+        {
+            [scene useUper:x andY:y];
+        }
     }
 }
 

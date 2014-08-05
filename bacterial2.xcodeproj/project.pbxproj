@@ -79,6 +79,8 @@
 		BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C6197C113300D8322D /* CFNetwork.framework */; };
 		BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C8197C114900D8322D /* SystemConfiguration.framework */; };
 		BEAF716C198BD5E0004F6BED /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEAF716B198BD5E0004F6BED /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BEDC301E199109200099FD6D /* GuideKiller.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC301B199109200099FD6D /* GuideKiller.m */; };
+		BEDC301F199109200099FD6D /* GuideUper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC301D199109200099FD6D /* GuideUper.m */; };
 		BEDFB222197D556100A4E561 /* Uper.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDFB221197D556100A4E561 /* Uper.m */; };
 /* End PBXBuildFile section */
 
@@ -219,6 +221,10 @@
 		BE97B5C6197C113300D8322D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BE97B5C8197C114900D8322D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BEAF716B198BD5E0004F6BED /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		BEDC301A199109200099FD6D /* GuideKiller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuideKiller.h; path = Source/GuideKiller.h; sourceTree = "<group>"; };
+		BEDC301B199109200099FD6D /* GuideKiller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuideKiller.m; path = Source/GuideKiller.m; sourceTree = "<group>"; };
+		BEDC301C199109200099FD6D /* GuideUper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuideUper.h; path = Source/GuideUper.h; sourceTree = "<group>"; };
+		BEDC301D199109200099FD6D /* GuideUper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuideUper.m; path = Source/GuideUper.m; sourceTree = "<group>"; };
 		BEDFB220197D556100A4E561 /* Uper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uper.h; path = Source/Uper.h; sourceTree = "<group>"; };
 		BEDFB221197D556100A4E561 /* Uper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Uper.m; path = Source/Uper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -268,6 +274,10 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BEDC301A199109200099FD6D /* GuideKiller.h */,
+				BEDC301B199109200099FD6D /* GuideKiller.m */,
+				BEDC301C199109200099FD6D /* GuideUper.h */,
+				BEDC301D199109200099FD6D /* GuideUper.m */,
 				BE0867F61985405C007260E9 /* achievement_const.plist */,
 				B737893D1807617C0076A88C /* AppDelegate.h */,
 				B737893E1807617C0076A88C /* AppDelegate.m */,
@@ -682,6 +692,7 @@
 				BE6423231982BBF500669D61 /* ScoreNode.m in Sources */,
 				BE47C9FC197BFAC7003743C5 /* GameCenterManager.m in Sources */,
 				BE47C9FA197BFAC7003743C5 /* Becterial.m in Sources */,
+				BEDC301F199109200099FD6D /* GuideUper.m in Sources */,
 				BE47C9FB197BFAC7003743C5 /* DataStorageManager.m in Sources */,
 				BE47C9A1197BF929003743C5 /* PZWebManager.m in Sources */,
 				BE47C9FE197BFAC7003743C5 /* Killer.m in Sources */,
@@ -692,6 +703,7 @@
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				BE83D2F8197FF48600E3D7AA /* VirtualStore.m in Sources */,
+				BEDC301E199109200099FD6D /* GuideKiller.m in Sources */,
 				BE47C9A2197BF929003743C5 /* Reachability.m in Sources */,
 				BE47C9DD197BFA37003743C5 /* CashStorePaymentObserver.m in Sources */,
 				BE1E4ED519814ACE000EED56 /* StoreItem.m in Sources */,
