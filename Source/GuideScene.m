@@ -19,7 +19,7 @@
 #import "MobClickGameAnalytics.h"
 #import "UMSocialScreenShoter.h"
 
-#define defaultStepCount 2000
+#define defaultStepCount 500
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
 #define dataStepCount [DataStorageManager sharedDataStorageManager].stepCount
 #define dataKillerCount [DataStorageManager sharedDataStorageManager].killerCount
@@ -417,6 +417,22 @@
     else if(_guideStep == 23)
     {
         [self checkResult];
+        self.guideStep++;
+    }
+    else if(_guideStep == 24)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 25)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 26)
+    {
+        self.guideStep++;
+    }
+    else if(_guideStep == 27)
+    {
         self.guideStep++;
     }
     else
@@ -1168,7 +1184,7 @@
         {
             case 1:
             {
-                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard.png"];
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
                 nodeMessage.positionType = CCPositionTypeNormalized;
                 nodeMessage.position = ccp(.5f, .5f);
                 imgAction.visible = NO;
@@ -1486,7 +1502,7 @@
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
-                [lblGuideMessage setString:@"当一个生物虫四周被高于自身等级\n的细菌包围的时候，生物虫就会被消灭。"];
+                [lblGuideMessage setString:@"当一个生物虫四周被高于自身等级\n的细菌包围的时候，生物虫就会被\n消灭。"];
             }
             break;
             case 24:
@@ -1499,7 +1515,85 @@
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
-                [lblGuideMessage setString:@"干得漂亮，你消灭了一个生物虫，\n游戏中随着时间的推移会产生更多\n的生物虫，你需要用刚才的办法消灭\n他们。"];
+                [lblGuideMessage setString:@"干得漂亮，你消灭了一个生物虫，\n游戏中随着时间的推移会产生更多\n的生物虫，你需要用刚才的办法消\n灭他们。"];
+            }
+            break;
+            case 25:
+            {
+                [self putNewEnemy:3 andY:4 level:1];
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"这里又出现了一个生物虫，生物虫\n随着时间推移而进化，你必须时刻\n关注生物虫周围的低级细菌，尽快\n合成进化它们。"];
+            }
+            break;
+            case 26:
+            {
+                Becterial *enemy = [_enemyList objectAtIndex:0];
+                enemy.level++;
+                [self checkResult];
+
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"看见了吧，生物虫进化为二级，这\n将吞噬他周围所有等级小于等于二\n级的细菌。下面我教你怎么使用道\n具。"];
+            }
+            break;
+            case 27:
+            {
+                Becterial *b;
+                for(int i = 0; i < [_becterialList count]; i++)
+                {
+                    b = [_becterialList objectAtIndex:i];
+                    if(b.type == 0)
+                    {
+                        [_container removeChild:b];
+                        NSMutableArray *_tmp = [_becterialContainer objectAtIndex:b.positionX];
+                        [_tmp replaceObjectAtIndex:b.positionY withObject:[NSNull null]];
+                        [_becterialList removeObjectAtIndex:i];
+                    }
+                }
+                [self generateBacterial:0 x:1 y:3 level:3];
+                [self generateBacterial:0 x:2 y:2 level:3];
+                [self generateBacterial:0 x:3 y:3 level:3];
+
+                Becterial *enemy = [_enemyList objectAtIndex:0];
+                CCProgressNode *cdNode = [enemy getProgressNode];
+                cdNode.percentage = 90.f;
+
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = NO;
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"为了方便讲解，我提前给你放置了\n三个三级细菌在生物虫周围。现在\n生物虫马上就要进化了，我们需要\n做点什么来阻止这三个细菌被吞噬。"];
+            }
+            break;
+            case 28:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
+                spriteShining.position = ccp(144.f, 413.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"看见这个了吗？这叫做升级器，现\n在拖动它到一个细菌上方，然后松\n开，你将会让细菌直接升一级。"];
             }
             break;
         }

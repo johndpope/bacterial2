@@ -19,7 +19,7 @@
 #import "MobClickGameAnalytics.h"
 #import "UMSocialScreenShoter.h"
 
-#define defaultStepCount 2000
+#define defaultStepCount 500
 #define accelerateIncreaseBiomassRate 1.f;
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
 #define dataStepCount [DataStorageManager sharedDataStorageManager].stepCount

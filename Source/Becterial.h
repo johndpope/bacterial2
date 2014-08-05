@@ -18,4 +18,6 @@
 @property (nonatomic) CGFloat nextEvolutionCurrent;
 @property (nonatomic) BOOL checked; //用于检查生物虫是否已判定被包围
 
+-(CCProgressNode *)getProgressNode;
+
 @end

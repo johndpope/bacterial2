@@ -61,6 +61,11 @@
     }
 }
 
+-(CCProgressNode *)getProgressNode
+{
+    return cdNode;
+}
+
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
     if(_type == 0)
