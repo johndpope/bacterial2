@@ -7,7 +7,7 @@
 //
 
 #import "GuideUper.h"
-#import "MainScene.h"
+#import "GuideScene.h"
 
 @implementation GuideUper
 {
@@ -16,8 +16,8 @@
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    MainScene *scene = (MainScene *)[self parent];
-    if(scene.uperCount > 0)
+    GuideScene *scene = (GuideScene *)[self parent];
+    if(scene.guideStep == 28 && scene.uperCount > 0)
     {
         CGPoint position = [touch locationInNode:self.parent];
         CGPoint anchor = [touch locationInNode:self];
@@ -30,8 +30,8 @@
 
 -(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    MainScene *scene = (MainScene *)[self parent];
-    if(scene.uperCount > 0 && _target)
+    GuideScene *scene = (GuideScene *)[self parent];
+    if(scene.guideStep == 28 && scene.uperCount > 0 && _target)
     {
         CGPoint position = [touch locationInNode:self.parent];
         _target.position = position;
@@ -40,8 +40,8 @@
 
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    MainScene *scene = (MainScene *)[self parent];
-    if(scene.uperCount > 0 && _target)
+    GuideScene *scene = (GuideScene *)[self parent];
+    if(scene.guideStep == 28 && scene.uperCount > 0 && _target)
     {
         [self.parent removeChild:_target];
         

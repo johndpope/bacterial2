@@ -7,7 +7,7 @@
 //
 
 #import "GuideKiller.h"
-#import "MainScene.h"
+#import "GuideScene.h"
 
 @implementation GuideKiller
 {
@@ -16,8 +16,8 @@
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    MainScene *scene = (MainScene *)[self parent];
-    if(scene.killerCount > 0)
+    GuideScene *scene = (GuideScene *)[self parent];
+    if(scene.guideStep == 28 && scene.killerCount > 0)
     {
         CGPoint position = [touch locationInNode:self.parent];
         CGPoint anchor = [touch locationInNode:self];
@@ -30,8 +30,8 @@
 
 -(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    MainScene *scene = (MainScene *)[self parent];
-    if(scene.killerCount > 0 && _target)
+    GuideScene *scene = (GuideScene *)[self parent];
+    if(scene.guideStep == 28 && scene.killerCount > 0 && _target)
     {
         CGPoint position = [touch locationInNode:self.parent];
         _target.position = position;
@@ -40,8 +40,8 @@
 
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    MainScene *scene = (MainScene *)[self parent];
-    if(scene.killerCount > 0 && _target)
+    GuideScene *scene = (GuideScene *)[self parent];
+    if(scene.guideStep == 28 && scene.killerCount > 0 && _target)
     {
         [self.parent removeChild:_target];
         
@@ -51,7 +51,7 @@
         int x = position.x / 60.5f;
         int y = position.y / 60.5f;
         
-        if (x > 4 || y > 5 || x < 0 || y < 0)
+        if (x != 3 || y != 4)
         {
             return;
         }

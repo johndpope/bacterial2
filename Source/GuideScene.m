@@ -1589,6 +1589,20 @@
                 nodeMessage.position = ccp(160.f, 400.f);
                 imgAction.visible = NO;
                 spriteShining.visible = YES;
+                spriteShining.position = ccp(212.f, 413.f);
+                spriteBigShining.visible = NO;
+                imgGuideMask.visible = NO;
+                imgContinue.visible = NO;
+                [lblGuideMessage setString:@"看见这个了吗？这叫做抑制器，现\n在拖动它到生物虫上方，然后松开\n这会让生物虫进化到下一级的时间\n延长一分钟。"];
+            }
+            break;
+            case 29:
+            {
+                imgGuideBoard.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"guide/imgBoard1.png"];
+                nodeMessage.positionType = CCPositionTypePoints;
+                nodeMessage.position = ccp(160.f, 400.f);
+                imgAction.visible = NO;
+                spriteShining.visible = YES;
                 spriteShining.position = ccp(144.f, 413.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
@@ -1621,7 +1635,8 @@
         [self checkResult];
         [self saveGame];
         
-        [MobClickGameAnalytics use:@"killer" amount:1 price:0];
+        // [MobClickGameAnalytics use:@"killer" amount:1 price:0];
+        self.guideStep++;
     }
 }
 
@@ -1644,7 +1659,7 @@
         }
         
         self.maxLevel = b.level;
-        [MobClickGameAnalytics use:@"uper" amount:1 price:0];
+        // [MobClickGameAnalytics use:@"uper" amount:1 price:0];
     }
 }
 
