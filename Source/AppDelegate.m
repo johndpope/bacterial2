@@ -85,7 +85,7 @@
     [YouMiPointsManager enable];
 
 #ifdef DEBUG_MODE
-   [MobClick setLogEnabled:YES];
+    [MobClick setLogEnabled:YES];
 #endif
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoadVersionConfig:) name:@"requestVersionConfig" object:nil];
