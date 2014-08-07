@@ -45,6 +45,7 @@
 
 #import <StoreKit/StoreKit.h>
 
+#define dataStorageManager [DataStorageManager sharedDataStorageManager]
 #define dataStorageManagerGuide [DataStorageManager sharedDataStorageManager].guide
 #define dataStorageManagerGuideStep [DataStorageManager sharedDataStorageManager].guideStep
 
@@ -99,10 +100,10 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"connectionError1009" object:nil];
     //如果未连接互联网 就读取存档配置
-    [[DataStorageManager sharedDataStorageManager] loadConfig];
-    if(![DataStorageManager sharedDataStorageManager].config)
+    [dataStorageManager loadConfig];
+    if(!dataStorageManager.config)
     {
-        [DataStorageManager sharedDataStorageManager].config = [NSMutableDictionary new];
+        dataStorageManager.config = [NSMutableDictionary new];
         
         //如果没有存档就读取内置配置
         //IAP配置
@@ -111,63 +112,81 @@
         NSDictionary *productsResult = [NSDictionary dictionaryWithObjectsAndKeys:
                                         result, @"result",
                                         [NSDictionary new], @"version", nil];
-        [[DataStorageManager sharedDataStorageManager].config setObject:productsResult forKey:@"products"];
+        [dataStorageManager.config setObject:productsResult forKey:@"products"];
         //商店配置
         file = [[NSBundle mainBundle] pathForResource:@"virtual_const" ofType:@"plist"];
         result = [[NSArray alloc] initWithContentsOfFile:file];
         NSDictionary *virtualResult = [NSDictionary dictionaryWithObjectsAndKeys:
                                         result, @"result",
                                         [NSDictionary new], @"version", nil];
-        [[DataStorageManager sharedDataStorageManager].config setObject:virtualResult forKey:@"virtual_const"];
+        [dataStorageManager.config setObject:virtualResult forKey:@"virtual_const"];
     }
     //score board
     NSDictionary *scoreboardResult = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSNumber numberWithInt:0], @"result",
                                       [NSDictionary new], @"version", nil];
-    [[DataStorageManager sharedDataStorageManager].config setObject:scoreboardResult forKey:@"score_board"];
+    [dataStorageManager.config setObject:scoreboardResult forKey:@"score_board"];
     
     //ad
     NSDictionary *adResult = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSNumber numberWithInt:1], @"result",
                                       [NSDictionary new], @"version", nil];
-    [[DataStorageManager sharedDataStorageManager].config setObject:adResult forKey:@"ad"];
+    [dataStorageManager.config setObject:adResult forKey:@"ad"];
     
     //share reward
     NSDictionary *rewardResult = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:0], @"result",
                               [NSDictionary new], @"version", nil];
-    [[DataStorageManager sharedDataStorageManager].config setObject:rewardResult forKey:@"share_reward"];
+    [dataStorageManager.config setObject:rewardResult forKey:@"share_reward"];
     
     //activity
     NSDictionary *activityResult = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [NSNumber numberWithInt:0], @"result",
                                   [NSDictionary new], @"version", nil];
-    [[DataStorageManager sharedDataStorageManager].config setObject:activityResult forKey:@"activity"];
+    [dataStorageManager.config setObject:activityResult forKey:@"activity"];
     
-    [[DataStorageManager sharedDataStorageManager] saveConfig];
+    //time
+    [dataStorageManager.config setObject:[NSNumber numberWithInt:0] forKey:@"timestamp"];
+
+    [dataStorageManager saveConfig];
 }
 
 -(void)didLoadVersionConfig:(NSNotification *)notification
 {
     NSDictionary *data = [notification object];
     NSDictionary *result = [data objectForKey:@"result"];
+    NSNumber *number = [data objectForKey:@"timestamp"];
 
-    [[DataStorageManager sharedDataStorageManager] loadConfig];
-    if(![DataStorageManager sharedDataStorageManager].config)
+    [dataStorageManager loadConfig];
+    if(!dataStorageManager.config)
     {
-        [DataStorageManager sharedDataStorageManager].config = [NSMutableDictionary new];
-        [[DataStorageManager sharedDataStorageManager] saveConfig];
+        dataStorageManager.config = [NSMutableDictionary new];
+        [dataStorageManager.config setObject:number forKey:@"timestamp"];
+        [dataStorageManager saveConfig];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveFromServer:) name:@"requestGlobalConfig" object:nil];
         [[PZWebManager sharedPZWebManager] asyncGetRequest:@"http://b2.profzone.net/configuration/global_config" withData:nil];
     }
     else
     {
+        //检查timestamp
+        int timestamp = [number intValue];
+        NSNumber *lastNumber = [dataStorageManager.config objectForKey:@"timestamp"];
+        int lastTimestamp = [lastNumber intValue];
+        if(lastTimestamp > 0 && timestamp > lastTimestamp)
+        {
+            int minutesOffset = (timestamp - lastTimestamp) / 60;
+            int rewardGold = fmin(minutesOffset * REWARDGOLE_PER_MINUTES, 600);
+            dataStorageManager.exp = dataStorageManager.exp + rewardGold;
+            [dataStorageManager.config setObject:number forKey:@"timestamp"];
+            [dataStorageManager saveData];
+            [dataStorageManager saveConfig];
+        }
         //循环检查各个配置的version与获得的是否相同
-        NSArray *keys = [[DataStorageManager sharedDataStorageManager].config allKeys];
+        NSArray *keys = [dataStorageManager.config allKeys];
         for(NSString *key in keys)
         {
-            NSDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:key];
+            NSDictionary *config = [dataStorageManager.config objectForKey:key];
             if(config)
             {
                 NSDictionary *versionResult = [config objectForKey:@"version"];
@@ -202,7 +221,7 @@
             NSDictionary *products = [data objectForKey:@"products"];
             NSArray *productArray = [products objectForKey:@"result"];
             NSString *version = [products objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"products"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"products"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -211,7 +230,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"products"];
+                [dataStorageManager.config setObject:config forKey:@"products"];
             }
             [config setObject:productArray forKey:@"result"];
             
@@ -219,7 +238,7 @@
             NSDictionary *virtualResult = [data objectForKey:@"virtual_const"];
             NSDictionary *virtual = [virtualResult objectForKey:@"result"];
             version = [virtualResult objectForKey:@"version"];
-            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"virtual_const"];
+            config = [dataStorageManager.config objectForKey:@"virtual_const"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -228,7 +247,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"virtual_const"];
+                [dataStorageManager.config setObject:config forKey:@"virtual_const"];
             }
             [config setObject:virtual forKey:@"result"];
 
@@ -236,7 +255,7 @@
             NSDictionary *scoreboardResult = [data objectForKey:@"score_board"];
             int scoreboard = [[scoreboardResult objectForKey:@"result"] intValue];
             version = [scoreboardResult objectForKey:@"version"];
-            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"score_board"];
+            config = [dataStorageManager.config objectForKey:@"score_board"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -245,7 +264,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"score_board"];
+                [dataStorageManager.config setObject:config forKey:@"score_board"];
             }
             [config setObject:[NSNumber numberWithInt:scoreboard] forKey:@"result"];
             
@@ -253,7 +272,7 @@
             NSDictionary *adResult = [data objectForKey:@"ad"];
             int ad = [[adResult objectForKey:@"result"] intValue];
             version = [adResult objectForKey:@"version"];
-            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"ad"];
+            config = [dataStorageManager.config objectForKey:@"ad"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -262,7 +281,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"ad"];
+                [dataStorageManager.config setObject:config forKey:@"ad"];
             }
             [config setObject:[NSNumber numberWithInt:ad] forKey:@"result"];
             
@@ -270,7 +289,7 @@
             NSDictionary *rewardResult = [data objectForKey:@"share_reward"];
             int reward = [[rewardResult objectForKey:@"result"] intValue];
             version = [rewardResult objectForKey:@"version"];
-            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"share_reward"];
+            config = [dataStorageManager.config objectForKey:@"share_reward"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -279,7 +298,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"share_reward"];
+                [dataStorageManager.config setObject:config forKey:@"share_reward"];
             }
             [config setObject:[NSNumber numberWithInt:reward] forKey:@"result"];
             
@@ -287,7 +306,7 @@
             NSDictionary *activityResult = [data objectForKey:@"activity"];
             int activity = [[activityResult objectForKey:@"result"] intValue];
             version = [activityResult objectForKey:@"version"];
-            config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"activity"];
+            config = [dataStorageManager.config objectForKey:@"activity"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -296,7 +315,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"activity"];
+                [dataStorageManager.config setObject:config forKey:@"activity"];
             }
             [config setObject:[NSNumber numberWithInt:activity] forKey:@"result"];
         }
@@ -305,7 +324,7 @@
             NSDictionary *products = [data objectForKey:@"products"];
             NSArray *productArray = [products objectForKey:@"result"];
             NSString *version = [products objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"products"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"products"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -314,7 +333,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"products"];
+                [dataStorageManager.config setObject:config forKey:@"products"];
             }
             [config setObject:productArray forKey:@"result"];
         }
@@ -323,7 +342,7 @@
             NSDictionary *virtualResult = [data objectForKey:@"virtual_const"];
             NSDictionary *virtual = [virtualResult objectForKey:@"result"];
             NSDictionary *version = [virtualResult objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"virtual_const"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"virtual_const"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -332,7 +351,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"virtual_const"];
+                [dataStorageManager.config setObject:config forKey:@"virtual_const"];
             }
             [config setObject:virtual forKey:@"result"];
         }
@@ -341,7 +360,7 @@
             NSDictionary *scoreboardResult = [data objectForKey:@"score_board"];
             int scoreboard = [[scoreboardResult objectForKey:@"result"] intValue];
             NSDictionary *version = [scoreboardResult objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"score_board"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"score_board"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -350,7 +369,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"score_board"];
+                [dataStorageManager.config setObject:config forKey:@"score_board"];
             }
             [config setObject:[NSNumber numberWithInt:scoreboard] forKey:@"result"];
         }
@@ -359,7 +378,7 @@
             NSDictionary *adResult = [data objectForKey:@"ad"];
             int ad = [[adResult objectForKey:@"result"] intValue];
             NSDictionary *version = [adResult objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"ad"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"ad"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -368,7 +387,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"ad"];
+                [dataStorageManager.config setObject:config forKey:@"ad"];
             }
             [config setObject:[NSNumber numberWithInt:ad] forKey:@"result"];
         }
@@ -377,7 +396,7 @@
             NSDictionary *rewardResult = [data objectForKey:@"share_reward"];
             int reward = [[rewardResult objectForKey:@"result"] intValue];
             NSDictionary *version = [rewardResult objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"share_reward"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"share_reward"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -386,7 +405,7 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"share_reward"];
+                [dataStorageManager.config setObject:config forKey:@"share_reward"];
             }
             [config setObject:[NSNumber numberWithInt:reward] forKey:@"result"];
         }
@@ -395,7 +414,7 @@
             NSDictionary *activityResult = [data objectForKey:@"activity"];
             int activity = [[activityResult objectForKey:@"result"] intValue];
             NSDictionary *version = [activityResult objectForKey:@"version"];
-            NSMutableDictionary *config = [[DataStorageManager sharedDataStorageManager].config objectForKey:@"activity"];
+            NSMutableDictionary *config = [dataStorageManager.config objectForKey:@"activity"];
             if(config)
             {
                 [config setObject:version forKey:@"version"];
@@ -404,18 +423,18 @@
             {
                 config = [NSMutableDictionary new];
                 [config setObject:version forKey:@"version"];
-                [[DataStorageManager sharedDataStorageManager].config setObject:config forKey:@"activity"];
+                [dataStorageManager.config setObject:config forKey:@"activity"];
             }
             [config setObject:[NSNumber numberWithInt:activity] forKey:@"result"];
         }
 
-        [[DataStorageManager sharedDataStorageManager] saveConfig];
+        [dataStorageManager saveConfig];
     }
 }
 
 - (CCScene*) startScene
 {
-    [[DataStorageManager sharedDataStorageManager] loadData];
+    [dataStorageManager loadData];
 
     //加载资源
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"number.plist"];

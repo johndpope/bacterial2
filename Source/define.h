@@ -12,6 +12,7 @@
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 //#define DEBUG_MODE
 
+#define REWARDGOLE_PER_MINUTES 5
 #define MAXLEVEL 21
 #define BACTERIAL_BASIC_SCORE 5
 #define ENEMY_BASIC_EXP 10
