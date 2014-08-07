@@ -167,9 +167,9 @@
     [dataStorageManager loadConfig];
     if(!dataStorageManager.config)
     {
+        dataStorageManager.config = [NSMutableDictionary new];
         if(!dataStorageManagerGuide)
         {
-            dataStorageManager.config = [NSMutableDictionary new];
             [dataStorageManager.config setObject:number forKey:@"timestamp"];
             [dataStorageManager saveConfig];
         }
