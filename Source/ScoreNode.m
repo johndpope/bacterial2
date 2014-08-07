@@ -49,6 +49,7 @@
 {
     _score = score;
     [lblScore setScore:score];
+    lblScore.position = ccp((self.contentSize.width - lblScore.contentSize.width) / 2.f, lblScore.position.y);
 }
 
 @end

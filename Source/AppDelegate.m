@@ -150,7 +150,10 @@
     [dataStorageManager.config setObject:activityResult forKey:@"activity"];
     
     //time
-    [dataStorageManager.config setObject:[NSNumber numberWithInt:0] forKey:@"timestamp"];
+    if(![dataStorageManager.config objectForKey:@"timestamp"])
+    {
+        [dataStorageManager.config setObject:[NSNumber numberWithInt:0] forKey:@"timestamp"];
+    }
 
     [dataStorageManager saveConfig];
 }
@@ -192,32 +195,37 @@
                     int rewardGold = fmin(minutesOffset * REWARDGOLE_PER_MINUTES, 600);
                     rewardGoldInScene = rewardGold;
                     dataStorageManager.exp = dataStorageManager.exp + rewardGold;
-                    [dataStorageManager.config setObject:number forKey:@"timestamp"];
                     [dataStorageManager saveData];
-                    [dataStorageManager saveConfig];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"showRewardGold" object:[NSNumber numberWithInt:rewardGoldInScene]];
                 }
             }
+            [dataStorageManager.config setObject:number forKey:@"timestamp"];
+            [dataStorageManager saveConfig];
         }
         //循环检查各个配置的version与获得的是否相同
         NSArray *keys = [dataStorageManager.config allKeys];
         for(NSString *key in keys)
         {
-            NSDictionary *config = [dataStorageManager.config objectForKey:key];
-            if(config)
+            if(![key isEqualToString:@"timestamp"])
             {
-                NSDictionary *versionResult = [config objectForKey:@"version"];
-                NSString *version = [versionResult objectForKey:@"version"];
-                NSDictionary *target = [result objectForKey:key];
-                if(target)
+                NSDictionary *config = [dataStorageManager.config objectForKey:key];
+                if(config)
                 {
-                    NSString *targetVersion = [target objectForKey:@"version"];
-                    if(![version isEqualToString:targetVersion])
+                    NSDictionary *versionResult = [config objectForKey:@"version"];
+                    NSString *version = [versionResult objectForKey:@"version"];
+                    NSDictionary *target = [result objectForKey:key];
+                    if(target)
                     {
-                        NSString *url = [target objectForKey:@"url"];
-                        NSString *command = [target objectForKey:@"command"];
+                        NSString *targetVersion = [target objectForKey:@"version"];
+                        if(![version isEqualToString:targetVersion])
+                        {
+                            NSString *url = [target objectForKey:@"url"];
+                            NSString *command = [target objectForKey:@"command"];
 
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveFromServer:) name:command object:nil];
-                        [[PZWebManager sharedPZWebManager] asyncGetRequest:url withData:nil];
+                            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveFromServer:) name:command object:nil];
+                            [[PZWebManager sharedPZWebManager] asyncGetRequest:url withData:nil];
+                        }
                     }
                 }
             }

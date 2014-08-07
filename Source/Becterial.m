@@ -19,6 +19,7 @@
     PZLabelScore *lblLevel;
     MainScene *mainScene;
     CCProgressNode *cdNode;
+    BOOL _isNew;
 }
 
 -(id)init
@@ -29,6 +30,8 @@
         self.nextEvolution = ENEMY_EVOLUTION_BASIC_TIME;
         self.nextEvolutionCurrent = ENEMY_EVOLUTION_BASIC_TIME;
         self.userInteractionEnabled = YES;
+        self.scale = 0.f;
+        _isNew = YES;
     }
     return self;
 }
@@ -39,8 +42,9 @@
 
     mainScene = (MainScene *)self.parent.parent;
 
-    CCActionScaleTo *aScaleTo = [CCActionScaleTo actionWithDuration:.3f scale:1.f];
+    CCActionScaleTo *aScaleTo = [CCActionScaleTo actionWithDuration:.2f scale:1.f];
     [self runAction:aScaleTo];
+    _isNew = NO;
 }
 
 -(void)update:(CCTime)delta
@@ -122,14 +126,29 @@
 {
 	if(_level != level && level <= MAXLEVEL)
 	{
+        if(_level > 0)
+        {
+            CCSprite *up = (CCSprite *)[CCBReader load:@"Up"];
+            up.anchorPoint = ccp(0.f, 0.f);
+            up.position = ccp(0.f, 0.f);
+            [up.animationManager setCompletedAnimationCallbackBlock:^(id sender)
+            {
+                [up removeFromParentAndCleanup:YES];
+            }];
+            [self addChild:up];
+        }
+        
 		_level = level;
         if(_type == 0)
         {
             self.spriteFrame = [CCSpriteFrame frameWithImageNamed:[NSString stringWithFormat:@"resources/%i%i.png", _type, level]];
         }
-        else
+        else if(!_isNew)
         {
-            self.opacity = 1.f - (MAXLEVEL - level) / (CGFloat)MAXLEVEL;
+            CCActionScaleTo *aScaleTo1 = [CCActionScaleTo actionWithDuration:.2f scale:0.8f];
+            CCActionScaleTo *aScaleTo2 = [CCActionScaleTo actionWithDuration:.1f scale:1.1f];
+            CCActionScaleTo *aScaleTo3 = [CCActionScaleTo actionWithDuration:.1f scale:1.f];
+            [self runAction:[CCActionSequence actionWithArray:@[aScaleTo1, aScaleTo2, aScaleTo3]]];
         }
         [lblLevel setScore:level];
 

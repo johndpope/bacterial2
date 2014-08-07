@@ -136,18 +136,27 @@ static GameCenterManager *_instance = nil;
 {
     if (_enabled && _localPlayer.authenticated)
     {
-        //IOS 6
-        // [[GKLocalPlayer localPlayer] loadDefaultLeaderboardCategoryIDWithCompletionHandler:
-        // ^(NSString *categoryID, NSError *error) {
-        //     _leaderboardIdentifier = categoryID;
-        // }];
+        NSString *version = [[UIDevice currentDevice] systemVersion];
+        NSArray *tmp = [version componentsSeparatedByString:@"."];
+        int v = [tmp[0] intValue];
 
-        //IOS 7
-        [_localPlayer loadDefaultLeaderboardIdentifierWithCompletionHandler:
-        ^(NSString *leaderboardIdentifier, NSError *error)
+        if(v >= 7)
         {
-            _leaderboardIdentifier = leaderboardIdentifier;
-        }];
+            //IOS 7
+            [_localPlayer loadDefaultLeaderboardIdentifierWithCompletionHandler:
+            ^(NSString *leaderboardIdentifier, NSError *error)
+            {
+                _leaderboardIdentifier = leaderboardIdentifier;
+            }];
+        }
+        else
+        {
+            //IOS 6
+            [_localPlayer loadDefaultLeaderboardCategoryIDWithCompletionHandler:
+            ^(NSString *categoryID, NSError *error) {
+                _leaderboardIdentifier = categoryID;
+            }];
+        }
     }
 }
 

@@ -16,6 +16,7 @@
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
 #import "ScoreNode.h"
+#import "Reward.h"
 #import "MobClickGameAnalytics.h"
 #import "UMSocialScreenShoter.h"
 
@@ -100,6 +101,8 @@
     
     _maxLevel = 0;
     self.userInteractionEnabled = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRewardGoldNotification:) name:@"showRewardGold" object:nil];
 }
 
 -(void)update:(CCTime)delta
@@ -210,6 +213,7 @@
 {
     [super onExit];
     [self saveGame];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showRewardGold" object:nil];
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -1430,9 +1434,28 @@
     return scoreScene;
 }
 
+-(void)showRewardGoldNotification:(NSNotification *)notification
+{
+    NSNumber *number = [notification object];
+    [self showRewardGold:[number intValue]];
+    [_lblExp setScore:dataExp];
+}
+
 -(void)showRewardGold:(int)reward
 {
     _isRunning = NO;
+    Reward *r;
+    if(isR4)
+    {
+        r = (Reward *)[CCBReader load:@"RewardLayer-r4"];
+    }
+    else
+    {
+        r = (Reward *)[CCBReader load:@"RewardLayer"];
+    }
+    r.rewardGold = reward;
+    
+    [self addChild:r];
 }
 
 @end

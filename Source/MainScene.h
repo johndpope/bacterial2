@@ -29,6 +29,7 @@
 -(void)checkResult;
 -(void)reset;
 -(ScoreScene *)showScoreScene;
+-(void)showRewardGoldNotification:(NSNotification *)notification;
 -(void)showRewardGold:(int)reward;
 
 @end

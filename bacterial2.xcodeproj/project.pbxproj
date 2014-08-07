@@ -41,6 +41,7 @@
 		BE0B2B4D198CF597000C76DF /* GuideScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0B2B4C198CF597000C76DF /* GuideScene.m */; };
 		BE1E4ED219813E01000EED56 /* StoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED119813E01000EED56 /* StoreScene.m */; };
 		BE1E4ED519814ACE000EED56 /* StoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED419814ACE000EED56 /* StoreItem.m */; };
+		BE203C361993AE1700AB73C4 /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = BE203C351993AE1700AB73C4 /* Reward.m */; };
 		BE47C97B197BF836003743C5 /* libMobClickGameLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C953197BF836003743C5 /* libMobClickGameLibrary.a */; };
 		BE47C97C197BF836003743C5 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE47C957197BF836003743C5 /* UMSocialLocalizable.strings */; };
 		BE47C97D197BF836003743C5 /* libUMSocial_Sdk_3.3.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47C965197BF836003743C5 /* libUMSocial_Sdk_3.3.8.a */; };
@@ -143,6 +144,8 @@
 		BE1E4ED119813E01000EED56 /* StoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreScene.m; path = Source/StoreScene.m; sourceTree = "<group>"; };
 		BE1E4ED319814ACE000EED56 /* StoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreItem.h; path = Source/StoreItem.h; sourceTree = "<group>"; };
 		BE1E4ED419814ACE000EED56 /* StoreItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreItem.m; path = Source/StoreItem.m; sourceTree = "<group>"; };
+		BE203C341993AE1700AB73C4 /* Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reward.h; path = Source/Reward.h; sourceTree = "<group>"; };
+		BE203C351993AE1700AB73C4 /* Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reward.m; path = Source/Reward.m; sourceTree = "<group>"; };
 		BE47C953197BF836003743C5 /* libMobClickGameLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickGameLibrary.a; sourceTree = "<group>"; };
 		BE47C954197BF836003743C5 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		BE47C955197BF836003743C5 /* MobClickGameAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickGameAnalytics.h; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				BE83D2FA197FF4DD00E3D7AA /* VirtualStore */,
 				BE47C975197BF836003743C5 /* Wechat */,
 				BE97B5B3197C10D800D8322D /* youmi */,
+				BE203C341993AE1700AB73C4 /* Reward.h */,
+				BE203C351993AE1700AB73C4 /* Reward.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -695,6 +700,7 @@
 				BEDC301F199109200099FD6D /* GuideUper.m in Sources */,
 				BE47C9FB197BFAC7003743C5 /* DataStorageManager.m in Sources */,
 				BE47C9A1197BF929003743C5 /* PZWebManager.m in Sources */,
+				BE203C361993AE1700AB73C4 /* Reward.m in Sources */,
 				BE47C9FE197BFAC7003743C5 /* Killer.m in Sources */,
 				BEDFB222197D556100A4E561 /* Uper.m in Sources */,
 				BE1E4ED219813E01000EED56 /* StoreScene.m in Sources */,

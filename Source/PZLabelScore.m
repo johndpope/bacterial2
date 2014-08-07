@@ -37,8 +37,9 @@
         CCSprite *numSprite = [CCSprite spriteWithSpriteFrame:frame];
         [numSprite setContentSize:CGSizeMake(_itemWidth, _itemHeight)];
         numSprite.anchorPoint = ccp(0, 0);
-        numSprite.position = ccp(0, 0);
+        numSprite.position = ccp(numSprite.contentSize.width / 2.f, 0);
         [self addChild:numSprite];
+        self.contentSize = CGSizeMake(numSprite.contentSize.width, numSprite.contentSize.height);
         return;
     }
     else if(_score != score)
@@ -67,6 +68,7 @@
             numSprite.anchorPoint = ccp(0, 0);
             numSprite.position = ccp((count - 1 - i) * numSprite.contentSize.width, 0);
             [self addChild:numSprite];
+            self.contentSize = CGSizeMake(self.contentSize.width + numSprite.contentSize.width, numSprite.contentSize.height);
         }
     }
 }
