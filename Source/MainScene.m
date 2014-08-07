@@ -1432,7 +1432,7 @@
 
 -(void)showRewardGold:(int)reward
 {
-    
+    _isRunning = NO;
 }
 
 @end

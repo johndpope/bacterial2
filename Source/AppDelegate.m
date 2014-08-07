@@ -187,12 +187,15 @@
             {
                 //增加金币奖励
                 int minutesOffset = (timestamp - lastTimestamp) / 60;
-                int rewardGold = fmin(minutesOffset * REWARDGOLE_PER_MINUTES, 600);
-                rewardGoldInScene = rewardGold;
-                dataStorageManager.exp = dataStorageManager.exp + rewardGold;
-                [dataStorageManager.config setObject:number forKey:@"timestamp"];
-                [dataStorageManager saveData];
-                [dataStorageManager saveConfig];
+                if(minutesOffset > 0)
+                {
+                    int rewardGold = fmin(minutesOffset * REWARDGOLE_PER_MINUTES, 600);
+                    rewardGoldInScene = rewardGold;
+                    dataStorageManager.exp = dataStorageManager.exp + rewardGold;
+                    [dataStorageManager.config setObject:number forKey:@"timestamp"];
+                    [dataStorageManager saveData];
+                    [dataStorageManager saveConfig];
+                }
             }
         }
         //循环检查各个配置的version与获得的是否相同
@@ -490,6 +493,10 @@
             mainScene = (MainScene *)[CCBReader load:@"MainScene"];
         }
         [scene addChild:mainScene];
+        if(rewardGoldInScene > 0)
+        {
+            [mainScene showRewardGold:rewardGoldInScene];
+        }
     }
     return scene;
 }

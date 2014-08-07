@@ -151,7 +151,7 @@
     _type = type;
     if(type == 1)
     {
-        self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"enemy/enemy1.png"];
+        self.spriteFrame = [CCSpriteFrame frameWithImageNamed:@"enemy/enemy0.png"];
         
         lv = [CCSprite spriteWithImageNamed:@"number_small/lv.png"];
         lv.anchorPoint = ccp(0.f, 0.f);
