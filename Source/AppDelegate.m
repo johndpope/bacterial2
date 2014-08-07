@@ -41,6 +41,7 @@
 #import "CashStoreManager.h"
 #import "DataStorageManager.h"
 #import "GameCenterManager.h"
+#import "MainScene.h"
 #import "GuideScene.h"
 
 #import <StoreKit/StoreKit.h>
@@ -50,6 +51,9 @@
 #define dataStorageManagerGuideStep [DataStorageManager sharedDataStorageManager].guideStep
 
 @implementation AppController
+{
+    int rewardGoldInScene;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -160,27 +164,36 @@
     [dataStorageManager loadConfig];
     if(!dataStorageManager.config)
     {
-        dataStorageManager.config = [NSMutableDictionary new];
-        [dataStorageManager.config setObject:number forKey:@"timestamp"];
-        [dataStorageManager saveConfig];
+        if(!dataStorageManagerGuide)
+        {
+            dataStorageManager.config = [NSMutableDictionary new];
+            [dataStorageManager.config setObject:number forKey:@"timestamp"];
+            [dataStorageManager saveConfig];
+        }
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveFromServer:) name:@"requestGlobalConfig" object:nil];
         [[PZWebManager sharedPZWebManager] asyncGetRequest:@"http://b2.profzone.net/configuration/global_config" withData:nil];
     }
     else
     {
-        //检查timestamp
-        int timestamp = [number intValue];
-        NSNumber *lastNumber = [dataStorageManager.config objectForKey:@"timestamp"];
-        int lastTimestamp = [lastNumber intValue];
-        if(lastTimestamp > 0 && timestamp > lastTimestamp)
+
+        if(!dataStorageManagerGuide)
         {
-            int minutesOffset = (timestamp - lastTimestamp) / 60;
-            int rewardGold = fmin(minutesOffset * REWARDGOLE_PER_MINUTES, 600);
-            dataStorageManager.exp = dataStorageManager.exp + rewardGold;
-            [dataStorageManager.config setObject:number forKey:@"timestamp"];
-            [dataStorageManager saveData];
-            [dataStorageManager saveConfig];
+            //检查timestamp
+            int timestamp = [number intValue];
+            NSNumber *lastNumber = [dataStorageManager.config objectForKey:@"timestamp"];
+            int lastTimestamp = [lastNumber intValue];
+            if(lastTimestamp > 0 && timestamp > lastTimestamp)
+            {
+                //增加金币奖励
+                int minutesOffset = (timestamp - lastTimestamp) / 60;
+                int rewardGold = fmin(minutesOffset * REWARDGOLE_PER_MINUTES, 600);
+                rewardGoldInScene = rewardGold;
+                dataStorageManager.exp = dataStorageManager.exp + rewardGold;
+                [dataStorageManager.config setObject:number forKey:@"timestamp"];
+                [dataStorageManager saveData];
+                [dataStorageManager saveConfig];
+            }
         }
         //循环检查各个配置的version与获得的是否相同
         NSArray *keys = [dataStorageManager.config allKeys];
@@ -447,6 +460,7 @@
     [[CCDirector sharedDirector] setDisplayStats:YES];
     #endif
     
+    CCScene *scene = [CCScene node];
     if (dataStorageManagerGuide)
     {
         int guideStep = dataStorageManagerGuideStep;
@@ -462,21 +476,22 @@
             guide = (GuideScene *)[CCBReader load:@"GuideScene"];
         }
         guide.guideStep = guideStep;
-        CCScene *scene = [CCScene node];
         [scene addChild:guide];
-        return scene;
     }
     else
     {
+        MainScene *mainScene;
         if(iPhone5)
         {
-            return [CCBReader loadAsScene:@"MainScene-r4"];
+            mainScene = (MainScene *)[CCBReader load:@"MainScene-r4"];
         }
         else
         {
-            return [CCBReader loadAsScene:@"MainScene"];
+            mainScene = (MainScene *)[CCBReader load:@"MainScene"];
         }
+        [scene addChild:mainScene];
     }
+    return scene;
 }
 
 @end

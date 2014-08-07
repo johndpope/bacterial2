@@ -1430,4 +1430,9 @@
     return scoreScene;
 }
 
+-(void)showRewardGold:(int)reward
+{
+    
+}
+
 @end

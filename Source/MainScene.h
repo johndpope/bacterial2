@@ -29,5 +29,6 @@
 -(void)checkResult;
 -(void)reset;
 -(ScoreScene *)showScoreScene;
+-(void)showRewardGold:(int)reward;
 
 @end
