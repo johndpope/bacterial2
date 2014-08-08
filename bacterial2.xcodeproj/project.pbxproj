@@ -76,7 +76,7 @@
 		BE83D30019800CD200E3D7AA /* virtual_const.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE83D2FF19800CD200E3D7AA /* virtual_const.plist */; };
 		BE97B5B1197C106400D8322D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE97B5B0197C106400D8322D /* Images.xcassets */; };
 		BE97B5C3197C10F700D8322D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C2197C10F700D8322D /* GameKit.framework */; };
-		BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C4197C10FF00D8322D /* StoreKit.framework */; };
+		BE97B5C5197C10FF00D8322D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C4197C10FF00D8322D /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BE97B5C7197C113300D8322D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C6197C113300D8322D /* CFNetwork.framework */; };
 		BE97B5C9197C114900D8322D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE97B5C8197C114900D8322D /* SystemConfiguration.framework */; };
 		BEAF716C198BD5E0004F6BED /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEAF716B198BD5E0004F6BED /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -841,6 +841,7 @@
 				);
 				PRODUCT_NAME = bacterial2;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -885,6 +886,7 @@
 				);
 				PRODUCT_NAME = bacterial2;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

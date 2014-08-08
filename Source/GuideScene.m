@@ -447,7 +447,7 @@
     {
         self.guideStep++;
     }
-    else
+    else if(_guideStep == 34)
     {
         _score = 0;
         _maxLevel = 0;
@@ -1637,7 +1637,14 @@
                 imgAction.visible = NO;
                 spriteShining.visible = YES;
                 spriteShining1.visible = NO;
-                spriteShining.position = ccp(212.f, 413.f);
+                if(isR4)
+                {
+                    spriteShining.position = ccp(212.f, 445.f);
+                }
+                else
+                {
+                    spriteShining.position = ccp(212.f, 413.f);
+                }
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
                 imgContinue.visible = NO;
@@ -1652,7 +1659,14 @@
                 imgAction.visible = NO;
                 spriteShining.visible = YES;
                 spriteShining1.visible = YES;
-                spriteShining.position = ccp(144.f, 413.f);
+                if(isR4)
+                {
+                    spriteShining.position = ccp(144.f, 445.f);
+                }
+                else
+                {
+                    spriteShining.position = ccp(144.f, 413.f);
+                }
                 spriteShining1.position = ccp(159.f, 284.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
@@ -1668,7 +1682,14 @@
                 imgAction.visible = NO;
                 spriteShining.visible = YES;
                 spriteShining1.visible = YES;
-                spriteShining.position = ccp(144.f, 413.f);
+                if(isR4)
+                {
+                    spriteShining.position = ccp(144.f, 445.f);
+                }
+                else
+                {
+                    spriteShining.position = ccp(144.f, 413.f);
+                }
                 spriteShining1.position = ccp(218.f, 224.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
@@ -1684,7 +1705,14 @@
                 imgAction.visible = NO;
                 spriteShining.visible = YES;
                 spriteShining1.visible = YES;
-                spriteShining.position = ccp(144.f, 413.f);
+                if(isR4)
+                {
+                    spriteShining.position = ccp(144.f, 445.f);
+                }
+                else
+                {
+                    spriteShining.position = ccp(144.f, 413.f);
+                }
                 spriteShining1.position = ccp(278.f, 285.f);
                 spriteBigShining.visible = NO;
                 imgGuideMask.visible = NO;
