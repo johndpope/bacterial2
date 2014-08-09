@@ -31,5 +31,6 @@
 -(ScoreScene *)showScoreScene;
 -(void)showRewardGoldNotification:(NSNotification *)notification;
 -(void)showRewardGold:(int)reward;
+-(void)showMessage:(NSString *)message;
 
 @end

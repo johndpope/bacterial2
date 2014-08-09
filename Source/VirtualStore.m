@@ -43,6 +43,7 @@
     CCLabelTTF *lblMessage;
     
     BOOL isR4;
+    BOOL isBuyGold;
     NSString *currentSelected;
     int gold;
     NSDictionary *virtual;
@@ -70,6 +71,7 @@
     btnScoreboard.visible = NO;
     btnMask.enabled = NO;
     currentSelected = 0;
+    isBuyGold = NO;
     
     if(dataConfig)
     {
@@ -163,7 +165,8 @@
         }
         else
         {
-            [self showMessageBox:@"你的金币不够哦" type:2];
+            isBuyGold = YES;
+            [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
         }
     }
     else
@@ -184,7 +187,8 @@
         }
         else
         {
-            [self showMessageBox:@"你的金币不够哦" type:2];
+            isBuyGold = YES;
+            [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
         }
     }
     else
@@ -205,7 +209,8 @@
         }
         else
         {
-            [self showMessageBox:@"你的金币不够哦" type:2];
+            isBuyGold = YES;
+            [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
         }
     }
     else
@@ -226,7 +231,8 @@
         }
         else
         {
-            [self showMessageBox:@"你的金币不够哦" type:2];
+            isBuyGold = YES;
+            [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
         }
     }
     else
@@ -247,7 +253,8 @@
         }
         else
         {
-            [self showMessageBox:@"你的金币不够哦" type:2];
+            isBuyGold = YES;
+            [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
         }
     }
     else
@@ -268,7 +275,8 @@
         }
         else
         {
-            [self showMessageBox:@"你的金币不够哦" type:2];
+            isBuyGold = YES;
+            [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
         }
     }
     else
@@ -279,6 +287,12 @@
 
 -(void)btnConfirmTouch
 {
+    if (isBuyGold)
+    {
+        [self btnBuyGoldTouch];
+        isBuyGold = NO;
+        return;
+    }
     if (currentSelected)
     {
         if(virtual)
@@ -309,7 +323,7 @@
             }
             else
             {
-                [self showMessageBox:@"你的金币不够哦" type:2];
+                [self showMessageBox:@"你的金币不够哦，要去购买吗？" type:1];
             }
             
             [[DataStorageManager sharedDataStorageManager] saveData];

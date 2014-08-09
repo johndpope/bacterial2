@@ -26,6 +26,10 @@
         _target.position = position;
         [self.parent addChild:_target];
     }
+    else
+    {
+        [scene showMessage:@"抑制器没有咯T_T\n需要用金币购买吗？"];
+    }
 }
 
 -(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event

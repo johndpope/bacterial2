@@ -20,7 +20,7 @@
 #import "MobClickGameAnalytics.h"
 #import "UMSocialScreenShoter.h"
 
-#define defaultStepCount 500
+#define defaultStepCount 800
 #define accelerateIncreaseBiomassRate 1.f;
 #define dataExp [DataStorageManager sharedDataStorageManager].exp
 #define dataStepCount [DataStorageManager sharedDataStorageManager].stepCount
@@ -39,6 +39,9 @@
     PZLabelScore *_lblStepCount; //步数
     PZLabelScore *_lblScore; //分数
     CCNode *_container;
+    CCNode *containerMessage;
+    CCLabelTTF *lblMessage;
+    CCButton *btnMask;
     NSMutableArray *_becterialContainer;
     NSMutableArray *_becterialList;
     NSMutableArray *_enemyList;
@@ -101,6 +104,8 @@
     
     _maxLevel = 0;
     self.userInteractionEnabled = YES;
+    btnMask.enabled = NO;
+    containerMessage.visible = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRewardGoldNotification:) name:@"showRewardGold" object:nil];
 }
@@ -401,8 +406,16 @@
 
 -(void)moveBecterial:(Becterial *)becterial x:(int)x y:(int)y
 {
+#ifdef DEBUG_MODE
+    NSLog(@"Move to x=%i, y=%i", x, y);
+#endif
+    if(self.stepCount == 0)
+    {
+        [self showMessage:@"移动步数没有咯T_T\n需要用金币去购买吗？"];
+        return;
+    }
     NSMutableArray *tmp = [_becterialContainer objectAtIndex:x];
-    if([tmp objectAtIndex:y] == [NSNull null] && self.stepCount > 0)
+    if([tmp objectAtIndex:y] == [NSNull null])
     {
         [tmp replaceObjectAtIndex:y withObject:becterial];
         tmp = [_becterialContainer objectAtIndex:becterial.positionX];
@@ -413,19 +426,20 @@
         CCActionMoveTo *aMoveTo = [CCActionMoveTo actionWithDuration:.2f position:ccp(x * 60.5f + 30.f, y * 60.5f + 30.f)];
         CCActionCallBlock *aCallBlock = [CCActionCallBlock actionWithBlock:^(void)
         {
-            runningAction--;
-            if(runningAction == 0)
+#ifdef DEBUG_MODE
+            NSLog(@"runningAction=0");
+#endif
+            if(![self evolution])
             {
-                if(![self evolution])
-                {
-                    [self saveGame];
-                    [self checkResult];
-                }
+#ifdef DEBUG_MODE
+                NSLog(@"evolution over");
+#endif
+                [self saveGame];
+                [self checkResult];
             }
         }];
         self.stepCount--;
         [becterial runAction:[CCActionSequence actionWithArray:@[aMoveTo, aCallBlock]]];
-        runningAction++;
     }
 }
 
@@ -964,6 +978,38 @@
     Becterial *bacterial;
     NSMutableArray *tmp;
     NSMutableArray *list;
+    
+#ifdef DEBUG_MODE
+    NSMutableArray *tmp1;
+    Becterial *b1;
+    NSString *l;
+    for(int i = 0; i<[_becterialContainer count]; i++)
+    {
+        l = @"";
+        tmp1 = [_becterialContainer objectAtIndex:i];
+        for(int j = 0; j<[tmp1 count]; j++)
+        {
+            if([tmp1 objectAtIndex:j] == [NSNull null])
+            {
+                l = [l stringByAppendingString:@"0"];
+            }
+            else
+            {
+                b1 = [tmp1 objectAtIndex:j];
+                if(b1.type == 1)
+                {
+                    l = [l stringByAppendingString:@"1"];
+                }
+                else
+                {
+                    l = [l stringByAppendingString:@"2"];
+                }
+            }
+        }
+        NSLog(@"%@", l);
+    }
+    NSLog(@"%@", @"\n");
+#endif
 
     //重置
     for (int i = 0; i < [_enemyContainer count]; i++)
@@ -1058,7 +1104,15 @@
     if(availableBlock == 0)
     {
         _isRunning = NO;
-        ScoreNode *s = (ScoreNode *)[CCBReader load:@"Score"];
+        ScoreNode *s;
+        if(isR4)
+        {
+            s = (ScoreNode *)[CCBReader load:@"Score-r4"];
+        }
+        else
+        {
+            s = (ScoreNode *)[CCBReader load:@"Score"];
+        }
         s.score = _score;
         
         [self addChild:s];
@@ -1456,6 +1510,34 @@
     r.rewardGold = reward;
     
     [self addChild:r];
+}
+
+-(void)showMessage:(NSString *)message
+{
+    _isRunning = NO;
+    [lblMessage setString:message];
+    containerMessage.visible = YES;
+}
+
+-(void)btnConfirmTouch
+{
+    CCScene *s;
+    if(isR4)
+    {
+        s = [CCBReader loadAsScene:@"VirtualStore-r4"];
+    }
+    else
+    {
+        s = [CCBReader loadAsScene:@"VirtualStore"];
+    }
+    
+    [[CCDirector sharedDirector] replaceScene:s withTransition:[CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft duration:.3f]];
+}
+
+-(void)btnCancelTouch
+{
+    containerMessage.visible = NO;
+    _isRunning = YES;
 }
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 Apportable. All rights reserved.
 //
 
+#import "define.h"
 #import "ScoreNode.h"
 #import "ScoreScene.h"
 #import "PZLabelScore.h"
@@ -21,7 +22,14 @@
 -(void)didLoadFromCCB
 {
     lblScore = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
-    lblScore.position = ccp(160.f, 250.f);
+    if(iPhone5)
+    {
+        lblScore.position = ccp(160.f, 294.f);
+    }
+    else
+    {
+        lblScore.position = ccp(160.f, 250.f);
+    }
     [self addChild:lblScore];
     
     btnMessageMask.enabled = NO;
@@ -43,6 +51,21 @@
 {
     ScoreScene *s = [mainScene showScoreScene];
     [s setOver:YES];
+}
+
+-(void)btnBuyTouch
+{
+    CCScene *s;
+    if(iPhone5)
+    {
+        s = [CCBReader loadAsScene:@"VirtualStore-r4"];
+    }
+    else
+    {
+        s = [CCBReader loadAsScene:@"VirtualStore"];
+    }
+    
+    [[CCDirector sharedDirector] replaceScene:s withTransition:[CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft duration:.3f]];
 }
 
 -(void)setScore:(int)score

@@ -29,6 +29,7 @@
 #import "MobClick.h"
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
+#import "UMessage.h"
 
 #import "YouMiWall.h"
 #import "YouMiPointsManager.h"
@@ -80,6 +81,12 @@
     [self setupCocos2dWithOptions:cocos2dSetup];
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:[CashStorePaymentObserver sharedCashStorePaymentObserver]];
+    
+    [UMessage startWithAppkey:@"53d22a9c56240b9ab2080b1c" launchOptions:launchOptions];
+    [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
+     |UIRemoteNotificationTypeSound
+     |UIRemoteNotificationTypeAlert];
+    [UMessage setLogEnabled:NO];
     
     [MobClick startWithAppkey:@"53d22a9c56240b9ab2080b1c"];
     [UMSocialData setAppKey:@"53d22a9c56240b9ab2080b1c"];
@@ -472,24 +479,24 @@
     #endif
     
     CCScene *scene = [CCScene node];
-    if (dataStorageManagerGuide)
-    {
-        int guideStep = dataStorageManagerGuideStep;
-        guideStep = fmax(1, guideStep);
-        
-        GuideScene *guide;
-        if(iPhone5)
-        {
-            guide = (GuideScene *)[CCBReader load:@"GuideScene-r4"];
-        }
-        else
-        {
-            guide = (GuideScene *)[CCBReader load:@"GuideScene"];
-        }
-        guide.guideStep = guideStep;
-        [scene addChild:guide];
-    }
-    else
+//    if (dataStorageManagerGuide)
+//    {
+//        int guideStep = dataStorageManagerGuideStep;
+//        guideStep = fmax(1, guideStep);
+//        
+//        GuideScene *guide;
+//        if(iPhone5)
+//        {
+//            guide = (GuideScene *)[CCBReader load:@"GuideScene-r4"];
+//        }
+//        else
+//        {
+//            guide = (GuideScene *)[CCBReader load:@"GuideScene"];
+//        }
+//        guide.guideStep = guideStep;
+//        [scene addChild:guide];
+//    }
+//    else
     {
         MainScene *mainScene;
         if(iPhone5)
@@ -507,6 +514,16 @@
         }
     }
     return scene;
+}
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [UMessage registerDeviceToken:deviceToken];
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [UMessage didReceiveRemoteNotification:userInfo];
 }
 
 @end

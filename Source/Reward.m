@@ -15,10 +15,12 @@
 {
     MainScene *scene;
     PZLabelScore *lblReward;
+    CCButton *btnMask;
 }
 
 -(void)didLoadFromCCB
 {
+    btnMask.enabled = NO;
     lblReward = [PZLabelScore initWithScore:0 fileName:@"number/number" itemWidth:14 itemHeight:22];
     if(iPhone5)
     {

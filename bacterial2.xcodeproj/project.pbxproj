@@ -39,6 +39,7 @@
 		BE0867F71985405C007260E9 /* achievement_const.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0867F61985405C007260E9 /* achievement_const.plist */; };
 		BE0B2B4A198CF563000C76DF /* GuideScene.h in Resources */ = {isa = PBXBuildFile; fileRef = BE0B2B49198CF563000C76DF /* GuideScene.h */; };
 		BE0B2B4D198CF597000C76DF /* GuideScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0B2B4C198CF597000C76DF /* GuideScene.m */; };
+		BE1DFEED1995379400BAF074 /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1DFEEB1995379400BAF074 /* libUMessage_Sdk_1.1.0.a */; };
 		BE1E4ED219813E01000EED56 /* StoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED119813E01000EED56 /* StoreScene.m */; };
 		BE1E4ED519814ACE000EED56 /* StoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1E4ED419814ACE000EED56 /* StoreItem.m */; };
 		BE203C361993AE1700AB73C4 /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = BE203C351993AE1700AB73C4 /* Reward.m */; };
@@ -140,6 +141,8 @@
 		BE0867F61985405C007260E9 /* achievement_const.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = achievement_const.plist; path = Source/achievement_const.plist; sourceTree = "<group>"; };
 		BE0B2B49198CF563000C76DF /* GuideScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuideScene.h; path = Source/GuideScene.h; sourceTree = "<group>"; };
 		BE0B2B4C198CF597000C76DF /* GuideScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuideScene.m; path = Source/GuideScene.m; sourceTree = "<group>"; };
+		BE1DFEEB1995379400BAF074 /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
+		BE1DFEEC1995379400BAF074 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		BE1E4ED019813E01000EED56 /* StoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreScene.h; path = Source/StoreScene.h; sourceTree = "<group>"; };
 		BE1E4ED119813E01000EED56 /* StoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreScene.m; path = Source/StoreScene.m; sourceTree = "<group>"; };
 		BE1E4ED319814ACE000EED56 /* StoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreItem.h; path = Source/StoreItem.h; sourceTree = "<group>"; };
@@ -258,6 +261,7 @@
 				B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */,
 				BE47C97D197BF836003743C5 /* libUMSocial_Sdk_3.3.8.a in Frameworks */,
 				B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */,
+				BE1DFEED1995379400BAF074 /* libUMessage_Sdk_1.1.0.a in Frameworks */,
 				BE6423311982BC6C00669D61 /* libOpenIDFA.a in Frameworks */,
 				B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */,
 			);
@@ -277,6 +281,7 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BE1DFEEA1995379400BAF074 /* UMessage_Sdk_1.1.0 */,
 				BEDC301A199109200099FD6D /* GuideKiller.h */,
 				BEDC301B199109200099FD6D /* GuideKiller.m */,
 				BEDC301C199109200099FD6D /* GuideUper.h */,
@@ -408,6 +413,15 @@
 				B73789861807631A0076A88C /* Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE1DFEEA1995379400BAF074 /* UMessage_Sdk_1.1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				BE1DFEEB1995379400BAF074 /* libUMessage_Sdk_1.1.0.a */,
+				BE1DFEEC1995379400BAF074 /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.1.0;
 			sourceTree = "<group>";
 		};
 		BE1E4ECE19813DEB000EED56 /* Store */ = {
@@ -832,6 +846,7 @@
 					"$(PROJECT_DIR)/Wechat",
 					"$(PROJECT_DIR)/youmi",
 					"$(PROJECT_DIR)/lib",
+					"$(PROJECT_DIR)/UMessage_Sdk_1.1.0",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -840,7 +855,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = bacterial2;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D9ED4F2E-73A2-4C01-8ABE-969FED80CC9C";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -878,6 +893,7 @@
 					"$(PROJECT_DIR)/Wechat",
 					"$(PROJECT_DIR)/youmi",
 					"$(PROJECT_DIR)/lib",
+					"$(PROJECT_DIR)/UMessage_Sdk_1.1.0",
 				);
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -885,7 +901,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = bacterial2;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D9ED4F2E-73A2-4C01-8ABE-969FED80CC9C";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
