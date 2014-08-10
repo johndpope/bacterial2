@@ -848,14 +848,14 @@
 					"$(PROJECT_DIR)/lib",
 					"$(PROJECT_DIR)/UMessage_Sdk_1.1.0",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
 				PRODUCT_NAME = bacterial2;
-				PROVISIONING_PROFILE = "D9ED4F2E-73A2-4C01-8ABE-969FED80CC9C";
+				PROVISIONING_PROFILE = "70E3495E-5408-4044-A432-C01C6E9612B9";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -895,13 +895,14 @@
 					"$(PROJECT_DIR)/lib",
 					"$(PROJECT_DIR)/UMessage_Sdk_1.1.0",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
 				PRODUCT_NAME = bacterial2;
-				PROVISIONING_PROFILE = "D9ED4F2E-73A2-4C01-8ABE-969FED80CC9C";
+				PROVISIONING_PROFILE = "70E3495E-5408-4044-A432-C01C6E9612B9";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";

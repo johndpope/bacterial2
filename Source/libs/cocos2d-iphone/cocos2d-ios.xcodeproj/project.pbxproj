@@ -1694,22 +1694,23 @@
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_SHADOW = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/external/kazmath/include",
+					"$(SRCROOT)/external/kazmath/include/**",
 					"cocos2d/**",
 					"cocos2d-ui/**",
 					"cocos2d-ui-tests/**",
-					"$(SRCROOT)/external/Chipmunk/include",
-					"$(SRCROOT)/external/Chipmunk/objectivec/include",
+					"$(SRCROOT)/external/Chipmunk/include/**",
+					"$(SRCROOT)/external/Chipmunk/objectivec/include/**",
 					"$(SRCROOT)/external/ObjectAL/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = cocos2d;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1728,21 +1729,23 @@
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_SHADOW = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/external/kazmath/include",
+					"$(SRCROOT)/external/kazmath/include/**",
 					"cocos2d/**",
 					"cocos2d-ui/**",
 					"cocos2d-ui-tests/**",
-					"$(SRCROOT)/external/Chipmunk/include",
-					"$(SRCROOT)/external/Chipmunk/objectivec/include",
+					"$(SRCROOT)/external/Chipmunk/include/**",
+					"$(SRCROOT)/external/Chipmunk/objectivec/include/**",
 					"$(SRCROOT)/external/ObjectAL/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = cocos2d;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 				ZERO_LINK = NO;
 			};
 			name = Release;
