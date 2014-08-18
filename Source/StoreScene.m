@@ -44,15 +44,6 @@
         [sender runAnimationsForSequenceNamed:@"loading"];
     }];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"hideLoadingIcon" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideLoadingIcon:) name:@"hideLoadingIcon" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showLoadingIcon" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoadingIcon:) name:@"showLoadingIcon" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showSuccessView" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSuccessView:) name:@"showSuccessView" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadCashStoreView" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCashStoreView:) name:@"reloadCashStoreView" object:nil];
-    
     CGFloat offsetY = 0.f;
     NSDictionary *config = dataConfig;
     NSDictionary *productsResult = [config objectForKey:@"products"];
@@ -270,6 +261,25 @@
 -(void)onEnter
 {
     [super onEnter];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"hideLoadingIcon" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideLoadingIcon:) name:@"hideLoadingIcon" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showLoadingIcon" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoadingIcon:) name:@"showLoadingIcon" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showSuccessView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSuccessView:) name:@"showSuccessView" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadCashStoreView" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCashStoreView:) name:@"reloadCashStoreView" object:nil];
+}
+
+-(void)onExit
+{
+    [super onExit];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"hideLoadingIcon" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showLoadingIcon" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showSuccessView" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadCashStoreView" object:nil];
 }
 
 -(void)btnCloseTouch

@@ -8,7 +8,6 @@
 
 #import "StoreItem.h"
 #import "Reachability.h"
-#import "StoreScene.h"
 #import "CashStoreManager.h"
 
 @implementation StoreItem

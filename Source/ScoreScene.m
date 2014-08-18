@@ -220,7 +220,7 @@
 
 -(void)btnCommentTouch
 {
-    [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id894478844"]];
+    [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id901134887"]];
 }
 
 -(void)btnActivityTouch
